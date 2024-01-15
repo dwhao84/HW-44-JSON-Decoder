@@ -16,6 +16,7 @@
 		EB42C2112B542AD2004C4987 /* HW_44_JSON_DecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB42C2102B542AD2004C4987 /* HW_44_JSON_DecoderTests.swift */; };
 		EB42C21B2B542AD2004C4987 /* HW_44_JSON_DecoderUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB42C21A2B542AD2004C4987 /* HW_44_JSON_DecoderUITests.swift */; };
 		EB42C21D2B542AD2004C4987 /* HW_44_JSON_DecoderUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB42C21C2B542AD2004C4987 /* HW_44_JSON_DecoderUITestsLaunchTests.swift */; };
+		EB42C22A2B542CE1004C4987 /* JSON.File.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB42C2292B542CE1004C4987 /* JSON.File.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		EB42C2162B542AD2004C4987 /* HW#44-JSON DecoderUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "HW#44-JSON DecoderUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB42C21A2B542AD2004C4987 /* HW_44_JSON_DecoderUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HW_44_JSON_DecoderUITests.swift; sourceTree = "<group>"; };
 		EB42C21C2B542AD2004C4987 /* HW_44_JSON_DecoderUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HW_44_JSON_DecoderUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		EB42C2292B542CE1004C4987 /* JSON.File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSON.File.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +104,7 @@
 				EB42C1F92B542AD1004C4987 /* AppDelegate.swift */,
 				EB42C1FB2B542AD1004C4987 /* SceneDelegate.swift */,
 				EB42C1FD2B542AD1004C4987 /* ViewController.swift */,
+				EB42C2292B542CE1004C4987 /* JSON.File.swift */,
 				EB42C1FF2B542AD1004C4987 /* Main.storyboard */,
 				EB42C2022B542AD1004C4987 /* Assets.xcassets */,
 				EB42C2042B542AD1004C4987 /* LaunchScreen.storyboard */,
@@ -260,6 +263,7 @@
 			files = (
 				EB42C1FE2B542AD1004C4987 /* ViewController.swift in Sources */,
 				EB42C1FA2B542AD1004C4987 /* AppDelegate.swift in Sources */,
+				EB42C22A2B542CE1004C4987 /* JSON.File.swift in Sources */,
 				EB42C1FC2B542AD1004C4987 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
