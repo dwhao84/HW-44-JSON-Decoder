@@ -8,16 +8,64 @@
 import UIKit
 
 class FirstViewController: UIViewController {
-
+    
+    var stationNames = [Youbike]()
+    
+    let stationNameLabel: UILabel = UILabel()
+    
+    let tableView: UITableView = UITableView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        setupTableView       ()
+        delegateAndDataSource()
+        constraintsTableView ()
 
-        // Do any additional setup after loading the view.
     }
     
-
-
+    func setupTableView () {
+        tableView.register(YouBikeInfoTableViewCell.nib(), forCellReuseIdentifier: YouBikeInfoTableViewCell.identifier)
+    }
+    
+    func delegateAndDataSource () {
+        tableView.delegate   = self
+        tableView.dataSource = self
+    }
+    
+    func constraintsTableView () {
+        tableView.backgroundColor = .blue
+        view.addSubview(tableView)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+    }
+        
 }
+
+extension FirstViewController: UITableViewDelegate {
+    
+}
+
+extension FirstViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        stationNames.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: YouBikeInfoTableViewCell.identifier, for: indexPath) as? YouBikeInfoTableViewCell else { print(fatalError()) }
+        
+        return cell
+    }
+}
+
+
+
 
 extension Data {
     func prettyPrintedJSONString() {
