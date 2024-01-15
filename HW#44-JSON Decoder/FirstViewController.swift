@@ -27,6 +27,7 @@ class FirstViewController: UIViewController {
     
     func setupTableView () {
         tableView.register(YouBikeInfoTableViewCell.nib(), forCellReuseIdentifier: YouBikeInfoTableViewCell.identifier)
+        tableView.rowHeight = 100
     }
     
     func delegateAndDataSource () {
@@ -54,11 +55,14 @@ extension FirstViewController: UITableViewDelegate {
 
 extension FirstViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        stationNames.count
+        1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: YouBikeInfoTableViewCell.identifier, for: indexPath) as? YouBikeInfoTableViewCell else { print(fatalError()) }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: YouBikeInfoTableViewCell.identifier, for: indexPath) as? YouBikeInfoTableViewCell else { print(fatalError ())}
+        
+        cell.bikeQtyLabel.text         = "0"
+        cell.leftoverBikeQtyLabel.text = "0"
         
         return cell
     }
@@ -79,3 +83,6 @@ extension Data {
     }
 }
 
+#Preview {
+    UINavigationController(rootViewController: FirstViewController())
+}
