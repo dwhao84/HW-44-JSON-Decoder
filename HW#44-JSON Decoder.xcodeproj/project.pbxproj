@@ -7,9 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D358A5CE2B54E62800A6AB1E /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D358A5CD2B54E62800A6AB1E /* FirstViewController.swift */; };
+		D358A5D12B54E6B400A6AB1E /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = D358A5D02B54E6B400A6AB1E /* Model.swift */; };
 		EB42C1FA2B542AD1004C4987 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB42C1F92B542AD1004C4987 /* AppDelegate.swift */; };
 		EB42C1FC2B542AD1004C4987 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB42C1FB2B542AD1004C4987 /* SceneDelegate.swift */; };
-		EB42C1FE2B542AD1004C4987 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB42C1FD2B542AD1004C4987 /* ViewController.swift */; };
 		EB42C2012B542AD1004C4987 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB42C1FF2B542AD1004C4987 /* Main.storyboard */; };
 		EB42C2032B542AD1004C4987 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB42C2022B542AD1004C4987 /* Assets.xcassets */; };
 		EB42C2062B542AD1004C4987 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB42C2042B542AD1004C4987 /* LaunchScreen.storyboard */; };
@@ -37,10 +38,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D358A5CD2B54E62800A6AB1E /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
+		D358A5D02B54E6B400A6AB1E /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		EB42C1F62B542AD1004C4987 /* HW#44-JSON Decoder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HW#44-JSON Decoder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB42C1F92B542AD1004C4987 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EB42C1FB2B542AD1004C4987 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		EB42C1FD2B542AD1004C4987 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		EB42C2002B542AD1004C4987 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EB42C2022B542AD1004C4987 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EB42C2052B542AD1004C4987 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -78,6 +80,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D358A5CF2B54E64F00A6AB1E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				EB42C1F92B542AD1004C4987 /* AppDelegate.swift */,
+				EB42C1FB2B542AD1004C4987 /* SceneDelegate.swift */,
+				EB42C1FF2B542AD1004C4987 /* Main.storyboard */,
+				EB42C2022B542AD1004C4987 /* Assets.xcassets */,
+				EB42C2042B542AD1004C4987 /* LaunchScreen.storyboard */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		EB42C1ED2B542AD1004C4987 = {
 			isa = PBXGroup;
 			children = (
@@ -101,13 +115,10 @@
 		EB42C1F82B542AD1004C4987 /* HW#44-JSON Decoder */ = {
 			isa = PBXGroup;
 			children = (
-				EB42C1F92B542AD1004C4987 /* AppDelegate.swift */,
-				EB42C1FB2B542AD1004C4987 /* SceneDelegate.swift */,
-				EB42C1FD2B542AD1004C4987 /* ViewController.swift */,
+				D358A5CF2B54E64F00A6AB1E /* Supporting Files */,
+				D358A5CD2B54E62800A6AB1E /* FirstViewController.swift */,
+				D358A5D02B54E6B400A6AB1E /* Model.swift */,
 				EB42C2292B542CE1004C4987 /* JSON.File.swift */,
-				EB42C1FF2B542AD1004C4987 /* Main.storyboard */,
-				EB42C2022B542AD1004C4987 /* Assets.xcassets */,
-				EB42C2042B542AD1004C4987 /* LaunchScreen.storyboard */,
 				EB42C2072B542AD1004C4987 /* Info.plist */,
 			);
 			path = "HW#44-JSON Decoder";
@@ -261,7 +272,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EB42C1FE2B542AD1004C4987 /* ViewController.swift in Sources */,
+				D358A5D12B54E6B400A6AB1E /* Model.swift in Sources */,
+				D358A5CE2B54E62800A6AB1E /* FirstViewController.swift in Sources */,
 				EB42C1FA2B542AD1004C4987 /* AppDelegate.swift in Sources */,
 				EB42C22A2B542CE1004C4987 /* JSON.File.swift in Sources */,
 				EB42C1FC2B542AD1004C4987 /* SceneDelegate.swift in Sources */,
