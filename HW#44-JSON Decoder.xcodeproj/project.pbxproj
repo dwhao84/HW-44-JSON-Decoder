@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D32F27162B562589001173F2 /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32F27152B562589001173F2 /* UIColor+Ext.swift */; };
+		D32F27182B5627EE001173F2 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32F27172B5627EE001173F2 /* MapViewController.swift */; };
 		D342123D2B5596AB00223A71 /* YouBikeInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D342123B2B5596AB00223A71 /* YouBikeInfoTableViewCell.swift */; };
 		D342123E2B5596AB00223A71 /* YouBikeInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D342123C2B5596AB00223A71 /* YouBikeInfoTableViewCell.xib */; };
 		D358A5CE2B54E62800A6AB1E /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D358A5CD2B54E62800A6AB1E /* FirstViewController.swift */; };
@@ -40,6 +42,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D32F27152B562589001173F2 /* UIColor+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
+		D32F27172B5627EE001173F2 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		D342123B2B5596AB00223A71 /* YouBikeInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouBikeInfoTableViewCell.swift; sourceTree = "<group>"; };
 		D342123C2B5596AB00223A71 /* YouBikeInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = YouBikeInfoTableViewCell.xib; sourceTree = "<group>"; };
 		D358A5CD2B54E62800A6AB1E /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
@@ -146,10 +150,12 @@
 			children = (
 				D358A5CF2B54E64F00A6AB1E /* Supporting Files */,
 				D358A5CD2B54E62800A6AB1E /* FirstViewController.swift */,
+				D32F27172B5627EE001173F2 /* MapViewController.swift */,
 				D34212412B5597D900223A71 /* YouBikeInfoTableViewCell */,
 				D342123F2B5597C500223A71 /* Model */,
 				D34212402B5597CE00223A71 /* Data */,
 				EB42C2072B542AD1004C4987 /* Info.plist */,
+				D32F27152B562589001173F2 /* UIColor+Ext.swift */,
 			);
 			path = "HW#44-JSON Decoder";
 			sourceTree = "<group>";
@@ -303,12 +309,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D32F27162B562589001173F2 /* UIColor+Ext.swift in Sources */,
 				D342123D2B5596AB00223A71 /* YouBikeInfoTableViewCell.swift in Sources */,
 				D358A5D12B54E6B400A6AB1E /* Model.swift in Sources */,
 				D358A5CE2B54E62800A6AB1E /* FirstViewController.swift in Sources */,
 				EB42C1FA2B542AD1004C4987 /* AppDelegate.swift in Sources */,
 				EB42C22A2B542CE1004C4987 /* JSON.File.swift in Sources */,
 				EB42C1FC2B542AD1004C4987 /* SceneDelegate.swift in Sources */,
+				D32F27182B5627EE001173F2 /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -495,7 +503,6 @@
 				INFOPLIST_FILE = "HW#44-JSON Decoder/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -523,7 +530,6 @@
 				INFOPLIST_FILE = "HW#44-JSON Decoder/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (

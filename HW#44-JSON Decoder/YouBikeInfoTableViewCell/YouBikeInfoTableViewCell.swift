@@ -27,8 +27,17 @@ class YouBikeInfoTableViewCell: UITableViewCell {
         youBikeStationName.text   = "YouBike中文站名"
         youBikeStationNameEN.text = "YouBike英文站名"
         
-        bikeQtyTitleLabel.text = "目前車輛數:"
+        bikeQtyTitleLabel.text         = "目前車輛數:"
         leftoverBikeQtyTitleLabel.text = "剩餘車位:"
+        
+        bikeQtyLabel.text         = "\(0)"
+        leftoverBikeQtyLabel.text = "\(0)"
+        
+        youBikeStationName.textColor   = UIColorSelection.black
+        youBikeStationNameEN.textColor = UIColorSelection.darkGray
+        bikeQtyTitleLabel.textColor    = UIColorSelection.darkGray
+        leftoverBikeQtyLabel.textColor = UIColorSelection.darkGray
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

@@ -8,21 +8,26 @@
 import Foundation
 
 struct Youbike: Codable {
-    let sna:   String     // YouBike中文站名
-    let snaen: String     // YouBike英文站名
+    // YouBike station
+    let sna:     String     // YouBike中文站名
+    let snaen:   String     // YouBike英文站名
     
-    let tot:  Int         // 場站總車格
-    let sbi:  Int         // 場站目前車輛數
-    let bemp: Int         // 目前空位數量
+    // YouBike station status
+    let tot:     Int        // 場站總車格
+    let sbi:     Int        // 場站目前車輛數
+    let bemp:    Int        // 目前空位數量
     
-    let lat: Double       // 經度
-    let lng: Double       // 緯度
+    // Latitude & Longitude
+    let lat:     Double      // 經度
+    let lng:     Double      // 緯度
     
-    let sarea: String     // 市區名
-    let ar:    String     // 路名
+    // Mandarin Station Address
+    let sarea:   String     // 市區名
+    let ar:      String     // 路名
     
-    let sareaen: String   // 英文市區民
-    let aren :   String   // 英文路名
+    // English Station Address
+    let sareaen: String     // 英文市區民
+    let aren :   String     // 英文路名
 }
 
 func fetchData () {

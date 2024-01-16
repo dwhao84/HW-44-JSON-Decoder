@@ -12,22 +12,29 @@ class FirstViewController: UIViewController {
     var stationNames = [Youbike]()
     
     let stationNameLabel: UILabel = UILabel()
-    
     let tableView: UITableView = UITableView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        setupTableView       ()
+        setTableView()
+        setupNavigationItem()
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
+// MARK: Set up TableView:
+    func setTableView () {
+        setupTableView()
         delegateAndDataSource()
-        constraintsTableView ()
-
+        constraintsTableView()
     }
     
     func setupTableView () {
         tableView.register(YouBikeInfoTableViewCell.nib(), forCellReuseIdentifier: YouBikeInfoTableViewCell.identifier)
-        tableView.rowHeight = 100
+        tableView.rowHeight = 120
     }
     
     func delegateAndDataSource () {
@@ -43,14 +50,22 @@ class FirstViewController: UIViewController {
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
+    }
+    
+    // MARK: Set up NavigationController
+    func setupNavigationItem () {
+        self.navigationItem.title = "YouBike List"
+        self.navigationController?.isNavigationBarHidden = false
     }
         
 }
 
 extension FirstViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+    }
 }
 
 extension FirstViewController: UITableViewDataSource {
@@ -59,10 +74,9 @@ extension FirstViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: YouBikeInfoTableViewCell.identifier, for: indexPath) as? YouBikeInfoTableViewCell else { print(fatalError ())}
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: YouBikeInfoTableViewCell.identifier, for: indexPath) as? YouBikeInfoTableViewCell else { fatalError ("Unable to dequeue Resuable Cell.") }
+
         
-        cell.bikeQtyLabel.text         = "0"
-        cell.leftoverBikeQtyLabel.text = "0"
         
         return cell
     }

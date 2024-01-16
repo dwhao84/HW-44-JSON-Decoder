@@ -9,18 +9,18 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="100" id="KGk-i7-Jjw" customClass="YouBikeInfoTableViewCell" customModule="HW_44_JSON_Decoder" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="393" height="100"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="120" id="KGk-i7-Jjw" customClass="YouBikeInfoTableViewCell" customModule="HW_44_JSON_Decoder" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="120"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="393" height="100"/>
+                <rect key="frame" x="0.0" y="0.0" width="393" height="120"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" spacing="91" translatesAutoresizingMaskIntoConstraints="NO" id="9zn-VO-ECH">
-                        <rect key="frame" x="20" y="26.666666666666671" width="358" height="47"/>
+                        <rect key="frame" x="20" y="34" width="358" height="52"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="ZeV-Ix-MlO">
-                                <rect key="frame" x="0.0" y="0.0" width="145" height="47"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ZeV-Ix-MlO">
+                                <rect key="frame" x="0.0" y="0.0" width="145" height="52"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="中文YouBike站名" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="07F-e7-sjz">
                                         <rect key="frame" x="0.0" y="0.0" width="145" height="22"/>
@@ -33,7 +33,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="英文YouBike站名" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Bn-Ga-Iln">
-                                        <rect key="frame" x="0.0" y="27" width="125" height="20"/>
+                                        <rect key="frame" x="0.0" y="32" width="125" height="20"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="125" id="WOV-cX-W2A"/>
                                             <constraint firstAttribute="height" constant="20" id="vff-2e-kF7"/>
@@ -44,8 +44,8 @@
                                     </label>
                                 </subviews>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="11" translatesAutoresizingMaskIntoConstraints="NO" id="aUe-cU-QBq">
-                                <rect key="frame" x="236" y="4" width="122" height="43"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="aUe-cU-QBq">
+                                <rect key="frame" x="236" y="5" width="122" height="47"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ATT-WL-EBm">
                                         <rect key="frame" x="0.0" y="0.0" width="122" height="16"/>
@@ -73,7 +73,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="gJO-gz-5K5">
-                                        <rect key="frame" x="0.0" y="27" width="122" height="16"/>
+                                        <rect key="frame" x="0.0" y="31" width="122" height="16"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="剩餘車位:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sk8-Lw-49C">
                                                 <rect key="frame" x="0.0" y="0.0" width="72" height="16"/>
