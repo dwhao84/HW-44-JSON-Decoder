@@ -18,6 +18,8 @@ class MapViewController: UIViewController {
     let locations = [""]
     let locationManager = CLLocationManager()
     
+    var locValue: CLLocationCoordinate2D? = CLLocationCoordinate2D(latitude: 0, longitude: 0)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -113,6 +115,7 @@ class MapViewController: UIViewController {
     @objc func navigationBtnTapped () {
         print("navigationBtnTapped")
         setupLocationManager()
+        print("\(locValue?.latitude)")
     }
     
     
@@ -166,8 +169,9 @@ extension MapViewController: MKMapViewDelegate {
 
 extension MapViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
-        print("locations = \(locValue.latitude) \(locValue.longitude)")
+
+        guard let locationValue = CLLocation(latitude: <#T##CLLocationDegrees#>, longitude: <#T##CLLocationDegrees#>)
+        
     }
 }
 
