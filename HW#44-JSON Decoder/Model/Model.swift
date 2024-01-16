@@ -35,7 +35,7 @@ func fetchData () {
         if let data = data {
             do {
                 let stationName = try JSONDecoder().decode(Youbike.self, from: data)
-                print(stationName)
+                print(stationName.ar)
             } catch {
                 print(error)
             }
