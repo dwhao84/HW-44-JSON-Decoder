@@ -43,7 +43,7 @@ class FirstViewController: UIViewController {
     }
     
     func constraintsTableView () {
-        tableView.backgroundColor = .blue
+        tableView.backgroundColor = UIColorSelection.white
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -56,8 +56,9 @@ class FirstViewController: UIViewController {
     
     // MARK: Set up NavigationController
     func setupNavigationItem () {
-        self.navigationItem.title = "YouBike List"
         self.navigationController?.isNavigationBarHidden = false
+        self.navigationItem.title = "YouBike List"
+        self.navigationItem.titleView?.backgroundColor = UIColorSelection.lightGray
     }
         
 }
@@ -76,7 +77,7 @@ extension FirstViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: YouBikeInfoTableViewCell.identifier, for: indexPath) as? YouBikeInfoTableViewCell else { fatalError ("Unable to dequeue Resuable Cell.") }
 
-        
+        cell.selectionStyle = .none
         
         return cell
     }

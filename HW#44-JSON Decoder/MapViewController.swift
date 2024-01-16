@@ -18,7 +18,7 @@ class MapViewController: UIViewController {
     let locations = [""]
     let locationManager = CLLocationManager()
     
-    var locValue: CLLocationCoordinate2D? = CLLocationCoordinate2D(latitude: 0, longitude: 0)
+    var currentCoordinates: CLLocationCoordinate2D?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -112,10 +112,9 @@ class MapViewController: UIViewController {
         ])
     }
     
-    @objc func navigationBtnTapped () {
+    @objc func navigationBtnTapped (_ sender: UIButton) {
         print("navigationBtnTapped")
         setupLocationManager()
-        print("\(locValue?.latitude)")
     }
     
     
@@ -128,14 +127,13 @@ class MapViewController: UIViewController {
     }
     
     func setupLocationManager () {
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        self.locationManager.startUpdatingLocation()
         self.locationManager.requestAlwaysAuthorization()
         self.locationManager.requestWhenInUseAuthorization()
+        self.locationManager.requestLocation()
         
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager.delegate = self
-            locationManager.desiredAccuracy = kCLLocationAccuracyBest
-            locationManager.startUpdatingLocation()
-        }
+        self.mapView.showsUserLocation = true
     }
     
     func setupMapView () {
@@ -147,7 +145,8 @@ class MapViewController: UIViewController {
     }
     
     func delegateAndDataSource () {
-        mapView.delegate        = self
+        mapView.delegate         = self
+        locationManager.delegate = self
     }
 
     func constraintMapView () {
@@ -160,6 +159,11 @@ class MapViewController: UIViewController {
             mapView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
     }
+    
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        print("locationManagerDidChangeAuthorization")
+
+    }
 
 }
 
@@ -169,10 +173,15 @@ extension MapViewController: MKMapViewDelegate {
 
 extension MapViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-
-        guard let locationValue = CLLocation(latitude: <#T##CLLocationDegrees#>, longitude: <#T##CLLocationDegrees#>)
-        
+        currentCoordinates = locations.first?.coordinate
+        print(currentCoordinates!)
+        mapView.setRegion(MKCoordinateRegion(center: CLLocationCoordinate2DMake(currentCoordinates!.latitude, currentCoordinates!.longitude), latitudinalMeters: 250, longitudinalMeters: 250), animated: true)
     }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error)
+    }
+    
 }
 
 
