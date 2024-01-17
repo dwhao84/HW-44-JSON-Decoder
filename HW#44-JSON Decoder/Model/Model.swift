@@ -11,20 +11,16 @@ struct Youbike: Codable {
     // YouBike station
     let sna:     String     // YouBike中文站名
     let snaen:   String     // YouBike英文站名
-    
     // YouBike station status
     let tot:     Int        // 場站總車格
     let sbi:     Int        // 場站目前車輛數
     let bemp:    Int        // 目前空位數量
-    
     // Latitude & Longitude
     let lat:     Double      // 經度
     let lng:     Double      // 緯度
-    
     // Mandarin Station Address
     let sarea:   String     // 市區名
     let ar:      String     // 路名
-    
     // English Station Address
     let sareaen: String     // 英文市區民
     let aren :   String     // 英文路名
@@ -43,6 +39,26 @@ func fetchData () {
     }
   }
 }
+
+struct District {
+    let district: String
+}
+
+let districtListOfTaipei = [
+    District(district: "北投區"),
+    District(district: "大安區"),
+    District(district: "大同區"),
+    District(district: "南港區"),
+    District(district: "內湖區"),
+    District(district: "士林區"),
+    District(district: "松山區"),
+    District(district: "萬華區"),
+    District(district: "文山區"),
+    District(district: "信義區"),
+    District(district: "中山區"),
+    District(district: "中正區")
+]
+
 
 
 // " sno":"500101004",

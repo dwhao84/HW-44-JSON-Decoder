@@ -28,7 +28,7 @@ class FirstViewController: UIViewController {
 // MARK: Set up TableView:
     func setTableView () {
         setupTableView()
-        delegateAndDataSource()
+        setTableViewDelegateAndDataSource()
         constraintsTableView()
     }
     
@@ -37,7 +37,7 @@ class FirstViewController: UIViewController {
         tableView.rowHeight = 120
     }
     
-    func delegateAndDataSource () {
+    func setTableViewDelegateAndDataSource () {
         tableView.delegate   = self
         tableView.dataSource = self
     }
@@ -54,7 +54,7 @@ class FirstViewController: UIViewController {
         ])
     }
     
-    // MARK: Set up NavigationController
+// MARK: - Set up NavigationController
     func setupNavigationItem () {
         self.navigationController?.isNavigationBarHidden = false
         self.navigationItem.title = "YouBike List"
@@ -63,12 +63,14 @@ class FirstViewController: UIViewController {
         
 }
 
+// MARK: - Extension UITableViewDelegate:
 extension FirstViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
     }
 }
 
+// MARK: - Extension UITableViewDataSource:
 extension FirstViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         1
@@ -81,23 +83,19 @@ extension FirstViewController: UITableViewDataSource {
         
         return cell
     }
-}
-
-
-
-
-extension Data {
-    func prettyPrintedJSONString() {
-        guard let jsonObject = try? JSONSerialization.jsonObject(with: self, options: []),
-              let jsonData   = try? JSONSerialization.data(withJSONObject: jsonObject, options: [.prettyPrinted]),
-              let prettyJSONString = String(data: jsonData, encoding: .utf8) else {
-            print("Failed to read JSON Object.")
-            return
-        }
-        print(prettyJSONString)
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
+        return districtListOfTaipei[section].district
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        (view as! UITableViewHeaderFooterView).contentView.backgroundColor = UIColorSelection.brightGray
     }
 }
 
+
+// TO DO: Preview
 #Preview {
     UINavigationController(rootViewController: FirstViewController())
 }
