@@ -26,20 +26,6 @@ struct Youbike: Codable {
     let aren :   String     // 英文路名
 }
 
-func fetchData () {
-    if let url = URL(string: "https://tcgbusfs.blob.core.windows.net/dotapp/youbike/v2/youbike_immediate.json") { URLSession.shared.dataTask(with: url) { data, response, error in
-        if let data = data {
-            do {
-                let stationName = try JSONDecoder().decode(Youbike.self, from: data)
-                print(stationName.ar)
-            } catch {
-                print(error)
-            }
-        }
-    }
-  }
-}
-
 struct District {
     let district: String
 }
@@ -58,8 +44,6 @@ let districtListOfTaipei = [
     District(district: "中山區"),
     District(district: "中正區")
 ]
-
-
 
 // " sno":"500101004",
 // " sna":"YouBike2.0_和平公園東側",

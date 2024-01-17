@@ -12,7 +12,6 @@ class YouBikeInfoTableViewCell: UITableViewCell {
     static let identifier = "YouBikeInfoTableViewCell"
     
     @IBOutlet weak var youBikeStationName: UILabel!
-    @IBOutlet weak var youBikeStationNameEN: UILabel!
     
     @IBOutlet weak var bikeQtyTitleLabel: UILabel!
     @IBOutlet weak var leftoverBikeQtyTitleLabel: UILabel!
@@ -25,7 +24,9 @@ class YouBikeInfoTableViewCell: UITableViewCell {
         // Initialization code
         
         youBikeStationName.text   = "YouBike中文站名"
-        youBikeStationNameEN.text = "YouBike英文站名"
+        
+        youBikeStationName.adjustsFontSizeToFitWidth   = true
+
         
         bikeQtyTitleLabel.text         = "目前車輛數:"
         leftoverBikeQtyTitleLabel.text = "剩餘車位:"
@@ -34,7 +35,7 @@ class YouBikeInfoTableViewCell: UITableViewCell {
         leftoverBikeQtyLabel.text = "\(0)"
         
         youBikeStationName.textColor   = UIColorSelection.black
-        youBikeStationNameEN.textColor = UIColorSelection.darkGray
+
         bikeQtyTitleLabel.textColor    = UIColorSelection.darkGray
         leftoverBikeQtyLabel.textColor = UIColorSelection.darkGray
         

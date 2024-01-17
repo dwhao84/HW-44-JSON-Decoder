@@ -14,18 +14,44 @@ class FirstViewController: UIViewController {
     let stationNameLabel: UILabel = UILabel()
     let tableView: UITableView = UITableView()
     
+    var latitude:   Int?
+    var longtitude: Int?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setTableView()
         setupNavigationItem()
+        fetchData()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
-// MARK: Set up TableView:
+    func fetchData() {
+        if let url = URL(string: "https://tcgbusfs.blob.core.windows.net/dotapp/youbike/v2/youbike_immediate.json") {
+            URLSession.shared.dataTask(with: url) { data, response, error in
+                if let error = error {
+                    print("Network request error: \(error)")
+                    return
+                }
+                if let data = data {
+                    do {
+                        let stations = try JSONDecoder().decode([Youbike].self, from: data)
+                        DispatchQueue.main.async {
+                            self.stationNames = stations
+                            self.tableView.reloadData()
+                        }
+                    } catch {
+                        print("JSON decoding error: \(error)")
+                    }
+                }
+            }.resume()
+        }
+    }
+
+// MARK: - Set up TableView:
     func setTableView () {
         setupTableView()
         setTableViewDelegateAndDataSource()
@@ -67,31 +93,39 @@ class FirstViewController: UIViewController {
 extension FirstViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        tableView.deselectRow(at: indexPath, animated: true)
+        print(indexPath)
+        
+        
     }
 }
 
 // MARK: - Extension UITableViewDataSource:
 extension FirstViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        1
+        print(stationNames.count)
+        return stationNames.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: YouBikeInfoTableViewCell.identifier, for: indexPath) as? YouBikeInfoTableViewCell else { fatalError ("Unable to dequeue Resuable Cell.") }
-
-        cell.selectionStyle = .none
         
+        let station = stationNames[indexPath.row]
+        cell.youBikeStationName.text   = station.sna
+        cell.leftoverBikeQtyLabel.text = String(station.sbi)
+        cell.bikeQtyLabel.text         = String(station.bemp)
+        cell.selectionStyle = .none
         return cell
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        
-        return districtListOfTaipei[section].district
-    }
+//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        
+//        return String
+//    }
     
-    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        (view as! UITableViewHeaderFooterView).contentView.backgroundColor = UIColorSelection.brightGray
-    }
+//    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+//        (view as! UITableViewHeaderFooterView).contentView.backgroundColor = UIColorSelection.brightGray
+//    }
 }
 
 
