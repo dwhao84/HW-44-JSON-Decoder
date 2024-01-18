@@ -20,9 +20,12 @@ class MapViewController: UIViewController {
     
     var currentCoordinates: CLLocationCoordinate2D?
     
+    var lat: Double?
+    var lng: Double?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+                
         setMapView       ()
         setNavigateButton()
 //        setCustomerServiceButton ()

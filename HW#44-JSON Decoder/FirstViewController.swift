@@ -61,6 +61,8 @@ class FirstViewController: UIViewController {
     func setupTableView () {
         tableView.register(YouBikeInfoTableViewCell.nib(), forCellReuseIdentifier: YouBikeInfoTableViewCell.identifier)
         tableView.rowHeight = 120
+        tableView.backgroundColor  = UIColorSelection.white
+        tableView.allowsSelection  = true
     }
     
     func setTableViewDelegateAndDataSource () {
@@ -96,6 +98,12 @@ extension FirstViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         print(indexPath)
         
+        let station = stationNames[indexPath.row]
+        let mapVC = MapViewController()
+        mapVC.lat = station.lat
+        mapVC.lng = station.lng
+        print("\(String(describing: mapVC.lat)) And \(String(describing: mapVC.lng))")
+        self.navigationController?.pushViewController(mapVC, animated: true)
         
     }
 }
