@@ -75,6 +75,8 @@ class FirstViewController: UIViewController {
     func setupTableView () {
         tableView.register(YouBikeInfoTableViewCell.nib(), forCellReuseIdentifier: YouBikeInfoTableViewCell.identifier)
         tableView.rowHeight = 120
+        tableView.backgroundColor  = UIColorSelection.white
+        tableView.allowsSelection  = true
     }
     
     func setTableViewDelegateAndDataSource () {
