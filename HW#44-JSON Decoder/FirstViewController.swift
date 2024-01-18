@@ -9,10 +9,23 @@ import UIKit
 
 class FirstViewController: UIViewController {
     
+    struct Section {
+        let title:    String
+        let stations: [Youbike]
+    }
+    
+    struct Coordinates {
+        let lat: Double
+        let lng: Double
+    }
+    
+    var sections     = [Section]()
     var stationNames = [Youbike]()
     
     let stationNameLabel: UILabel = UILabel()
     let tableView: UITableView = UITableView()
+    
+    let refreshControl: UIRefreshControl = UIRefreshControl()
     
     var latitude:   Int?
     var longtitude: Int?
@@ -56,6 +69,7 @@ class FirstViewController: UIViewController {
         setupTableView()
         setTableViewDelegateAndDataSource()
         constraintsTableView()
+        setupRefreshControl()
     }
     
     func setupTableView () {
@@ -73,10 +87,10 @@ class FirstViewController: UIViewController {
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
     
@@ -84,19 +98,36 @@ class FirstViewController: UIViewController {
     func setupNavigationItem () {
         self.navigationController?.isNavigationBarHidden = false
         self.navigationItem.title = "YouBike List"
-        self.navigationItem.titleView?.backgroundColor = UIColorSelection.lightGray
+        self.navigationController?.navigationBar.barTintColor = UIColorSelection.white
     }
-        
+// MARK: - Refresh Control
+    func setupRefreshControl () {
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+         refreshControl.addTarget(self, action: #selector(self.refresh), for: .valueChanged)
+        tableView.addSubview(refreshControl)
+    }
+    
+    @objc func refresh(_ sender: AnyObject) {
+        // Code to refresh table view
+        refreshControl.endRefreshing()
+        tableView.reloadData        ()
+       }
 }
 
 // MARK: - Extension UITableViewDelegate:
 extension FirstViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         tableView.deselectRow(at: indexPath, animated: true)
         print(indexPath)
         
+        let selectedStation = stationNames[indexPath.row]
+        let mapVC = MapViewController()
+        mapVC.selectedStation = selectedStation
+        present(mapVC, animated: true)
         
+        // print out selected row's infomation data.
+        // And trying to pass the data to mapVC.
+        print(stationNames[indexPath.row])
     }
 }
 
@@ -108,28 +139,40 @@ extension FirstViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        // Dequeue Reusable Cell.
         guard let cell = tableView.dequeueReusableCell(withIdentifier: YouBikeInfoTableViewCell.identifier, for: indexPath) as? YouBikeInfoTableViewCell else { fatalError ("Unable to dequeue Resuable Cell.") }
         
         let station = stationNames[indexPath.row]
-        cell.youBikeStationName.text   = station.sna
-        cell.leftoverBikeQtyLabel.text = String(station.sbi)
-        cell.bikeQtyLabel.text         = String(station.bemp)
-        cell.selectionStyle = .none
+        
+        // Modified station name removed the "YouBike2.0_"
+        var modifiedStationName = station.sna
+        modifiedStationName = station.sna.replacingOccurrences(of: "YouBike2.0_", with: "")
+        
+        // Updated the leftoverBikeQtyLabel text, if sbi under 2.
+        if station.sbi < 2 {
+            cell.leftoverBikeQtyLabel.textColor = UIColorSelection.red
+        } else {
+            cell.leftoverBikeQtyLabel.textColor = UIColorSelection.black
+        }
+        
+        cell.youBikeStationName.text = modifiedStationName
+        cell.bikeQtyLabel.text       = String(station.bemp)
+        cell.timeLabel.text          = station.srcUpdateTime
+        cell.selectionStyle          = .default
         return cell
     }
     
 //    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        
-//        return String
+//        return stationNames[indexPath ?? 0].sarea
 //    }
     
-//    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-//        (view as! UITableViewHeaderFooterView).contentView.backgroundColor = UIColorSelection.brightGray
-//    }
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        (view as! UITableViewHeaderFooterView).contentView.backgroundColor = UIColorSelection.brightGray
+    }
 }
 
-
-// TO DO: Preview
+// MARK: - Preview function.
 #Preview {
     UINavigationController(rootViewController: FirstViewController())
 }

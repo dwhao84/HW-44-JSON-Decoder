@@ -24,6 +24,8 @@ struct Youbike: Codable {
     // English Station Address
     let sareaen: String     // 英文市區民
     let aren :   String     // 英文路名
+    
+    let srcUpdateTime: String
 }
 
 struct District {
@@ -44,6 +46,9 @@ let districtListOfTaipei = [
     District(district: "中山區"),
     District(district: "中正區")
 ]
+
+
+
 
 // " sno":"500101004",
 // " sna":"YouBike2.0_和平公園東側",

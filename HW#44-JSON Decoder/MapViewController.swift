@@ -20,13 +20,34 @@ class MapViewController: UIViewController {
     
     var currentCoordinates: CLLocationCoordinate2D?
     
+    var selectedStation: Youbike?
+    var stationNames = [Youbike]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    
         setMapView       ()
         setNavigateButton()
-//        setCustomerServiceButton ()
+        updateMapView    ()
     }
+    
+    
+    func updateMapView () {
+        if let station = selectedStation {
+            let coordinate = CLLocationCoordinate2D(latitude: station.lat, longitude: station.lng)
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = coordinate
+            
+            var selectedStationName = station.sna
+            selectedStationName = station.sna.replacingOccurrences(of: "YouBike2.0_", with: "")
+            
+            annotation.title      =  selectedStationName
+            mapView.addAnnotation(annotation)
+            mapView.centerCoordinate = coordinate
+        }
+    }
+    
+    
  // MARK: - Set up customerServiceButton
     func setCustomerServiceButton () {
         setupCustomerServiceBtnUI       ()
@@ -77,7 +98,6 @@ class MapViewController: UIViewController {
         addShadowForNavigationButton()
         constriantNavigateButton    ()
     }
-        
     
     func setupNavigateButtonUI () {
         var config                         = UIButton.Configuration.plain()
@@ -119,11 +139,12 @@ class MapViewController: UIViewController {
     
     
     
-// MARK: - Set up tableView:
+// MARK: - Set up mapView:
     func setMapView () {
         delegateAndDataSource()
         constraintMapView    ()
         setupMapView         ()
+//        addAnnotation()
     }
     
     func setupLocationManager () {
@@ -162,13 +183,22 @@ class MapViewController: UIViewController {
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         print("locationManagerDidChangeAuthorization")
-
+    }
+    
+    func addAnnotation () {
+        for index in 0...stationNames.count-1 {
+            let annotation = MKPointAnnotation()  // <-- new instance here
+            annotation.coordinate = CLLocationCoordinate2D(
+                latitude: stationNames[index].lat,
+                longitude: stationNames[index].lng)
+            annotation.title = "Point \(index+1)"
+            mapView.addAnnotation(annotation)
+        }
     }
 
 }
 
 extension MapViewController: MKMapViewDelegate {
-    
 }
 
 extension MapViewController: CLLocationManagerDelegate {

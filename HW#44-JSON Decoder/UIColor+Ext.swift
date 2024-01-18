@@ -13,5 +13,6 @@ enum UIColorSelection {
     static let lightGray:  UIColor = UIColor.lightGray
     static let white:      UIColor = UIColor.white
     static let brightGray: UIColor = UIColor.systemGray6
+    static let red:        UIColor = UIColor.red
 }
 
