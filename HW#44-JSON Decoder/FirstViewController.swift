@@ -75,7 +75,7 @@ class FirstViewController: UIViewController {
     func setupTableView () {
         tableView.register(YouBikeInfoTableViewCell.nib(), forCellReuseIdentifier: YouBikeInfoTableViewCell.identifier)
         tableView.rowHeight = 120
-        tableView.backgroundColor  = UIColorSelection.white
+        tableView.backgroundColor  = Colors.white
         tableView.allowsSelection  = true
     }
     
@@ -85,7 +85,7 @@ class FirstViewController: UIViewController {
     }
     
     func constraintsTableView () {
-        tableView.backgroundColor = UIColorSelection.white
+        tableView.backgroundColor = Colors.white
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -100,7 +100,7 @@ class FirstViewController: UIViewController {
     func setupNavigationItem () {
         self.navigationController?.isNavigationBarHidden = false
         self.navigationItem.title = "YouBike List"
-        self.navigationController?.navigationBar.barTintColor = UIColorSelection.white
+        self.navigationController?.navigationBar.barTintColor = Colors.white
     }
 // MARK: - Refresh Control
     func setupRefreshControl () {
@@ -153,9 +153,9 @@ extension FirstViewController: UITableViewDataSource {
         
         // Updated the leftoverBikeQtyLabel text, if sbi under 2.
         if station.sbi < 2 {
-            cell.leftoverBikeQtyLabel.textColor = UIColorSelection.red
+            cell.leftoverBikeQtyLabel.textColor = Colors.red
         } else {
-            cell.leftoverBikeQtyLabel.textColor = UIColorSelection.black
+            cell.leftoverBikeQtyLabel.textColor = Colors.black
         }
         
         cell.youBikeStationName.text = modifiedStationName
@@ -170,7 +170,7 @@ extension FirstViewController: UITableViewDataSource {
 //    }
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        (view as! UITableViewHeaderFooterView).contentView.backgroundColor = UIColorSelection.brightGray
+        (view as! UITableViewHeaderFooterView).contentView.backgroundColor = Colors.brightGray
     }
 }
 

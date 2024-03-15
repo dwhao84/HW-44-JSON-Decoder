@@ -7,7 +7,7 @@
 
 import UIKit
 
-enum UIColorSelection {
+enum Colors {
     static let darkGray:   UIColor = UIColor.darkGray
     static let black:      UIColor = UIColor.black
     static let lightGray:  UIColor = UIColor.lightGray

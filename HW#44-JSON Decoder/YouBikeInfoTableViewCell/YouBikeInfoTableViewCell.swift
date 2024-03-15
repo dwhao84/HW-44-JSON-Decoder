@@ -36,10 +36,10 @@ class YouBikeInfoTableViewCell: UITableViewCell {
         bikeQtyLabel.text         = "\(0)"
         leftoverBikeQtyLabel.text = "\(0)"
         
-        youBikeStationName.textColor   = UIColorSelection.black
+        youBikeStationName.textColor   = Colors.black
 
-        bikeQtyTitleLabel.textColor    = UIColorSelection.black
-        leftoverBikeQtyLabel.textColor = UIColorSelection.black
+        bikeQtyTitleLabel.textColor    = Colors.black
+        leftoverBikeQtyLabel.textColor = Colors.black
         
         youBikeStationName.adjustsFontSizeToFitWidth = true
         timeLabel.adjustsFontSizeToFitWidth          = true

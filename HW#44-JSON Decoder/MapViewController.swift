@@ -57,20 +57,20 @@ class MapViewController: UIViewController {
         
     func setupCustomerServiceBtnUI () {
         var config                         = UIButton.Configuration.plain()
-        config.background.backgroundColor  = UIColorSelection.white
+        config.background.backgroundColor  = Colors.white
         config.image = UIImage(systemName: "info.circle.fill")
         config.background.imageContentMode = .scaleToFill
         config.buttonSize                  = UIButton.Configuration.Size.large
         config.background.cornerRadius     = 35
-        config.background.backgroundColor  = UIColorSelection.white
-        config.background.strokeColor      = UIColorSelection.lightGray
+        config.background.backgroundColor  = Colors.white
+        config.background.strokeColor      = Colors.lightGray
         customerServiceBtn.configuration = config
         
         customerServiceBtn.addTarget(self, action: #selector(CustomerServiceBtnTapped), for: .touchUpInside)
     }
     
     func addShadowForCustomerServiceBtn () {
-        customerServiceBtn.layer.shadowColor   = UIColorSelection.darkGray.cgColor
+        customerServiceBtn.layer.shadowColor   = Colors.darkGray.cgColor
         customerServiceBtn.layer.shadowOffset  = CGSize(width: 0.0, height: 0.6)
         customerServiceBtn.layer.shadowRadius  = 20
         customerServiceBtn.layer.shadowOpacity = 0.5
@@ -101,20 +101,20 @@ class MapViewController: UIViewController {
     
     func setupNavigateButtonUI () {
         var config                         = UIButton.Configuration.plain()
-        config.background.backgroundColor  = UIColorSelection.white
+        config.background.backgroundColor  = Colors.white
         config.image = UIImage(systemName: "location")
         config.background.imageContentMode = .scaleAspectFill
         config.buttonSize                  = UIButton.Configuration.Size.large
         config.background.cornerRadius     = 35
-        config.background.backgroundColor  = UIColorSelection.white
-        config.background.strokeColor      = UIColorSelection.lightGray
+        config.background.backgroundColor  = Colors.white
+        config.background.strokeColor      = Colors.lightGray
         navigateBtn.configuration = config
         
         navigateBtn.addTarget(self, action: #selector(navigationBtnTapped), for: .touchUpInside)
     }
     
     func addShadowForNavigationButton () {
-        navigateBtn.layer.shadowColor   = UIColorSelection.darkGray.cgColor
+        navigateBtn.layer.shadowColor   = Colors.darkGray.cgColor
         navigateBtn.layer.shadowOffset  = CGSize(width: 0.0, height: 0.6)
         navigateBtn.layer.shadowRadius  = 20
         navigateBtn.layer.shadowOpacity = 0.5
