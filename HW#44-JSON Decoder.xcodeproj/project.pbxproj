@@ -150,9 +150,9 @@
 			isa = PBXGroup;
 			children = (
 				D358A5CF2B54E64F00A6AB1E /* Supporting Files */,
-				D358A5CD2B54E62800A6AB1E /* FirstViewController.swift */,
-				D32F27172B5627EE001173F2 /* MapViewController.swift */,
 				D342123F2B5597C500223A71 /* Model */,
+				D32F27172B5627EE001173F2 /* MapViewController.swift */,
+				D358A5CD2B54E62800A6AB1E /* FirstViewController.swift */,
 				D3B8DF6D2BA7478900B381AF /* InformationView.swift */,
 				D3B8DF752BA9E84700B381AF /* SearchView.swift */,
 				D3B8DF6F2BA88D5000B381AF /* BikeInformation.swift */,
