@@ -31,7 +31,7 @@ class InformationView: UIView {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-//        setupUI()
+        setupUI()
     }
     
     // MARK: - Beginning
@@ -54,7 +54,7 @@ class InformationView: UIView {
     func configureStationNameLabel () {
         stationNameLabel.frame                     = CGRect(x: 10, y: 50, width: 200, height: 20)
         stationNameLabel.text                      = "復興南路二段235號前"
-        stationNameLabel.textColor                 = Colors.lightGray
+        stationNameLabel.textColor                 = Colors.white
         stationNameLabel.font                      = UIFont.boldSystemFont(ofSize: 10)
         stationNameLabel.numberOfLines             = 0
         stationNameLabel.textAlignment             = .left
@@ -76,8 +76,8 @@ class InformationView: UIView {
     func configureDistanceLabel () {
         distanceLabel.frame                        = CGRect(x: 10, y: 85, width: 100, height: 15)
         distanceLabel.text                         = "165m"
-        distanceLabel.textColor                    = Colors.lightGray
-        distanceLabel.font                         = UIFont.systemFont(ofSize: 9)
+        distanceLabel.textColor                    = Colors.white
+        distanceLabel.font                         = UIFont.boldSystemFont(ofSize: 9)
         distanceLabel.numberOfLines                = 0
         distanceLabel.textAlignment                = .left
         distanceLabel.adjustsFontSizeToFitWidth    = true
@@ -96,7 +96,6 @@ class InformationView: UIView {
     }
     
     func configureRouteButton () {
-        
         var title = AttributedString("Route")
         title.font = UIFont.boldSystemFont(ofSize: 10)
         
@@ -110,24 +109,37 @@ class InformationView: UIView {
         config.baseForegroundColor        = Colors.darkGray
         config.background.backgroundColor = Colors.white
         routeButton.configuration         = config
-        routeButton.frame                 = CGRect(x: 180, y: 80, width: 85, height: 30)
+        routeButton.frame                 = CGRect(x: 180, y: 83, width: 80, height: 30)
         self.addSubview(routeButton)
+        routeButton.addTarget(self, action: #selector(routeBtnTapped), for: .touchUpInside)
     }
     
     func configureFavoriteButton () {
-        favoriteButton.frame              = CGRect(x: 270, y: 80, width: 80, height: 30)
-//        favoriteButton.setTitleColor(Colors.white, for: .normal)
-//        favoriteButton.setTitle("Favorite", for: .normal)
-//        favoriteButton.titleLabel?.font   = UIFont.systemFont(ofSize: 5)
-//        favoriteButton.backgroundColor    = Colors.systemYellow
-//        favoriteButton.setImage(Images.starFill, for: .normal)
-//        favoriteButton.imageView?.contentMode = .scaleAspectFits
-//        favoriteButton.layer.cornerRadius = FavoriteButtonSize.width / 2
+        favoriteButton.frame              = CGRect(x: 270, y: 83, width: 80, height: 30)
+        favoriteButton.tintColor = Colors.white
+        favoriteButton.setTitle("Favorite", for: .normal)
+        favoriteButton.titleLabel?.font   = UIFont.systemFont(ofSize: 10)
+        favoriteButton.backgroundColor    = Colors.systemYellow
+        favoriteButton.setImage(Images.starFill, for: .normal)
+        favoriteButton.imageView?.contentMode = .scaleAspectFit
+        favoriteButton.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 16), forImageIn: .normal)
+        favoriteButton.layer.cornerRadius = FavoriteButtonSize.width / 3
         self.addSubview(favoriteButton)
+        favoriteButton.addTarget(self, action: #selector(favoriteBtnTapped), for: .touchUpInside)
+    }
+    
+    
+    // MARK: - Actions:
+    @objc func routeBtnTapped () {
+        print("DEBUG PRINT: routeBtnTapped")
+    }
+    
+    @objc func favoriteBtnTapped () {
+        print("DEBUG PRINT: favoriteBtnTapped")
     }
     
 
-    
+    // MARK: - Layout Constraints:
     func constraintsComponents () {
         routeButton.translatesAutoresizingMaskIntoConstraints = false
         favoriteButton.translatesAutoresizingMaskIntoConstraints = false
