@@ -52,12 +52,12 @@ class MapViewController: UIViewController {
     
 // MARK: - Set up navigationButton
     func setNavigateButton () {
-        setupNavigateButtonUI       ()
-        addShadowForNavigationButton()
-        constriantNavigateButton    ()
+        setupNavigationBtn       ()
+        addShadowForNavigationBtn ()
+        constriantNavigateBtn    ()
     }
     
-    func setupNavigateButtonUI () {
+    func setupNavigationBtn () {
         var config                         = UIButton.Configuration.plain()
         config.background.backgroundColor  = Colors.systemYellow
         config.baseForegroundColor         = Colors.white
@@ -70,7 +70,7 @@ class MapViewController: UIViewController {
         navigateBtn.addTarget(self, action: #selector(navigationBtnTapped), for: .touchUpInside)
     }
     
-    func addShadowForNavigationButton () {
+    func addShadowForNavigationBtn  () {
         navigateBtn.layer.shadowColor   = Colors.darkGray.cgColor
         navigateBtn.layer.shadowOffset  = CGSize(width: 0.0, height: 1)
         navigateBtn.layer.shadowRadius  = 20
@@ -78,7 +78,7 @@ class MapViewController: UIViewController {
         navigateBtn.layer.masksToBounds = false
     }
     
-    func constriantNavigateButton () {
+    func constriantNavigateBtn () {
         view.addSubview(navigateBtn)
         navigateBtn.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
