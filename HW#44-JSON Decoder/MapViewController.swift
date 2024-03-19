@@ -10,10 +10,11 @@ import MapKit
 import CoreLocation
 
 class MapViewController: UIViewController {
+    
+    let searchView: UIView = UIView()
 
-    var mapView = MKMapView ()
-    let navigateBtn: UIButton        = UIButton()
-    let customerServiceBtn: UIButton = UIButton()
+    var mapView:MKMapView            = MKMapView ()
+    let navigateBtn: UIButton        = UIButton(type: .system)
     
     let locations = [""]
     let locationManager = CLLocationManager()
@@ -23,6 +24,8 @@ class MapViewController: UIViewController {
     var selectedStation: Youbike?
     var stationNames = [Youbike]()
     
+    
+    // MARK: - Life Cycle:
     override func viewDidLoad() {
         super.viewDidLoad()
     
@@ -30,7 +33,6 @@ class MapViewController: UIViewController {
         setNavigateButton()
         updateMapView    ()
     }
-    
     
     func updateMapView () {
         if let station = selectedStation {
@@ -46,51 +48,7 @@ class MapViewController: UIViewController {
             mapView.centerCoordinate = coordinate
         }
     }
-    
-    
- // MARK: - Set up customerServiceButton
-    func setCustomerServiceButton () {
-        setupCustomerServiceBtnUI       ()
-        addShadowForCustomerServiceBtn  ()
-        constriantCustomerServiceBtn    ()
-    }
-        
-    func setupCustomerServiceBtnUI () {
-        var config                         = UIButton.Configuration.plain()
-        config.background.backgroundColor  = Colors.white
-        config.image = UIImage(systemName: "info.circle.fill")
-        config.background.imageContentMode = .scaleToFill
-        config.buttonSize                  = UIButton.Configuration.Size.large
-        config.background.cornerRadius     = 35
-        config.background.backgroundColor  = Colors.white
-        config.background.strokeColor      = Colors.lightGray
-        customerServiceBtn.configuration = config
-        
-        customerServiceBtn.addTarget(self, action: #selector(CustomerServiceBtnTapped), for: .touchUpInside)
-    }
-    
-    func addShadowForCustomerServiceBtn () {
-        customerServiceBtn.layer.shadowColor   = Colors.darkGray.cgColor
-        customerServiceBtn.layer.shadowOffset  = CGSize(width: 0.0, height: 0.6)
-        customerServiceBtn.layer.shadowRadius  = 20
-        customerServiceBtn.layer.shadowOpacity = 0.5
-        customerServiceBtn.layer.masksToBounds = false
-    }
-    
-    func constriantCustomerServiceBtn () {
-        view.addSubview(customerServiceBtn)
-        customerServiceBtn.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            customerServiceBtn.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -40),
-            customerServiceBtn.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
-            customerServiceBtn.widthAnchor.constraint(equalToConstant: 70),
-            customerServiceBtn.heightAnchor.constraint(equalToConstant: 70),
-        ])
-    }
-    
-    @objc func CustomerServiceBtnTapped () {
-        print("CustomerServiceBtnTapped")
-    }
+
     
 // MARK: - Set up navigationButton
     func setNavigateButton () {
@@ -101,21 +59,20 @@ class MapViewController: UIViewController {
     
     func setupNavigateButtonUI () {
         var config                         = UIButton.Configuration.plain()
-        config.background.backgroundColor  = Colors.white
-        config.image = UIImage(systemName: "location")
-        config.background.imageContentMode = .scaleAspectFill
-        config.buttonSize                  = UIButton.Configuration.Size.large
-        config.background.cornerRadius     = 35
-        config.background.backgroundColor  = Colors.white
-        config.background.strokeColor      = Colors.lightGray
+        config.background.backgroundColor  = Colors.systemYellow
+        config.baseForegroundColor         = Colors.white
+        config.image                       = Images.locationFill
+        config.background.imageContentMode = .scaleToFill
+        config.buttonSize                  = UIButton.Configuration.Size.medium
+        config.background.cornerRadius     = NavigationButtonSize.height / 2
+        config.background.strokeColor      = Colors.systemGray3
         navigateBtn.configuration = config
-        
         navigateBtn.addTarget(self, action: #selector(navigationBtnTapped), for: .touchUpInside)
     }
     
     func addShadowForNavigationButton () {
         navigateBtn.layer.shadowColor   = Colors.darkGray.cgColor
-        navigateBtn.layer.shadowOffset  = CGSize(width: 0.0, height: 0.6)
+        navigateBtn.layer.shadowOffset  = CGSize(width: 0.0, height: 1)
         navigateBtn.layer.shadowRadius  = 20
         navigateBtn.layer.shadowOpacity = 0.5
         navigateBtn.layer.masksToBounds = false
@@ -127,8 +84,8 @@ class MapViewController: UIViewController {
         NSLayoutConstraint.activate([
             navigateBtn.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -40),
             navigateBtn.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -38),
-            navigateBtn.widthAnchor.constraint(equalToConstant: 70),
-            navigateBtn.heightAnchor.constraint(equalToConstant: 70),
+            navigateBtn.widthAnchor.constraint(equalToConstant: NavigationButtonSize.width),
+            navigateBtn.heightAnchor.constraint(equalToConstant: NavigationButtonSize.height),
         ])
     }
     
@@ -144,7 +101,6 @@ class MapViewController: UIViewController {
         delegateAndDataSource()
         constraintMapView    ()
         setupMapView         ()
-//        addAnnotation()
     }
     
     func setupLocationManager () {
@@ -185,20 +141,10 @@ class MapViewController: UIViewController {
         print("locationManagerDidChangeAuthorization")
     }
     
-    func addAnnotation () {
-        for index in 0...stationNames.count-1 {
-            let annotation = MKPointAnnotation()  // <-- new instance here
-            annotation.coordinate = CLLocationCoordinate2D(
-                latitude: stationNames[index].lat,
-                longitude: stationNames[index].lng)
-            annotation.title = "Point \(index+1)"
-            mapView.addAnnotation(annotation)
-        }
-    }
-
 }
 
 extension MapViewController: MKMapViewDelegate {
+    
 }
 
 extension MapViewController: CLLocationManagerDelegate {
