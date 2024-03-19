@@ -25,21 +25,29 @@ class FirstViewController: UIViewController {
     let stationNameLabel: UILabel = UILabel()
     let tableView: UITableView = UITableView()
     
+    let searchController: UISearchController = UISearchController()
+    
     let refreshControl: UIRefreshControl = UIRefreshControl()
     
     var latitude:   Int?
     var longtitude: Int?
     
+    
+    // MARK: - Life Cycle:
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.view.backgroundColor = Colors.white
+        
         setTableView()
         setupNavigationItem()
+        setupSearchBar()
         fetchData()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+        print("didReceiveMemoryWarning")
     }
     
     func fetchData() {
@@ -63,8 +71,8 @@ class FirstViewController: UIViewController {
             }.resume()
         }
     }
-
-// MARK: - Set up TableView:
+    
+    // MARK: - Set up TableView:
     func setTableView () {
         setupTableView()
         setTableViewDelegateAndDataSource()
@@ -96,16 +104,23 @@ class FirstViewController: UIViewController {
         ])
     }
     
-// MARK: - Set up NavigationController
+    // MARK: - Set up NavigationController
     func setupNavigationItem () {
-        self.navigationController?.isNavigationBarHidden = false
-        self.navigationItem.title = "YouBike List"
-        self.navigationController?.navigationBar.barTintColor = Colors.white
+        self.navigationController?.isNavigationBarHidden            = false
+        self.navigationItem.title                                   = "YouBike List"
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationController?.navigationBar.barTintColor       = Colors.white
     }
-// MARK: - Refresh Control
+    
+    // MARK: - Set up SearchBar
+    func setupSearchBar () {
+        self.navigationItem.searchController = searchController
+    }
+    
+    // MARK: - Refresh Control
     func setupRefreshControl () {
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
-         refreshControl.addTarget(self, action: #selector(self.refresh), for: .valueChanged)
+        refreshControl.addTarget(self, action: #selector(self.refresh), for: .valueChanged)
         tableView.addSubview(refreshControl)
     }
     
@@ -113,7 +128,7 @@ class FirstViewController: UIViewController {
         // Code to refresh table view
         refreshControl.endRefreshing()
         tableView.reloadData        ()
-       }
+    }
 }
 
 // MARK: - Extension UITableViewDelegate:
@@ -165,12 +180,8 @@ extension FirstViewController: UITableViewDataSource {
         return cell
     }
     
-//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        return stationNames[indexPath ?? 0].sarea
-//    }
-    
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        (view as! UITableViewHeaderFooterView).contentView.backgroundColor = Colors.brightGray
+        (view as! UITableViewHeaderFooterView).contentView.backgroundColor = Colors.systemGray4
     }
 }
 
