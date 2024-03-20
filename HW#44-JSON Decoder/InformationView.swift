@@ -11,17 +11,28 @@ class InformationView: UIView {
     
     static let informationView: UIView = UIView()
     
-    var bikeCycleImage: UIImageView = UIImageView()
+    let bikeImageView: UIImageView  = UIImageView()
+    let docksImageView: UIImageView = UIImageView()
+    let bikeLabel: UILabel  = UILabel()
+    let docksLabel: UILabel = UILabel()
+    
+    var bikeQtyLabel: UILabel = UILabel()
+    var dockQtyLabel: UILabel = UILabel()
     
     var stationNameLabel: UILabel   = UILabel()
     var addressLabel: UILabel       = UILabel()
     var bikeVacanciesLabel: UILabel = UILabel()
     var distanceLabel: UILabel      = UILabel()
     var updateTimeLabel: UILabel    = UILabel()
-    
+        
     let routeButton: UIButton    = UIButton(type: .system)
     let favoriteButton: UIButton = UIButton(type: .system)
     
+    let bikeStackView: UIStackView = UIStackView()
+    let dockStackView: UIStackView = UIStackView()
+    
+    let buttonStackView: UIStackView = UIStackView()
+    let labelsStackView: UIStackView = UIStackView()
     
     // MARK: - Life Cycle
     override init(frame: CGRect) {
@@ -39,17 +50,86 @@ class InformationView: UIView {
         self.backgroundColor = Colors.black
         self.alpha           = 0.8
         
-
+        configureBikeQtyLabel()
+        configureDockQtyLabel()
+        
+        configureBikeLabel()
+        configureDocksLabel ()
+        configureBikeImageView()
+        configureParkingSignImageView ()
+        
         configureStationNameLabel ()
         configureAddressLabel  ()
         configureDistanceLabel    ()
         configureUpdateTimeLabel ()
-        
         configureRouteButton()
         configureFavoriteButton ()
+        
+        configureButtonStackView()
+        
+        
+        constraintsButtonStackView()
     }
     
-
+    func configureBikeImageView () {
+        bikeImageView.frame = CGRect(x: 10, y: 15, width: 20, height: 20)
+        bikeImageView.image = Images.bike
+        bikeImageView.tintColor = Colors.lightGray
+        bikeImageView.contentMode = .scaleAspectFit
+        self.addSubview(bikeImageView)
+    }
+    
+    func configureParkingSignImageView () {
+        docksImageView.frame = CGRect(x: 66, y: 15, width: 20, height: 20)
+        docksImageView.image = Images.parkingSign
+        docksImageView.tintColor = Colors.lightGray
+        docksImageView.contentMode = .scaleAspectFit
+        self.addSubview(docksImageView)
+    }
+    
+    func configureBikeQtyLabel () {
+        bikeQtyLabel.frame                     = CGRect(x: 42, y: 29, width: 200, height: 20)
+        bikeQtyLabel.text                      = "0"
+        bikeQtyLabel.textColor                 = Colors.lightGray
+        bikeQtyLabel.font                      = UIFont.boldSystemFont(ofSize: 15)
+        bikeQtyLabel.numberOfLines             = 0
+        bikeQtyLabel.textAlignment             = .left
+        bikeQtyLabel.adjustsFontSizeToFitWidth = true
+        self.addSubview(bikeQtyLabel)
+    }
+    
+    func configureDockQtyLabel () {
+        dockQtyLabel.frame                     = CGRect(x: 100, y: 29, width: 200, height: 20)
+        dockQtyLabel.text                      = "0"
+        dockQtyLabel.textColor                 = Colors.lightGray
+        dockQtyLabel.font                      = UIFont.boldSystemFont(ofSize: 15)
+        dockQtyLabel.numberOfLines             = 0
+        dockQtyLabel.textAlignment             = .left
+        dockQtyLabel.adjustsFontSizeToFitWidth = true
+        self.addSubview(dockQtyLabel)
+    }
+    
+    func configureBikeLabel () {
+        bikeLabel.frame                     = CGRect(x: 10, y: 32, width: 200, height: 20)
+        bikeLabel.text                      = "Bikes"
+        bikeLabel.textColor                 = Colors.lightGray
+        bikeLabel.font                      = UIFont.systemFont(ofSize: 8)
+        bikeLabel.numberOfLines             = 0
+        bikeLabel.textAlignment             = .left
+        bikeLabel.adjustsFontSizeToFitWidth = true
+        self.addSubview(bikeLabel)
+    }
+    
+    func configureDocksLabel () {
+        docksLabel.frame                     = CGRect(x: 65, y: 32, width: 200, height: 20)
+        docksLabel.text                      = "Docks"
+        docksLabel.textColor                 = Colors.lightGray
+        docksLabel.font                      = UIFont.systemFont(ofSize: 8)
+        docksLabel.numberOfLines             = 0
+        docksLabel.textAlignment             = .left
+        docksLabel.adjustsFontSizeToFitWidth = true
+        self.addSubview(docksLabel)
+    }
     
     func configureStationNameLabel () {
         stationNameLabel.frame                     = CGRect(x: 10, y: 50, width: 200, height: 20)
@@ -128,29 +208,41 @@ class InformationView: UIView {
         favoriteButton.addTarget(self, action: #selector(favoriteBtnTapped), for: .touchUpInside)
     }
     
+    func configureButtonStackView () {
+        buttonStackView.axis      = .horizontal
+        buttonStackView.alignment = .center
+        buttonStackView.spacing   = 10
+        buttonStackView.distribution = .fill
+        buttonStackView.addArrangedSubview(routeButton)
+        buttonStackView.addArrangedSubview(favoriteButton)
+    }
+    
+    func configureLabelsStackView () {
+        
+    }
+    
     
     // MARK: - Actions:
-    @objc func routeBtnTapped () {
+    @objc func routeBtnTapped (_ sender: UIButton) {
         print("DEBUG PRINT: routeBtnTapped")
     }
     
-    @objc func favoriteBtnTapped () {
+    @objc func favoriteBtnTapped (_ sender: UIButton) {
         print("DEBUG PRINT: favoriteBtnTapped")
     }
-    
 
     // MARK: - Layout Constraints:
-    func constraintsComponents () {
-        routeButton.translatesAutoresizingMaskIntoConstraints = false
-        favoriteButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        favoriteButton.widthAnchor.constraint(equalToConstant: FavoriteButtonSize.width).isActive   = true
-        favoriteButton.heightAnchor.constraint(equalToConstant: FavoriteButtonSize.height).isActive = true
-        routeButton.widthAnchor.constraint(equalToConstant: RouteButtonSize.width).isActive         = true
-        routeButton.heightAnchor.constraint(equalToConstant: RouteButtonSize.height).isActive       = true
-        
-        
-        
+    func constraintsButtonStackView () {
+        self.addSubview(buttonStackView)
+        buttonStackView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            buttonStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -15),
+            buttonStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10),
+            routeButton.widthAnchor.constraint(equalToConstant: 80),
+            routeButton.heightAnchor.constraint(equalToConstant: 30),
+            favoriteButton.widthAnchor.constraint(equalToConstant: 80),
+            favoriteButton.heightAnchor.constraint(equalToConstant: 30),
+        ])
     }
     
 }
