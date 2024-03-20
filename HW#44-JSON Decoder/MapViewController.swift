@@ -11,7 +11,8 @@ import CoreLocation
 
 class MapViewController: UIViewController {
     
-    let searchView: UIView = UIView()
+    let searchView: SearchView = SearchView()
+    let infomationView: InformationView = InformationView()
 
     var mapView:MKMapView            = MKMapView ()
     let navigateBtn: UIButton        = UIButton(type: .system)
