@@ -8,6 +8,10 @@
 import UIKit
 
 class SearchView: UIView {
+    
+    let listBtn: UIButton = UIButton(type: .system)
+    let favoriteBtn: UIButton = UIButton(type: .system)
+    let itemListBtn: UIButton = UIButton(type: .system)
 
     // MARK: - Life Cycle
     override init(frame: CGRect) {
@@ -20,8 +24,25 @@ class SearchView: UIView {
         setupUI()
     }
     
+    // MARK: - Setup UI
     func setupUI () {
-        
+        self.layer.cornerRadius = 50
     }
 
+    func configureListBtn () {
+        
+    }
+    
+    func configureFavoriteBtn () {
+        
+    }
+    
+    func configureItemListBtn () {
+        
+    }
 }
+
+#Preview (traits: .fixedLayout(width: 420, height: 80), body: {
+    let searchView = SearchView()
+    return searchView
+})
