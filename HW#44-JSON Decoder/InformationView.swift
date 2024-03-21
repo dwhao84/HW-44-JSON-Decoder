@@ -24,15 +24,20 @@ class InformationView: UIView {
     var bikeVacanciesLabel: UILabel = UILabel()
     var distanceLabel: UILabel      = UILabel()
     var updateTimeLabel: UILabel    = UILabel()
-        
+    
     let routeButton: UIButton    = UIButton(type: .system)
     let favoriteButton: UIButton = UIButton(type: .system)
     
     let bikeStackView: UIStackView = UIStackView()
     let dockStackView: UIStackView = UIStackView()
     
+    let bikeStatusStackView: UIStackView = UIStackView()
+    
     let buttonStackView: UIStackView = UIStackView()
     let labelsStackView: UIStackView = UIStackView()
+    
+    
+    let contentStackView: UIStackView = UIStackView()
     
     // MARK: - Life Cycle
     override init(frame: CGRect) {
@@ -42,10 +47,10 @@ class InformationView: UIView {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        setupUI()
+        fatalError("Unable to load the InformationView.")
     }
     
-    // MARK: - Beginning
+    // MARK: - Functions
     func setupUI () {
         self.backgroundColor = Colors.black
         self.alpha           = 0.8
@@ -65,14 +70,20 @@ class InformationView: UIView {
         configureRouteButton()
         configureFavoriteButton ()
         
-        configureButtonStackView()
+        configureBikeStackView()
+        configureDockStackView ()
         
+        configureButtonStackView()
+        configureLabelsStackView ()
+        
+        configureBikeStatusStackView ()
+        configureContentStackView ()
         
         constraintsButtonStackView()
+        constraintsBikeStatusStackView ()
     }
     
     func configureBikeImageView () {
-        bikeImageView.frame = CGRect(x: 10, y: 15, width: 20, height: 20)
         bikeImageView.image = Images.bike
         bikeImageView.tintColor = Colors.lightGray
         bikeImageView.contentMode = .scaleAspectFit
@@ -80,7 +91,6 @@ class InformationView: UIView {
     }
     
     func configureParkingSignImageView () {
-        docksImageView.frame = CGRect(x: 66, y: 15, width: 20, height: 20)
         docksImageView.image = Images.parkingSign
         docksImageView.tintColor = Colors.lightGray
         docksImageView.contentMode = .scaleAspectFit
@@ -88,7 +98,6 @@ class InformationView: UIView {
     }
     
     func configureBikeQtyLabel () {
-        bikeQtyLabel.frame                     = CGRect(x: 42, y: 29, width: 200, height: 20)
         bikeQtyLabel.text                      = "0"
         bikeQtyLabel.textColor                 = Colors.lightGray
         bikeQtyLabel.font                      = UIFont.boldSystemFont(ofSize: 15)
@@ -99,7 +108,6 @@ class InformationView: UIView {
     }
     
     func configureDockQtyLabel () {
-        dockQtyLabel.frame                     = CGRect(x: 100, y: 29, width: 200, height: 20)
         dockQtyLabel.text                      = "0"
         dockQtyLabel.textColor                 = Colors.lightGray
         dockQtyLabel.font                      = UIFont.boldSystemFont(ofSize: 15)
@@ -110,7 +118,6 @@ class InformationView: UIView {
     }
     
     func configureBikeLabel () {
-        bikeLabel.frame                     = CGRect(x: 10, y: 32, width: 200, height: 20)
         bikeLabel.text                      = "Bikes"
         bikeLabel.textColor                 = Colors.lightGray
         bikeLabel.font                      = UIFont.systemFont(ofSize: 8)
@@ -121,7 +128,6 @@ class InformationView: UIView {
     }
     
     func configureDocksLabel () {
-        docksLabel.frame                     = CGRect(x: 65, y: 32, width: 200, height: 20)
         docksLabel.text                      = "Docks"
         docksLabel.textColor                 = Colors.lightGray
         docksLabel.font                      = UIFont.systemFont(ofSize: 8)
@@ -132,10 +138,9 @@ class InformationView: UIView {
     }
     
     func configureStationNameLabel () {
-        stationNameLabel.frame                     = CGRect(x: 10, y: 50, width: 200, height: 20)
         stationNameLabel.text                      = "復興南路二段235號前"
         stationNameLabel.textColor                 = Colors.white
-        stationNameLabel.font                      = UIFont.boldSystemFont(ofSize: 10)
+        stationNameLabel.font                      = UIFont.boldSystemFont(ofSize: 12)
         stationNameLabel.numberOfLines             = 0
         stationNameLabel.textAlignment             = .left
         stationNameLabel.adjustsFontSizeToFitWidth = true
@@ -143,7 +148,6 @@ class InformationView: UIView {
     }
     
     func configureAddressLabel () {
-        addressLabel.frame                         = CGRect(x: 10, y: 70, width: 100, height: 15)
         addressLabel.text                          = "復興南路二段235號前"
         addressLabel.textColor                     = Colors.lightGray
         addressLabel.font                          = UIFont.systemFont(ofSize: 9)
@@ -154,10 +158,9 @@ class InformationView: UIView {
     }
     
     func configureDistanceLabel () {
-        distanceLabel.frame                        = CGRect(x: 10, y: 85, width: 100, height: 15)
         distanceLabel.text                         = "165m"
         distanceLabel.textColor                    = Colors.white
-        distanceLabel.font                         = UIFont.boldSystemFont(ofSize: 9)
+        distanceLabel.font                         = UIFont.boldSystemFont(ofSize: 10)
         distanceLabel.numberOfLines                = 0
         distanceLabel.textAlignment                = .left
         distanceLabel.adjustsFontSizeToFitWidth    = true
@@ -165,7 +168,6 @@ class InformationView: UIView {
     }
     
     func configureUpdateTimeLabel () {
-        updateTimeLabel.frame                     = CGRect(x: 10, y: 100, width: 100, height: 15)
         updateTimeLabel.text                      = "Update 23:00"
         updateTimeLabel.textColor                 = Colors.lightGray
         updateTimeLabel.font                      = UIFont.systemFont(ofSize: 8)
@@ -189,23 +191,51 @@ class InformationView: UIView {
         config.baseForegroundColor        = Colors.darkGray
         config.background.backgroundColor = Colors.white
         routeButton.configuration         = config
-        routeButton.frame                 = CGRect(x: 180, y: 83, width: 80, height: 30)
+        //        routeButton.frame                 = CGRect(x: 180, y: 83, width: 80, height: 30)
         self.addSubview(routeButton)
         routeButton.addTarget(self, action: #selector(routeBtnTapped), for: .touchUpInside)
     }
     
     func configureFavoriteButton () {
-        favoriteButton.frame              = CGRect(x: 270, y: 83, width: 80, height: 30)
         favoriteButton.tintColor = Colors.white
         favoriteButton.setTitle("Favorite", for: .normal)
         favoriteButton.titleLabel?.font   = UIFont.systemFont(ofSize: 10)
-        favoriteButton.backgroundColor    = Colors.systemYellow
+        favoriteButton.backgroundColor    = Colors.yellow
         favoriteButton.setImage(Images.starFill, for: .normal)
         favoriteButton.imageView?.contentMode = .scaleAspectFit
         favoriteButton.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 16), forImageIn: .normal)
         favoriteButton.layer.cornerRadius = FavoriteButtonSize.width / 3
         self.addSubview(favoriteButton)
         favoriteButton.addTarget(self, action: #selector(favoriteBtnTapped), for: .touchUpInside)
+    }
+    
+    func configureBikeStackView () {
+        bikeStackView.axis = .vertical
+        bikeStackView.alignment = .center
+        bikeStackView.spacing   = 5
+        bikeStackView.distribution = .fill
+        bikeStackView.addArrangedSubview(bikeImageView)
+        bikeStackView.addArrangedSubview(bikeLabel)
+    }
+    
+    func configureDockStackView () {
+        dockStackView.axis = .vertical
+        dockStackView.alignment = .center
+        dockStackView.spacing   = 5
+        dockStackView.distribution = .fill
+        dockStackView.addArrangedSubview(docksImageView)
+        dockStackView.addArrangedSubview(docksLabel)
+    }
+    
+    func configureBikeStatusStackView () {
+        bikeStatusStackView.axis = .horizontal
+        bikeStatusStackView.alignment = .lastBaseline
+        bikeStatusStackView.spacing = 6
+        bikeStatusStackView.distribution = .fillEqually
+        bikeStatusStackView.addArrangedSubview(bikeStackView)
+        bikeStatusStackView.addArrangedSubview(bikeQtyLabel)
+        bikeStatusStackView.addArrangedSubview(dockStackView)
+        bikeStatusStackView.addArrangedSubview(dockQtyLabel)
     }
     
     func configureButtonStackView () {
@@ -218,9 +248,22 @@ class InformationView: UIView {
     }
     
     func configureLabelsStackView () {
-        
+        labelsStackView.axis = .vertical
+        labelsStackView.distribution = .fill
+        labelsStackView.spacing      = 3
+        labelsStackView.addArrangedSubview(stationNameLabel)
+        labelsStackView.addArrangedSubview(addressLabel)
+        labelsStackView.addArrangedSubview(distanceLabel)
+        labelsStackView.addArrangedSubview(updateTimeLabel)
     }
     
+    func configureContentStackView () {
+        contentStackView.axis = .vertical
+        contentStackView.distribution = .fill
+        contentStackView.spacing      = 2
+        contentStackView.addArrangedSubview(bikeStatusStackView)
+        contentStackView.addArrangedSubview(labelsStackView)
+    }
     
     // MARK: - Actions:
     @objc func routeBtnTapped (_ sender: UIButton) {
@@ -230,14 +273,14 @@ class InformationView: UIView {
     @objc func favoriteBtnTapped (_ sender: UIButton) {
         print("DEBUG PRINT: favoriteBtnTapped")
     }
-
+    
     // MARK: - Layout Constraints:
     func constraintsButtonStackView () {
         self.addSubview(buttonStackView)
         buttonStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            buttonStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -15),
-            buttonStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10),
+            buttonStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -25),
+            buttonStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -25),
             routeButton.widthAnchor.constraint(equalToConstant: 80),
             routeButton.heightAnchor.constraint(equalToConstant: 30),
             favoriteButton.widthAnchor.constraint(equalToConstant: 80),
@@ -245,10 +288,35 @@ class InformationView: UIView {
         ])
     }
     
+    func constraintsBikeStatusStackView () {
+        stationNameLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        addressLabel.heightAnchor.constraint(equalToConstant: 10).isActive     = true
+        distanceLabel.heightAnchor.constraint(equalToConstant: 15).isActive    = true
+        updateTimeLabel.heightAnchor.constraint(equalToConstant: 10).isActive  = true
+        
+        bikeImageView.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        bikeImageView.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        docksImageView.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        docksImageView.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        
+        bikeQtyLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        dockQtyLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        
+        bikeLabel.widthAnchor.constraint(equalToConstant: 25).isActive = true
+        docksLabel.widthAnchor.constraint(equalToConstant: 25).isActive = true
+
+        self.addSubview(contentStackView)
+        contentStackView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            contentStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 30),
+            contentStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20),
+        ])
+    }
+    
 }
 
 // MARK: - Preview:
-#Preview(traits: .fixedLayout(width: 360, height: 120), body: {
+#Preview(traits: .fixedLayout(width: 420, height: 140), body: {
     let informationView = InformationView()
     return informationView
 })
