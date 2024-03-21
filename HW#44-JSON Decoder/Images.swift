@@ -15,4 +15,6 @@ struct Images {
     static let locationFill      = UIImage(systemName: "location.fill")!
     static let bike              = UIImage(systemName: "bicycle")!
     static let parkingSign       = UIImage(systemName: "parkingsign.circle")!
+    static let listBullet        = UIImage(systemName: "list.bullet")!
+    static let listStar          = UIImage(systemName: "list.star")!
 }
