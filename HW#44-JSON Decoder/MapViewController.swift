@@ -11,10 +11,10 @@ import CoreLocation
 
 class MapViewController: UIViewController {
     
-    let searchView: SearchView = SearchView()
-    let infomationView: InformationView = InformationView()
+    let searchView: SearchView           = SearchView()
+    let informationView: InformationView = InformationView()
 
-    var mapView:MKMapView            = MKMapView ()
+    var mapView: MKMapView           = MKMapView ()
     let navigateBtn: UIButton        = UIButton(type: .system)
     
     let locations = [""]
@@ -55,6 +55,7 @@ class MapViewController: UIViewController {
     func setNavigateButton () {
         setupNavigationBtn       ()
         addShadowForNavigationBtn ()
+        constraintsInformationView()
         constriantNavigateBtn    ()
     }
     
@@ -66,7 +67,7 @@ class MapViewController: UIViewController {
         config.background.imageContentMode = .scaleToFill
         config.buttonSize                  = UIButton.Configuration.Size.medium
         config.background.cornerRadius     = NavigationButtonSize.height / 2
-        config.background.strokeColor      = Colors.systemGray3
+//        config.background.strokeColor      = Colors.systemGray3
         navigateBtn.configuration = config
         navigateBtn.addTarget(self, action: #selector(navigationBtnTapped), for: .touchUpInside)
     }
@@ -83,8 +84,8 @@ class MapViewController: UIViewController {
         view.addSubview(navigateBtn)
         navigateBtn.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            navigateBtn.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -40),
-            navigateBtn.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -38),
+            navigateBtn.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100),
+            navigateBtn.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
             navigateBtn.widthAnchor.constraint(equalToConstant: NavigationButtonSize.width),
             navigateBtn.heightAnchor.constraint(equalToConstant: NavigationButtonSize.height),
         ])
@@ -135,6 +136,17 @@ class MapViewController: UIViewController {
             mapView.leadingAnchor.constraint(equalTo:  view.leadingAnchor),
             mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             mapView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+        ])
+    }
+    
+    func constraintsInformationView () {
+        view.addSubview(informationView)
+        informationView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            informationView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            informationView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            informationView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            informationView.heightAnchor.constraint(equalToConstant: 140)
         ])
     }
     
