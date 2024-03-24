@@ -140,7 +140,7 @@ class InformationView: UIView {
     func configureStationNameLabel () {
         stationNameLabel.text                      = "復興南路二段235號前"
         stationNameLabel.textColor                 = Colors.white
-        stationNameLabel.font                      = UIFont.boldSystemFont(ofSize: 12)
+        stationNameLabel.font                      = UIFont.boldSystemFont(ofSize: 18)
         stationNameLabel.numberOfLines             = 0
         stationNameLabel.textAlignment             = .left
         stationNameLabel.adjustsFontSizeToFitWidth = true
@@ -150,7 +150,7 @@ class InformationView: UIView {
     func configureAddressLabel () {
         addressLabel.text                          = "復興南路二段235號前"
         addressLabel.textColor                     = Colors.lightGray
-        addressLabel.font                          = UIFont.systemFont(ofSize: 9)
+        addressLabel.font                          = UIFont.systemFont(ofSize: 10)
         addressLabel.numberOfLines                 = 0
         addressLabel.textAlignment                 = .left
         addressLabel.adjustsFontSizeToFitWidth     = true
@@ -160,7 +160,7 @@ class InformationView: UIView {
     func configureDistanceLabel () {
         distanceLabel.text                         = "165m"
         distanceLabel.textColor                    = Colors.white
-        distanceLabel.font                         = UIFont.boldSystemFont(ofSize: 10)
+        distanceLabel.font                         = UIFont.boldSystemFont(ofSize: 15)
         distanceLabel.numberOfLines                = 0
         distanceLabel.textAlignment                = .left
         distanceLabel.adjustsFontSizeToFitWidth    = true
@@ -170,7 +170,7 @@ class InformationView: UIView {
     func configureUpdateTimeLabel () {
         updateTimeLabel.text                      = "Update 23:00"
         updateTimeLabel.textColor                 = Colors.lightGray
-        updateTimeLabel.font                      = UIFont.systemFont(ofSize: 8)
+        updateTimeLabel.font                      = UIFont.systemFont(ofSize: 10)
         updateTimeLabel.numberOfLines             = 0
         updateTimeLabel.textAlignment             = .left
         updateTimeLabel.adjustsFontSizeToFitWidth = true
@@ -212,7 +212,7 @@ class InformationView: UIView {
     func configureBikeStackView () {
         bikeStackView.axis = .vertical
         bikeStackView.alignment = .center
-        bikeStackView.spacing   = 5
+        bikeStackView.spacing   = 0
         bikeStackView.distribution = .fill
         bikeStackView.addArrangedSubview(bikeImageView)
         bikeStackView.addArrangedSubview(bikeLabel)
@@ -221,7 +221,7 @@ class InformationView: UIView {
     func configureDockStackView () {
         dockStackView.axis = .vertical
         dockStackView.alignment = .center
-        dockStackView.spacing   = 5
+        dockStackView.spacing   = 0
         dockStackView.distribution = .fill
         dockStackView.addArrangedSubview(docksImageView)
         dockStackView.addArrangedSubview(docksLabel)
@@ -230,8 +230,8 @@ class InformationView: UIView {
     func configureBikeStatusStackView () {
         bikeStatusStackView.axis = .horizontal
         bikeStatusStackView.alignment = .lastBaseline
-        bikeStatusStackView.spacing = 6
-        bikeStatusStackView.distribution = .fillEqually
+        bikeStatusStackView.spacing = 5
+        bikeStatusStackView.distribution = .fill
         bikeStatusStackView.addArrangedSubview(bikeStackView)
         bikeStatusStackView.addArrangedSubview(bikeQtyLabel)
         bikeStatusStackView.addArrangedSubview(dockStackView)
@@ -250,7 +250,7 @@ class InformationView: UIView {
     func configureLabelsStackView () {
         labelsStackView.axis = .vertical
         labelsStackView.distribution = .fill
-        labelsStackView.spacing      = 3
+        labelsStackView.spacing      = 5
         labelsStackView.addArrangedSubview(stationNameLabel)
         labelsStackView.addArrangedSubview(addressLabel)
         labelsStackView.addArrangedSubview(distanceLabel)
@@ -260,7 +260,8 @@ class InformationView: UIView {
     func configureContentStackView () {
         contentStackView.axis = .vertical
         contentStackView.distribution = .fill
-        contentStackView.spacing      = 2
+        contentStackView.alignment    = .leading
+        contentStackView.spacing      = 10
         contentStackView.addArrangedSubview(bikeStatusStackView)
         contentStackView.addArrangedSubview(labelsStackView)
     }
@@ -279,20 +280,20 @@ class InformationView: UIView {
         self.addSubview(buttonStackView)
         buttonStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            buttonStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -25),
-            buttonStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -25),
-            routeButton.widthAnchor.constraint(equalToConstant: 80),
+            buttonStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
+            buttonStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20),
+            routeButton.widthAnchor.constraint(equalToConstant: 90),
             routeButton.heightAnchor.constraint(equalToConstant: 30),
-            favoriteButton.widthAnchor.constraint(equalToConstant: 80),
+            favoriteButton.widthAnchor.constraint(equalToConstant: 90),
             favoriteButton.heightAnchor.constraint(equalToConstant: 30),
         ])
     }
     
     func constraintsBikeStatusStackView () {
         stationNameLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        addressLabel.heightAnchor.constraint(equalToConstant: 10).isActive     = true
+        addressLabel.heightAnchor.constraint(equalToConstant: 15).isActive     = true
         distanceLabel.heightAnchor.constraint(equalToConstant: 15).isActive    = true
-        updateTimeLabel.heightAnchor.constraint(equalToConstant: 10).isActive  = true
+        updateTimeLabel.heightAnchor.constraint(equalToConstant: 15).isActive  = true
         
         bikeImageView.widthAnchor.constraint(equalToConstant: 30).isActive = true
         bikeImageView.heightAnchor.constraint(equalToConstant: 20).isActive = true
@@ -316,7 +317,7 @@ class InformationView: UIView {
 }
 
 // MARK: - Preview:
-#Preview(traits: .fixedLayout(width: 420, height: 140), body: {
+#Preview(traits: .fixedLayout(width: 420, height: 160), body: {
     let informationView = InformationView()
     return informationView
 })
