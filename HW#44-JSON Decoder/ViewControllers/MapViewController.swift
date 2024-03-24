@@ -8,6 +8,8 @@
 import UIKit
 import MapKit
 import CoreLocation
+import GoogleMaps
+import GoogleMapsBase
 
 class MapViewController: UIViewController {
     
@@ -33,6 +35,7 @@ class MapViewController: UIViewController {
         setMapView       ()
         setNavigateButton()
         updateMapView    ()
+        constraintSearchView ()
     }
     
     func updateMapView () {
@@ -81,6 +84,17 @@ class MapViewController: UIViewController {
     }
     
     func constriantNavigateBtn () {
+        view.addSubview(navigateBtn)
+        navigateBtn.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            navigateBtn.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100),
+            navigateBtn.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
+            navigateBtn.widthAnchor.constraint(equalToConstant: NavigationButtonSize.width),
+            navigateBtn.heightAnchor.constraint(equalToConstant: NavigationButtonSize.height),
+        ])
+    }
+    
+    func constriantsNavigateBtn () {
         view.addSubview(navigateBtn)
         navigateBtn.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -147,6 +161,17 @@ class MapViewController: UIViewController {
             informationView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             informationView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             informationView.heightAnchor.constraint(equalToConstant: 140)
+        ])
+    }
+    
+    func constraintSearchView () {
+        view.addSubview(searchView)
+        searchView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            searchView.topAnchor.constraint(equalTo: view.topAnchor, constant: 60),
+            searchView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            searchView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            searchView.heightAnchor.constraint(equalToConstant: 60)
         ])
     }
     

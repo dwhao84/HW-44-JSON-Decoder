@@ -12,7 +12,7 @@ class SearchView: UIView {
     let listBtn: UIButton = UIButton(type: .system)
     let favoriteBtn: UIButton = UIButton(type: .system)
     let itemListBtn: UIButton = UIButton(type: .system)
-    let searchController: UISearchController = UISearchController()
+    let searchBar: UISearchBar = UISearchBar ()
     
     let searchingStackView: UIStackView = UIStackView()
 
@@ -29,9 +29,11 @@ class SearchView: UIView {
     
     // MARK: - Setup UI
     func setupUI () {
-        self.layer.cornerRadius = 50
+        self.layer.cornerRadius = 20
+        self.backgroundColor    = Colors.white
         configureListBtn()
         configureFavoriteBtn()
+        configureSearchBar ()
         configureItemListBtn()
         
         configureSearchingStackView()
@@ -68,31 +70,46 @@ class SearchView: UIView {
         self.addSubview(itemListBtn)
     }
     
+    func configureSearchBar () {
+        searchBar.delegate     = self
+        searchBar.placeholder  = "Search station names"
+        searchBar.isEnabled    = true
+        searchBar.searchBarStyle = UISearchBar.Style.minimal
+        searchBar.sizeToFit()
+        searchBar.isTranslucent = false
+        searchBar.keyboardAppearance = .default
+        self.addSubview(searchBar)
+    }
+    
     func configureSearchingStackView () {
         searchingStackView.axis         = .horizontal
         searchingStackView.alignment    = .center
-        searchingStackView.distribution = .fillEqually
-        searchingStackView.spacing      = 100
+        searchingStackView.distribution = .fill
+        searchingStackView.spacing      = 0
         searchingStackView.addArrangedSubview(listBtn)
+        searchingStackView.addArrangedSubview(searchBar)
         searchingStackView.addArrangedSubview(favoriteBtn)
         searchingStackView.addArrangedSubview(itemListBtn)
     }
     
     func constraintsSearchStackView () {
         
-        itemListBtn.heightAnchor.constraint(equalToConstant: 80).isActive = true
-        favoriteBtn.heightAnchor.constraint(equalToConstant: 80).isActive = true
-        listBtn.heightAnchor.constraint(equalToConstant: 80).isActive = true
+        searchBar.widthAnchor.constraint(equalToConstant: 200).isActive = true
+
         
         self.addSubview(searchingStackView)
         searchingStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             searchingStackView.topAnchor.constraint(equalTo: self.topAnchor),
-            searchingStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            searchingStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 0),
             searchingStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            searchingStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor)
+            searchingStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 0)
         ])
     }
+}
+
+extension SearchView: UISearchBarDelegate {
+    
 }
 
 #Preview (traits: .fixedLayout(width: 420, height: 60), body: {

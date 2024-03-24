@@ -53,7 +53,7 @@ class InformationView: UIView {
     // MARK: - Functions
     func setupUI () {
         self.backgroundColor = Colors.black
-        self.alpha           = 0.8
+        self.alpha           = 0.88
         
         configureBikeQtyLabel()
         configureDockQtyLabel()
