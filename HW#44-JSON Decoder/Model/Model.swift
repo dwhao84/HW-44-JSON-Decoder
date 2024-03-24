@@ -5,47 +5,28 @@
 //  Created by Dawei Hao on 2024/1/15.
 //
 
-import Foundation
+import UIKit
+import MapKit
 
 struct Youbike: Codable {
-    // YouBike station
-    let sna:     String     // YouBike中文站名
-    let snaen:   String     // YouBike英文站名
-    // YouBike station status
-    let tot:     Int        // 場站總車格
-    let sbi:     Int        // 場站目前車輛數
-    let bemp:    Int        // 目前空位數量
-    // Latitude & Longitude
-    let lat:     Double      // 經度
-    let lng:     Double      // 緯度
-    // Mandarin Station Address
-    let sarea:   String     // 市區名
-    let ar:      String     // 路名
-    // English Station Address
-    let sareaen: String     // 英文市區民
-    let aren :   String     // 英文路名
+    // YouBike station details
+    var sna: String     // YouBike中文站名
+    var snaen: String   // YouBike英文站名
+    var tot: Int        // 場站總車格
+    var sbi: Int        // 場站目前車輛數
+    var bemp: Int       // 目前空位數量
+    var lat: Double     // 緯度
+    var lng: Double     // 經度
+    var sarea: String   // 市區名
+    var ar: String      // 路名
+    var sareaen: String // 英文市區名
+    var aren: String    // 英文路名
+    var srcUpdateTime: String
+    var updateTime: String
     
-    let srcUpdateTime: String
+    // MKAnnotation requires a 'coordinate' property
+    var coordinate: CLLocationCoordinate2D { CLLocationCoordinate2D(latitude: lat, longitude: lng) }
 }
-
-struct District {
-    let district: String
-}
-
-let districtListOfTaipei = [
-    District(district: "北投區"),
-    District(district: "大安區"),
-    District(district: "大同區"),
-    District(district: "南港區"),
-    District(district: "內湖區"),
-    District(district: "士林區"),
-    District(district: "松山區"),
-    District(district: "萬華區"),
-    District(district: "文山區"),
-    District(district: "信義區"),
-    District(district: "中山區"),
-    District(district: "中正區")
-]
 
 
 
@@ -68,4 +49,4 @@ let districtListOfTaipei = [
 // " updateTime":"2024-01-14 22:54:35",
 // " infoTime":"2024-01-14 22:54:05",
 // " infoDate":"2024-01-14"
- 
+
