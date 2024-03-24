@@ -13,6 +13,7 @@ class SearchView: UIView {
     let favoriteBtn: UIButton = UIButton(type: .system)
     let itemListBtn: UIButton = UIButton(type: .system)
     let searchBar: UISearchBar = UISearchBar ()
+    let searchTextField: UITextField = UITextField()
     
     let searchingStackView: UIStackView = UIStackView()
 
@@ -31,10 +32,11 @@ class SearchView: UIView {
     func setupUI () {
         self.layer.cornerRadius = 20
         self.backgroundColor    = Colors.white
+        
         configureListBtn()
         configureFavoriteBtn()
-        configureSearchBar ()
         configureItemListBtn()
+        configureSearchTextField ()
         
         configureSearchingStackView()
         constraintsSearchStackView ()
@@ -70,15 +72,16 @@ class SearchView: UIView {
         self.addSubview(itemListBtn)
     }
     
-    func configureSearchBar () {
-        searchBar.delegate     = self
-        searchBar.placeholder  = "Search station names"
-        searchBar.isEnabled    = true
-        searchBar.searchBarStyle = UISearchBar.Style.minimal
-        searchBar.sizeToFit()
-        searchBar.isTranslucent = false
-        searchBar.keyboardAppearance = .default
-        self.addSubview(searchBar)
+    func configureSearchTextField () {
+        searchTextField.delegate           = self
+        searchTextField.placeholder        = "Search Stations"
+        searchTextField.layer.cornerRadius = 10
+        searchTextField.clipsToBounds      = true
+        searchTextField.borderStyle        = .none
+        searchTextField.leftView           = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
+        searchTextField.leftViewMode = .always
+        searchTextField.returnKeyType = .go
+        self.addSubview(searchTextField)
     }
     
     func configureSearchingStackView () {
@@ -87,16 +90,13 @@ class SearchView: UIView {
         searchingStackView.distribution = .fill
         searchingStackView.spacing      = 0
         searchingStackView.addArrangedSubview(listBtn)
-        searchingStackView.addArrangedSubview(searchBar)
+        searchingStackView.addArrangedSubview(searchTextField)
         searchingStackView.addArrangedSubview(favoriteBtn)
         searchingStackView.addArrangedSubview(itemListBtn)
     }
     
     func constraintsSearchStackView () {
-        
-        searchBar.widthAnchor.constraint(equalToConstant: 200).isActive = true
-
-        
+        searchTextField.widthAnchor.constraint(equalToConstant: 210).isActive = true
         self.addSubview(searchingStackView)
         searchingStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -108,8 +108,15 @@ class SearchView: UIView {
     }
 }
 
-extension SearchView: UISearchBarDelegate {
-    
+extension SearchView: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        let text = textField.text ?? ""
+        if !text.isEmpty {
+            textField.resignFirstResponder()
+            
+        }
+        return true
+    }
 }
 
 #Preview (traits: .fixedLayout(width: 420, height: 60), body: {
