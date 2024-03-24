@@ -13,11 +13,16 @@
 		D342123E2B5596AB00223A71 /* YouBikeInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D342123C2B5596AB00223A71 /* YouBikeInfoTableViewCell.xib */; };
 		D358A5CE2B54E62800A6AB1E /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D358A5CD2B54E62800A6AB1E /* FirstViewController.swift */; };
 		D358A5D12B54E6B400A6AB1E /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = D358A5D02B54E6B400A6AB1E /* Model.swift */; };
+		D3B703A52BB075F200F6BB72 /* CustomAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B703A42BB075F200F6BB72 /* CustomAnnotation.swift */; };
 		D3B8DF6C2BA7456E00B381AF /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B8DF6B2BA7456E00B381AF /* Images.swift */; };
 		D3B8DF6E2BA7478900B381AF /* InformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B8DF6D2BA7478900B381AF /* InformationView.swift */; };
 		D3B8DF702BA88D5000B381AF /* BikeInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B8DF6F2BA88D5000B381AF /* BikeInformation.swift */; };
 		D3B8DF742BA9E52400B381AF /* ButtonConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B8DF732BA9E52400B381AF /* ButtonConstants.swift */; };
 		D3B8DF762BA9E84700B381AF /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B8DF752BA9E84700B381AF /* SearchView.swift */; };
+		D3DE0BC22BADEBD200378441 /* GoogleMaps in Frameworks */ = {isa = PBXBuildFile; productRef = D3DE0BC12BADEBD200378441 /* GoogleMaps */; };
+		D3DE0BC42BADEBD200378441 /* GoogleMapsBase in Frameworks */ = {isa = PBXBuildFile; productRef = D3DE0BC32BADEBD200378441 /* GoogleMapsBase */; };
+		D3DE0BC62BADEBD200378441 /* GoogleMapsCore in Frameworks */ = {isa = PBXBuildFile; productRef = D3DE0BC52BADEBD200378441 /* GoogleMapsCore */; };
+		D3DE0BC82BADEBD200378441 /* GoogleMapsM4B in Frameworks */ = {isa = PBXBuildFile; productRef = D3DE0BC72BADEBD200378441 /* GoogleMapsM4B */; };
 		EB42C1FA2B542AD1004C4987 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB42C1F92B542AD1004C4987 /* AppDelegate.swift */; };
 		EB42C1FC2B542AD1004C4987 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB42C1FB2B542AD1004C4987 /* SceneDelegate.swift */; };
 		EB42C2012B542AD1004C4987 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB42C1FF2B542AD1004C4987 /* Main.storyboard */; };
@@ -52,6 +57,7 @@
 		D342123C2B5596AB00223A71 /* YouBikeInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = YouBikeInfoTableViewCell.xib; sourceTree = "<group>"; };
 		D358A5CD2B54E62800A6AB1E /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
 		D358A5D02B54E6B400A6AB1E /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		D3B703A42BB075F200F6BB72 /* CustomAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnnotation.swift; sourceTree = "<group>"; };
 		D3B8DF6B2BA7456E00B381AF /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		D3B8DF6D2BA7478900B381AF /* InformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationView.swift; sourceTree = "<group>"; };
 		D3B8DF6F2BA88D5000B381AF /* BikeInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeInformation.swift; sourceTree = "<group>"; };
@@ -76,6 +82,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3DE0BC22BADEBD200378441 /* GoogleMaps in Frameworks */,
+				D3DE0BC62BADEBD200378441 /* GoogleMapsCore in Frameworks */,
+				D3DE0BC82BADEBD200378441 /* GoogleMapsM4B in Frameworks */,
+				D3DE0BC42BADEBD200378441 /* GoogleMapsBase in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -125,6 +135,24 @@
 			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		D3DE0BC92BADEDA900378441 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				D32F27172B5627EE001173F2 /* MapViewController.swift */,
+				D358A5CD2B54E62800A6AB1E /* FirstViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		D3DE0BCA2BADEDC600378441 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D3B8DF6D2BA7478900B381AF /* InformationView.swift */,
+				D3B8DF752BA9E84700B381AF /* SearchView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		EB42C1ED2B542AD1004C4987 = {
 			isa = PBXGroup;
 			children = (
@@ -151,11 +179,10 @@
 			children = (
 				D358A5CF2B54E64F00A6AB1E /* Supporting Files */,
 				D342123F2B5597C500223A71 /* Model */,
-				D32F27172B5627EE001173F2 /* MapViewController.swift */,
-				D358A5CD2B54E62800A6AB1E /* FirstViewController.swift */,
-				D3B8DF6D2BA7478900B381AF /* InformationView.swift */,
-				D3B8DF752BA9E84700B381AF /* SearchView.swift */,
+				D3DE0BC92BADEDA900378441 /* ViewControllers */,
+				D3DE0BCA2BADEDC600378441 /* Views */,
 				D3B8DF6F2BA88D5000B381AF /* BikeInformation.swift */,
+				D3B703A42BB075F200F6BB72 /* CustomAnnotation.swift */,
 				D3B8DF6B2BA7456E00B381AF /* Images.swift */,
 				D32F27152B562589001173F2 /* Colors.swift */,
 				D3B8DF732BA9E52400B381AF /* ButtonConstants.swift */,
@@ -197,6 +224,12 @@
 			dependencies = (
 			);
 			name = "HW#44-JSON Decoder";
+			packageProductDependencies = (
+				D3DE0BC12BADEBD200378441 /* GoogleMaps */,
+				D3DE0BC32BADEBD200378441 /* GoogleMapsBase */,
+				D3DE0BC52BADEBD200378441 /* GoogleMapsCore */,
+				D3DE0BC72BADEBD200378441 /* GoogleMapsM4B */,
+			);
 			productName = "HW#44-JSON Decoder";
 			productReference = EB42C1F62B542AD1004C4987 /* HW#44-JSON Decoder.app */;
 			productType = "com.apple.product-type.application";
@@ -269,6 +302,9 @@
 				Base,
 			);
 			mainGroup = EB42C1ED2B542AD1004C4987;
+			packageReferences = (
+				D3DE0BC02BADEB9D00378441 /* XCRemoteSwiftPackageReference "ios-maps-sdk" */,
+			);
 			productRefGroup = EB42C1F72B542AD1004C4987 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -316,6 +352,7 @@
 				D32F27162B562589001173F2 /* Colors.swift in Sources */,
 				D342123D2B5596AB00223A71 /* YouBikeInfoTableViewCell.swift in Sources */,
 				D358A5D12B54E6B400A6AB1E /* Model.swift in Sources */,
+				D3B703A52BB075F200F6BB72 /* CustomAnnotation.swift in Sources */,
 				D358A5CE2B54E62800A6AB1E /* FirstViewController.swift in Sources */,
 				D3B8DF762BA9E84700B381AF /* SearchView.swift in Sources */,
 				D3B8DF6C2BA7456E00B381AF /* Images.swift in Sources */,
@@ -669,6 +706,40 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D3DE0BC02BADEB9D00378441 /* XCRemoteSwiftPackageReference "ios-maps-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/googlemaps/ios-maps-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.4.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D3DE0BC12BADEBD200378441 /* GoogleMaps */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D3DE0BC02BADEB9D00378441 /* XCRemoteSwiftPackageReference "ios-maps-sdk" */;
+			productName = GoogleMaps;
+		};
+		D3DE0BC32BADEBD200378441 /* GoogleMapsBase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D3DE0BC02BADEB9D00378441 /* XCRemoteSwiftPackageReference "ios-maps-sdk" */;
+			productName = GoogleMapsBase;
+		};
+		D3DE0BC52BADEBD200378441 /* GoogleMapsCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D3DE0BC02BADEB9D00378441 /* XCRemoteSwiftPackageReference "ios-maps-sdk" */;
+			productName = GoogleMapsCore;
+		};
+		D3DE0BC72BADEBD200378441 /* GoogleMapsM4B */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D3DE0BC02BADEB9D00378441 /* XCRemoteSwiftPackageReference "ios-maps-sdk" */;
+			productName = GoogleMapsM4B;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = EB42C1EE2B542AD1004C4987 /* Project object */;
 }
