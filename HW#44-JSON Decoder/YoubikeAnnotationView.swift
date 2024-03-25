@@ -9,7 +9,9 @@ import UIKit
 import MapKit
 
 class CustomAnnotationView: MKAnnotationView {
-
+    
+    static let customAnnotationView: String = "CustomAnnotationView"
+    
 override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
         canShowCallout = true
@@ -23,6 +25,6 @@ override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
     }
 
     private func update(for annotation: MKAnnotation?) {
-        image = (annotation as? CustomAnnotation)?.pinCustomImage
+        image = (annotation as? YoubikeAnnotation)?.image
     }
 }
