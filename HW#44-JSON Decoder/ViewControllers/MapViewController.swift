@@ -8,6 +8,8 @@
 import UIKit
 import MapKit
 import CoreLocation
+import GoogleMaps
+import GoogleMapsBase
 
 class MapViewController: UIViewController {
     
@@ -16,10 +18,10 @@ class MapViewController: UIViewController {
     var mapView: MKMapView           = MKMapView ()
     let navigateBtn: UIButton        = UIButton(type: .system)
     
-    let locations = [""]
-    let locationManager = CLLocationManager()
-    var currentCoordinates: CLLocationCoordinate2D?
-    
+    let locationManager = CLLocationManager()        // Create the location manager.
+    var currentCoordinates: CLLocationCoordinate2D?  // Get the current coordinate.
+    var currentUserLocation: CLLocation?             // Get the current location.
+
     var selectedStation: Youbike?
     var coordinates = [Youbike]()
     
@@ -56,8 +58,13 @@ class MapViewController: UIViewController {
         setupUI()
         fetchYoubikeData()
         
+        
+        // addTarget for btns
         favoriteBtn.addTarget(self, action: #selector(favoriteBtnTapped), for: .touchUpInside)
         listBtn.addTarget(self, action: #selector(listBtnTapped), for: .touchUpInside)
+        
+        // Register for AnnotationView
+        mapView.register(CustomAnnotationView.self, forAnnotationViewWithReuseIdentifier: CustomAnnotationView.customAnnotationView)
     }
     
     func fetchYoubikeData() {
@@ -172,7 +179,7 @@ class MapViewController: UIViewController {
     
     // MARK: - Actions:
     @objc func navigationBtnTapped (_ sender: UIButton) {
-        print("navigationBtnTapped")
+        print("DEBUG PRINT: navigationBtn Tapped, and navigate the current location.")
         setupLocationManager()
     }
     
@@ -186,14 +193,14 @@ class MapViewController: UIViewController {
     
     // MARK: - Set up mapView:
     func setMapView () {
-        delegateAndDataSource()
-        constraintMapView    ()
         setupMapView         ()
         setupLocationManager ()
+        constraintMapView    ()
     }
     
     // 設定Location Manager
     func setupLocationManager () {
+        locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestAlwaysAuthorization()
         locationManager.requestWhenInUseAuthorization()
@@ -204,6 +211,7 @@ class MapViewController: UIViewController {
     
     // 設定MapView的細節
     func setupMapView () {
+        mapView.delegate         = self
         mapView.mapType           = .standard
         mapView.isZoomEnabled     = true
         mapView.isScrollEnabled   = true
@@ -217,12 +225,7 @@ class MapViewController: UIViewController {
             longitudinalMeters: 250
         )
     }
-    
-    // Add Delegate & Data source
-    func delegateAndDataSource () {
-        mapView.delegate         = self
-        locationManager.delegate = self
-    }
+
     
     func checkLocationAuthorization () {
         guard locationManager == locationManager,
@@ -303,18 +306,30 @@ extension MapViewController: MKMapViewDelegate {
         
         guard let youbikeAnnotation = view.annotation as? YoubikeAnnotation else { return }
         
+        // Station's location.
         let stationLocation = CLLocation(latitude: youbikeAnnotation.coordinate.latitude, longitude: youbikeAnnotation.coordinate.longitude)
-        let distance = currentCoordinates
         
+        // 假设你有一个名为 currentUserLocation 的 CLLocation 实例，存储了用户的当前位置
+        if let currentUserLocation = self.currentUserLocation {
+            let distance = currentUserLocation.distance(from: stationLocation)
+            print("目前距離：\(distance) 公尺")
+            
+            informationView.distanceLabel.text = "距離\(Int(distance))公尺"
+        }
+
         let title = youbikeAnnotation.stationData.sna.replacingOccurrences(of: "YouBike2.0_", with: "")
-        // Update your custom view with the data from the selected annotation
-        informationView.stationNameLabel.text = title
-        informationView.bikeQtyLabel.text     = "\(youbikeAnnotation.stationData.sbi)"
-        informationView.dockQtyLabel.text     = "\(youbikeAnnotation.stationData.bemp)"
-        informationView.addressLabel.text     = youbikeAnnotation.stationData.ar
-        informationView.updateTimeLabel.text  = youbikeAnnotation.stationData.updateTime
-        informationView.distanceLabel.text    = youbikeAnnotation.stationData.updateTime
         
+        let bikeQtyLabel: String = "\(youbikeAnnotation.stationData.sbi)"
+        let dockQtyLabel: String = "\(youbikeAnnotation.stationData.bemp)"
+        let addressLabel: String = youbikeAnnotation.stationData.ar
+        
+        
+        // Update your custom view with the data from the selected annotation
+        informationView.stationNameLabel.text = title.isEmpty ? "Loading...": title
+        informationView.bikeQtyLabel.text     = bikeQtyLabel.isEmpty ? "Loading...": bikeQtyLabel
+        informationView.dockQtyLabel.text     = dockQtyLabel.isEmpty ? "Loading...": dockQtyLabel
+        informationView.addressLabel.text     = addressLabel.isEmpty ? "Loading...": addressLabel
+        informationView.updateTimeLabel.text  = youbikeAnnotation.stationData.updateTime.isEmpty ? "Loading...": youbikeAnnotation.stationData.updateTime
     }
 }
 
@@ -323,14 +338,18 @@ extension MapViewController: MKMapViewDelegate {
 extension MapViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
-        currentCoordinates = locations.first?.coordinate
-        print("DEBUG PRINT: 我目前的座標位置:\(currentCoordinates!)")
+        currentUserLocation = locations.last
+        currentCoordinates  = locations.first?.coordinate // Get the coordinate in locations of array.
+        
+        // Set the current coordinates into the mapView
         mapView.setRegion(MKCoordinateRegion(center: CLLocationCoordinate2DMake(currentCoordinates!.latitude, currentCoordinates!.longitude), latitudinalMeters: 250, longitudinalMeters: 250), animated: true)
     }
+    
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error)
     }
+    
     
 }
 

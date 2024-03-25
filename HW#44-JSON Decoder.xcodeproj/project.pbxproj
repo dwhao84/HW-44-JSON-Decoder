@@ -13,12 +13,12 @@
 		D342123E2B5596AB00223A71 /* YouBikeInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D342123C2B5596AB00223A71 /* YouBikeInfoTableViewCell.xib */; };
 		D358A5CE2B54E62800A6AB1E /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D358A5CD2B54E62800A6AB1E /* FirstViewController.swift */; };
 		D358A5D12B54E6B400A6AB1E /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = D358A5D02B54E6B400A6AB1E /* Model.swift */; };
-		D3B703A52BB075F200F6BB72 /* CustomAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B703A42BB075F200F6BB72 /* CustomAnnotation.swift */; };
+		D3B703A52BB075F200F6BB72 /* YoubikeAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B703A42BB075F200F6BB72 /* YoubikeAnnotation.swift */; };
+		D3B703A72BB1DFBB00F6BB72 /* YoubikeAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B703A62BB1DFBB00F6BB72 /* YoubikeAnnotationView.swift */; };
 		D3B8DF6C2BA7456E00B381AF /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B8DF6B2BA7456E00B381AF /* Images.swift */; };
 		D3B8DF6E2BA7478900B381AF /* InformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B8DF6D2BA7478900B381AF /* InformationView.swift */; };
-		D3B8DF702BA88D5000B381AF /* BikeInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B8DF6F2BA88D5000B381AF /* BikeInformation.swift */; };
+		D3B8DF702BA88D5000B381AF /* Youbike URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B8DF6F2BA88D5000B381AF /* Youbike URL.swift */; };
 		D3B8DF742BA9E52400B381AF /* ButtonConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B8DF732BA9E52400B381AF /* ButtonConstants.swift */; };
-		D3B8DF762BA9E84700B381AF /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B8DF752BA9E84700B381AF /* SearchView.swift */; };
 		D3DE0BC22BADEBD200378441 /* GoogleMaps in Frameworks */ = {isa = PBXBuildFile; productRef = D3DE0BC12BADEBD200378441 /* GoogleMaps */; };
 		D3DE0BC42BADEBD200378441 /* GoogleMapsBase in Frameworks */ = {isa = PBXBuildFile; productRef = D3DE0BC32BADEBD200378441 /* GoogleMapsBase */; };
 		D3DE0BC62BADEBD200378441 /* GoogleMapsCore in Frameworks */ = {isa = PBXBuildFile; productRef = D3DE0BC52BADEBD200378441 /* GoogleMapsCore */; };
@@ -57,12 +57,12 @@
 		D342123C2B5596AB00223A71 /* YouBikeInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = YouBikeInfoTableViewCell.xib; sourceTree = "<group>"; };
 		D358A5CD2B54E62800A6AB1E /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
 		D358A5D02B54E6B400A6AB1E /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
-		D3B703A42BB075F200F6BB72 /* CustomAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnnotation.swift; sourceTree = "<group>"; };
+		D3B703A42BB075F200F6BB72 /* YoubikeAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoubikeAnnotation.swift; sourceTree = "<group>"; };
+		D3B703A62BB1DFBB00F6BB72 /* YoubikeAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoubikeAnnotationView.swift; sourceTree = "<group>"; };
 		D3B8DF6B2BA7456E00B381AF /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		D3B8DF6D2BA7478900B381AF /* InformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationView.swift; sourceTree = "<group>"; };
-		D3B8DF6F2BA88D5000B381AF /* BikeInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeInformation.swift; sourceTree = "<group>"; };
+		D3B8DF6F2BA88D5000B381AF /* Youbike URL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Youbike URL.swift"; sourceTree = "<group>"; };
 		D3B8DF732BA9E52400B381AF /* ButtonConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonConstants.swift; sourceTree = "<group>"; };
-		D3B8DF752BA9E84700B381AF /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		EB42C1F62B542AD1004C4987 /* HW#44-JSON Decoder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HW#44-JSON Decoder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB42C1F92B542AD1004C4987 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EB42C1FB2B542AD1004C4987 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -148,7 +148,6 @@
 			isa = PBXGroup;
 			children = (
 				D3B8DF6D2BA7478900B381AF /* InformationView.swift */,
-				D3B8DF752BA9E84700B381AF /* SearchView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -181,8 +180,9 @@
 				D342123F2B5597C500223A71 /* Model */,
 				D3DE0BC92BADEDA900378441 /* ViewControllers */,
 				D3DE0BCA2BADEDC600378441 /* Views */,
-				D3B8DF6F2BA88D5000B381AF /* BikeInformation.swift */,
-				D3B703A42BB075F200F6BB72 /* CustomAnnotation.swift */,
+				D3B8DF6F2BA88D5000B381AF /* Youbike URL.swift */,
+				D3B703A42BB075F200F6BB72 /* YoubikeAnnotation.swift */,
+				D3B703A62BB1DFBB00F6BB72 /* YoubikeAnnotationView.swift */,
 				D3B8DF6B2BA7456E00B381AF /* Images.swift */,
 				D32F27152B562589001173F2 /* Colors.swift */,
 				D3B8DF732BA9E52400B381AF /* ButtonConstants.swift */,
@@ -352,12 +352,12 @@
 				D32F27162B562589001173F2 /* Colors.swift in Sources */,
 				D342123D2B5596AB00223A71 /* YouBikeInfoTableViewCell.swift in Sources */,
 				D358A5D12B54E6B400A6AB1E /* Model.swift in Sources */,
-				D3B703A52BB075F200F6BB72 /* CustomAnnotation.swift in Sources */,
+				D3B703A52BB075F200F6BB72 /* YoubikeAnnotation.swift in Sources */,
 				D358A5CE2B54E62800A6AB1E /* FirstViewController.swift in Sources */,
-				D3B8DF762BA9E84700B381AF /* SearchView.swift in Sources */,
 				D3B8DF6C2BA7456E00B381AF /* Images.swift in Sources */,
 				D3B8DF6E2BA7478900B381AF /* InformationView.swift in Sources */,
-				D3B8DF702BA88D5000B381AF /* BikeInformation.swift in Sources */,
+				D3B8DF702BA88D5000B381AF /* Youbike URL.swift in Sources */,
+				D3B703A72BB1DFBB00F6BB72 /* YoubikeAnnotationView.swift in Sources */,
 				EB42C1FA2B542AD1004C4987 /* AppDelegate.swift in Sources */,
 				D3B8DF742BA9E52400B381AF /* ButtonConstants.swift in Sources */,
 				EB42C1FC2B542AD1004C4987 /* SceneDelegate.swift in Sources */,
