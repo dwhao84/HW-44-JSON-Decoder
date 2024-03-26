@@ -15,6 +15,7 @@
 		D358A5D12B54E6B400A6AB1E /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = D358A5D02B54E6B400A6AB1E /* Model.swift */; };
 		D3B703A52BB075F200F6BB72 /* YoubikeAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B703A42BB075F200F6BB72 /* YoubikeAnnotation.swift */; };
 		D3B703A72BB1DFBB00F6BB72 /* YoubikeAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B703A62BB1DFBB00F6BB72 /* YoubikeAnnotationView.swift */; };
+		D3B703A92BB318B300F6BB72 /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B703A82BB318B300F6BB72 /* UIView+Ext.swift */; };
 		D3B8DF6C2BA7456E00B381AF /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B8DF6B2BA7456E00B381AF /* Images.swift */; };
 		D3B8DF6E2BA7478900B381AF /* InformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B8DF6D2BA7478900B381AF /* InformationView.swift */; };
 		D3B8DF702BA88D5000B381AF /* Youbike URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B8DF6F2BA88D5000B381AF /* Youbike URL.swift */; };
@@ -59,6 +60,7 @@
 		D358A5D02B54E6B400A6AB1E /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		D3B703A42BB075F200F6BB72 /* YoubikeAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoubikeAnnotation.swift; sourceTree = "<group>"; };
 		D3B703A62BB1DFBB00F6BB72 /* YoubikeAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoubikeAnnotationView.swift; sourceTree = "<group>"; };
+		D3B703A82BB318B300F6BB72 /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
 		D3B8DF6B2BA7456E00B381AF /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		D3B8DF6D2BA7478900B381AF /* InformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationView.swift; sourceTree = "<group>"; };
 		D3B8DF6F2BA88D5000B381AF /* Youbike URL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Youbike URL.swift"; sourceTree = "<group>"; };
@@ -185,6 +187,7 @@
 				D3B703A62BB1DFBB00F6BB72 /* YoubikeAnnotationView.swift */,
 				D3B8DF6B2BA7456E00B381AF /* Images.swift */,
 				D32F27152B562589001173F2 /* Colors.swift */,
+				D3B703A82BB318B300F6BB72 /* UIView+Ext.swift */,
 				D3B8DF732BA9E52400B381AF /* ButtonConstants.swift */,
 				EB42C2072B542AD1004C4987 /* Info.plist */,
 			);
@@ -353,6 +356,7 @@
 				D342123D2B5596AB00223A71 /* YouBikeInfoTableViewCell.swift in Sources */,
 				D358A5D12B54E6B400A6AB1E /* Model.swift in Sources */,
 				D3B703A52BB075F200F6BB72 /* YoubikeAnnotation.swift in Sources */,
+				D3B703A92BB318B300F6BB72 /* UIView+Ext.swift in Sources */,
 				D358A5CE2B54E62800A6AB1E /* FirstViewController.swift in Sources */,
 				D3B8DF6C2BA7456E00B381AF /* Images.swift in Sources */,
 				D3B8DF6E2BA7478900B381AF /* InformationView.swift in Sources */,
