@@ -52,8 +52,7 @@ class InformationView: UIView {
     
     // MARK: - Functions
     func setupUI () {
-        self.backgroundColor = Colors.black
-        self.alpha           = 0.88
+        self.backgroundColor = Colors.infoViewBackgroundColor
         
         configureBikeQtyLabel()
         configureDockQtyLabel()
@@ -138,7 +137,7 @@ class InformationView: UIView {
     }
     
     func configureStationNameLabel () {
-        stationNameLabel.text                      = "復興南路二段235號前"
+        stationNameLabel.text                      = "Loading..."
         stationNameLabel.textColor                 = Colors.white
         stationNameLabel.font                      = UIFont.boldSystemFont(ofSize: 18)
         stationNameLabel.numberOfLines             = 0
@@ -148,7 +147,7 @@ class InformationView: UIView {
     }
     
     func configureAddressLabel () {
-        addressLabel.text                          = "復興南路二段235號前"
+        addressLabel.text                          = "Loading..."
         addressLabel.textColor                     = Colors.lightGray
         addressLabel.font                          = UIFont.systemFont(ofSize: 10)
         addressLabel.numberOfLines                 = 0
@@ -158,7 +157,7 @@ class InformationView: UIView {
     }
     
     func configureDistanceLabel () {
-        distanceLabel.text                         = "165m"
+        distanceLabel.text                         = "Loading..."
         distanceLabel.textColor                    = Colors.white
         distanceLabel.font                         = UIFont.boldSystemFont(ofSize: 15)
         distanceLabel.numberOfLines                = 0
@@ -168,7 +167,7 @@ class InformationView: UIView {
     }
     
     func configureUpdateTimeLabel () {
-        updateTimeLabel.text                      = "Update 23:00"
+        updateTimeLabel.text                      = "Loading..."
         updateTimeLabel.textColor                 = Colors.lightGray
         updateTimeLabel.font                      = UIFont.systemFont(ofSize: 10)
         updateTimeLabel.numberOfLines             = 0
