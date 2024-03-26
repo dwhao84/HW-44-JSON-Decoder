@@ -86,7 +86,7 @@ class MapViewController: UIViewController {
                             let annotation = YoubikeAnnotation(stationData: station)
                             annotations.append(annotation)
                         }
-                        
+                        // Update UI by using DispatchQueue.main.async
                         DispatchQueue.main.async {
                             // Remove existing annotations to avoid duplicates
                             self.mapView.removeAnnotations(self.mapView.annotations)
@@ -109,8 +109,9 @@ class MapViewController: UIViewController {
         configureTextField()
         searchTextField.delegate = self
         setNavigateButton ()
+        
         configureSearchStackView()
-        constraintsSearchStackView()
+        constraintsSearchView()
     }
     
     // MARK: - Set up UITextField
@@ -130,9 +131,14 @@ class MapViewController: UIViewController {
     
     func configureSearchStackView () {
         searchTextField.widthAnchor.constraint(equalToConstant: 250).isActive = true
+        favoriteBtn.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        favoriteBtn.heightAnchor.constraint(equalTo: favoriteBtn.widthAnchor, multiplier: 1).isActive = true
+        listBtn.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        listBtn.heightAnchor.constraint(equalTo: listBtn.widthAnchor, multiplier: 1).isActive = true
         searchStackView.axis = .horizontal
-        searchStackView.distribution = .fill
-        searchStackView.spacing = 20
+        searchStackView.distribution = .equalSpacing
+        searchStackView.alignment    = .center
+        searchStackView.spacing = 8
         searchStackView.addArrangedSubview(listBtn)
         searchStackView.addArrangedSubview(searchTextField)
         searchStackView.addArrangedSubview(favoriteBtn)
@@ -281,16 +287,21 @@ class MapViewController: UIViewController {
     }
     
     // MARK: - Constraints SearchStackView
-    func constraintsSearchStackView () {
+    func constraintsSearchView () {
+        
+        searchTextField.widthAnchor.constraint(equalToConstant: 250).isActive = true
+        
         searchStackView.backgroundColor = Colors.white
         searchStackView.layer.cornerRadius = 10
+        
+        searchStackView.dropShadow()
+        
         view.addSubview(searchStackView)
         searchStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            searchStackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 60),
-            searchStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
-            searchStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
-            searchStackView.heightAnchor.constraint(equalToConstant: 50)
+            searchStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            searchStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),            searchStackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 60),
+            searchStackView.heightAnchor.constraint(equalToConstant: 55)
         ])
     }
     
@@ -322,14 +333,14 @@ extension MapViewController: MKMapViewDelegate {
         let bikeQtyLabel: String = "\(youbikeAnnotation.stationData.sbi)"
         let dockQtyLabel: String = "\(youbikeAnnotation.stationData.bemp)"
         let addressLabel: String = youbikeAnnotation.stationData.ar
-        
+        let updateTimeLabel: String = youbikeAnnotation.stationData.updateTime
         
         // Update your custom view with the data from the selected annotation
-        informationView.stationNameLabel.text = title.isEmpty ? "Loading...": title
-        informationView.bikeQtyLabel.text     = bikeQtyLabel.isEmpty ? "Loading...": bikeQtyLabel
-        informationView.dockQtyLabel.text     = dockQtyLabel.isEmpty ? "Loading...": dockQtyLabel
-        informationView.addressLabel.text     = addressLabel.isEmpty ? "Loading...": addressLabel
-        informationView.updateTimeLabel.text  = youbikeAnnotation.stationData.updateTime.isEmpty ? "Loading...": youbikeAnnotation.stationData.updateTime
+        informationView.stationNameLabel.text = title
+        informationView.bikeQtyLabel.text     = bikeQtyLabel
+        informationView.dockQtyLabel.text     = dockQtyLabel
+        informationView.addressLabel.text     = addressLabel
+        informationView.updateTimeLabel.text  = updateTimeLabel
     }
 }
 
@@ -349,7 +360,6 @@ extension MapViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error)
     }
-    
     
 }
 
