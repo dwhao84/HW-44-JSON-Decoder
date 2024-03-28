@@ -10,28 +10,26 @@ import MapKit
 
 class MapPinView: MKAnnotationView {
     
+    let width: CGFloat = 40.0
+    
     private lazy var containerView: UIView = {
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
-        view.backgroundColor = .white
-        view.layer.cornerRadius = 16.0
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: width, height: width))
+        view.backgroundColor    = Colors.white
+        view.layer.cornerRadius = width / 2
+        view.layer.borderWidth  = 2.5
+        view.layer.borderColor  = Colors.green.cgColor
         return view
     }()
     
     private lazy var imageView: UIImageView = {
         let imageview = UIImageView()
         imageview.translatesAutoresizingMaskIntoConstraints = false
-        imageview.image = UIImage(named: "bg")
+        imageview.image              = Images.radioWave
+        imageview.tintColor          = Colors.green
+        imageview.contentMode        = .scaleAspectFill
         imageview.layer.cornerRadius = 8.0
-        imageview.clipsToBounds = true
+        imageview.clipsToBounds      = true
         return imageview
-    }()
-    
-    private lazy var bottomCornerView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .white
-        view.layer.cornerRadius = 4.0
-        return view
     }()
     
     // MARK: Initialization
@@ -45,15 +43,6 @@ class MapPinView: MKAnnotationView {
     }
     
     private func setupView() {
-        containerView.addSubview(bottomCornerView)
-        bottomCornerView.topAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -15.0).isActive = true
-        bottomCornerView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
-        bottomCornerView.widthAnchor.constraint(equalToConstant: 24).isActive = true
-        bottomCornerView.heightAnchor.constraint(equalToConstant: 24).isActive = true
-        
-        let angle = (39.0 * CGFloat.pi) / 180
-        let transform = CGAffineTransform(rotationAngle: angle)
-        bottomCornerView.transform = transform
         
         addSubview(containerView)
         containerView.addSubview(imageView)
