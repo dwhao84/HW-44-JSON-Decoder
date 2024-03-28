@@ -58,15 +58,25 @@ class MapViewController: UIViewController {
         setupUI()
         fetchYoubikeData()
         
-        
         // addTarget for btns
         favoriteBtn.addTarget(self, action: #selector(favoriteBtnTapped), for: .touchUpInside)
         listBtn.addTarget(self, action: #selector(listBtnTapped), for: .touchUpInside)
         
+        searchTextField.addTarget(self, action: #selector(searchHandle), for: .editingChanged)
+        
         // Register for AnnotationView
         mapView.register(CustomAnnotationView.self, forAnnotationViewWithReuseIdentifier: CustomAnnotationView.customAnnotationView)
+        
+        mapView.register(MapPinView.self, forAnnotationViewWithReuseIdentifier: "pin")
     }
     
+    // MARK: - didReceiveMemoryWarning
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        print("didReceiveMemoryWarning")
+    }
+    
+    // MARK: - fetchYoubikeData
     func fetchYoubikeData() {
         if let urlString = "https://tcgbusfs.blob.core.windows.net/dotapp/youbike/v2/youbike_immediate.json".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
            let url = URL(string: urlString) {
@@ -100,8 +110,6 @@ class MapViewController: UIViewController {
             }.resume()
         }
     }
-
-    
     
     // MARK: - Set up UI:
     func setupUI () {
@@ -129,6 +137,7 @@ class MapViewController: UIViewController {
         searchTextField.isUserInteractionEnabled = true
     }
     
+    // MARK: SearchStackView
     func configureSearchStackView () {
         searchTextField.widthAnchor.constraint(equalToConstant: 250).isActive = true
         favoriteBtn.widthAnchor.constraint(equalToConstant: 40).isActive = true
@@ -195,6 +204,14 @@ class MapViewController: UIViewController {
     
     @objc func listBtnTapped (_ sender: UIButton) {
         print("listBtnTapped")
+    }
+    
+    @objc func searchHandle (_ sender: UITextField) {
+        print("searchHandle")
+        
+        if sender.text != nil {
+            
+        }
     }
     
     // MARK: - Set up mapView:
@@ -290,10 +307,8 @@ class MapViewController: UIViewController {
     func constraintsSearchView () {
         
         searchTextField.widthAnchor.constraint(equalToConstant: 250).isActive = true
-        
         searchStackView.backgroundColor = Colors.white
         searchStackView.layer.cornerRadius = 10
-        
         searchStackView.dropShadow()
         
         view.addSubview(searchStackView)
@@ -328,11 +343,11 @@ extension MapViewController: MKMapViewDelegate {
             informationView.distanceLabel.text = "距離\(Int(distance))公尺"
         }
 
-        let title = youbikeAnnotation.stationData.sna.replacingOccurrences(of: "YouBike2.0_", with: "")
+        let title: String = youbikeAnnotation.stationData.sna.replacingOccurrences(of: "YouBike2.0_", with: "")
         
-        let bikeQtyLabel: String = "\(youbikeAnnotation.stationData.sbi)"
-        let dockQtyLabel: String = "\(youbikeAnnotation.stationData.bemp)"
-        let addressLabel: String = youbikeAnnotation.stationData.ar
+        let bikeQtyLabel: String    = "\(youbikeAnnotation.stationData.sbi)"
+        let dockQtyLabel: String    = "\(youbikeAnnotation.stationData.bemp)"
+        let addressLabel: String    = youbikeAnnotation.stationData.ar
         let updateTimeLabel: String = youbikeAnnotation.stationData.updateTime
         
         // Update your custom view with the data from the selected annotation
@@ -342,6 +357,12 @@ extension MapViewController: MKMapViewDelegate {
         informationView.addressLabel.text     = addressLabel
         informationView.updateTimeLabel.text  = updateTimeLabel
     }
+    
+//    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+//        var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: "pin", for: annotation)
+//        pinView = MapPinView(annotation: annotation, reuseIdentifier: "pin")
+//        return pinView
+//    }
 }
 
 
@@ -349,8 +370,8 @@ extension MapViewController: MKMapViewDelegate {
 extension MapViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
-        currentUserLocation = locations.last
-        currentCoordinates  = locations.first?.coordinate // Get the coordinate in locations of array.
+        currentUserLocation = locations.last              // Get the latest coordinate from location.
+        currentCoordinates  = locations.first?.coordinate // Get the latest coordinate in locations of array.
         
         // Set the current coordinates into the mapView
         mapView.setRegion(MKCoordinateRegion(center: CLLocationCoordinate2DMake(currentCoordinates!.latitude, currentCoordinates!.longitude), latitudinalMeters: 250, longitudinalMeters: 250), animated: true)
