@@ -1,0 +1,4 @@
+use_frameworks!
+target 'HW-44-JSON-Decoder' do
+    pod 'GoogleMaps'
+end
