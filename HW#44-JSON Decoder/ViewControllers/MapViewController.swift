@@ -8,11 +8,10 @@
 import UIKit
 import MapKit
 import CoreLocation
-import GoogleMaps
-import GoogleMapsBase
 
 class MapViewController: UIViewController {
     
+    // CustomView
     let informationView: InformationView = InformationView()
     
     var mapView: MKMapView           = MKMapView ()
@@ -21,13 +20,17 @@ class MapViewController: UIViewController {
     let locationManager = CLLocationManager()        // Create the location manager.
     var currentCoordinates: CLLocationCoordinate2D?  // Get the current coordinate.
     var currentUserLocation: CLLocation?             // Get the current location.
-
+    
     var selectedStation: Youbike?
     var coordinates = [Youbike]()
+    
+    var allStationNames = [Youbike]()
+    var filterStations  = [Youbike]()
     
     let searchView: UIView = UIView()
     let searchTextField: UITextField = UITextField()
     let searchStackView: UIStackView = UIStackView()
+    
     
     var listBtn: UIButton = {
         let listBtn: UIButton = UIButton(type: .system)
@@ -55,25 +58,30 @@ class MapViewController: UIViewController {
     // MARK: - Life Cycle:
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setupUI()
-        fetchYoubikeData()
-        
-        // addTarget for btns
-        favoriteBtn.addTarget(self, action: #selector(favoriteBtnTapped), for: .touchUpInside)
-        listBtn.addTarget(self, action: #selector(listBtnTapped), for: .touchUpInside)
-        
-        searchTextField.addTarget(self, action: #selector(searchHandle), for: .editingChanged)
-        
-        // Register for AnnotationView
-        mapView.register(CustomAnnotationView.self, forAnnotationViewWithReuseIdentifier: CustomAnnotationView.customAnnotationView)
-        
-        mapView.register(MapPinView.self, forAnnotationViewWithReuseIdentifier: "pin")
+        fetchYoubikeData() // Fetch Youbike data.
+        addTargets()       // Add targets include btns, textFields.
+        tapTheView ()      // Tap the view.
     }
     
     // MARK: - didReceiveMemoryWarning
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         print("didReceiveMemoryWarning")
+    }
+    
+    // MARK: - Add Tap Gesture
+    func tapTheView () {
+        let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tappedTheView))
+        self.view.addGestureRecognizer(tapGesture)
+    }
+    
+    // MARK: - Add Targets
+    func addTargets () {
+        favoriteBtn.addTarget(self, action: #selector(favoriteBtnTapped), for: .touchUpInside)
+        listBtn.addTarget(self, action: #selector(listBtnTapped), for: .touchUpInside)
+        searchTextField.addTarget(self, action: #selector(searchHandle), for: .editingChanged)
     }
     
     // MARK: - fetchYoubikeData
@@ -117,7 +125,6 @@ class MapViewController: UIViewController {
         configureTextField()
         searchTextField.delegate = self
         setNavigateButton ()
-        
         configureSearchStackView()
         constraintsSearchView()
     }
@@ -144,6 +151,7 @@ class MapViewController: UIViewController {
         favoriteBtn.heightAnchor.constraint(equalTo: favoriteBtn.widthAnchor, multiplier: 1).isActive = true
         listBtn.widthAnchor.constraint(equalToConstant: 40).isActive = true
         listBtn.heightAnchor.constraint(equalTo: listBtn.widthAnchor, multiplier: 1).isActive = true
+        
         searchStackView.axis = .horizontal
         searchStackView.distribution = .equalSpacing
         searchStackView.alignment    = .center
@@ -169,8 +177,8 @@ class MapViewController: UIViewController {
         config.background.imageContentMode = .scaleToFill
         config.buttonSize                  = UIButton.Configuration.Size.medium
         config.background.cornerRadius     = NavigationButtonSize.height / 2
-        navigateBtn.configuration = config
-        navigateBtn.addTarget(self, action: #selector(navigationBtnTapped), for: .touchUpInside)
+        navigateBtn.configuration          = config
+        navigateBtn.addTarget(self, action: #selector(navigateBtnTapped), for: .touchUpInside)
     }
     
     func addShadowForNavigationBtn  () {
@@ -192,8 +200,15 @@ class MapViewController: UIViewController {
         ])
     }
     
-    // MARK: - Actions:
-    @objc func navigationBtnTapped (_ sender: UIButton) {
+    // MARK: - Tap Gesture actions:
+    @objc func tappedTheView (_ sender: UITapGestureRecognizer) {
+        informationView.isHidden = true
+        navigateBtn.isHidden     = true
+        searchStackView.isHidden = true
+    }
+    
+    // MARK: - Button actions:
+    @objc func navigateBtnTapped (_ sender: UIButton) {
         print("DEBUG PRINT: navigationBtn Tapped, and navigate the current location.")
         setupLocationManager()
     }
@@ -208,9 +223,12 @@ class MapViewController: UIViewController {
     
     @objc func searchHandle (_ sender: UITextField) {
         print("searchHandle")
-        
-        if sender.text != nil {
-            
+        guard let searchText = sender.text?.lowercased(), !searchText.isEmpty else {
+            filterStations = allStationNames
+            return
+        }
+        filterStations = allStationNames.filter {
+            $0.sna.lowercased().contains(searchText)
         }
     }
     
@@ -229,7 +247,6 @@ class MapViewController: UIViewController {
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestLocation()
         mapView.showsUserLocation = true
-        //        locationManager.startUpdatingLocation()
     }
     
     // 設定MapView的細節
@@ -248,12 +265,14 @@ class MapViewController: UIViewController {
             longitudinalMeters: 250
         )
     }
-
+    
     
     func checkLocationAuthorization () {
         guard locationManager == locationManager,
               let location = locationManager.location else { return }
+        
         switch locationManager.authorizationStatus {
+            
         case .authorizedAlways, .authorizedWhenInUse:
             let region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 750, longitudinalMeters: 750)
             mapView.setRegion(region, animated: true)
@@ -305,7 +324,6 @@ class MapViewController: UIViewController {
     
     // MARK: - Constraints SearchStackView
     func constraintsSearchView () {
-        
         searchTextField.widthAnchor.constraint(equalToConstant: 250).isActive = true
         searchStackView.backgroundColor = Colors.white
         searchStackView.layer.cornerRadius = 10
@@ -342,7 +360,7 @@ extension MapViewController: MKMapViewDelegate {
             
             informationView.distanceLabel.text = "距離\(Int(distance))公尺"
         }
-
+        
         let title: String = youbikeAnnotation.stationData.sna.replacingOccurrences(of: "YouBike2.0_", with: "")
         
         let bikeQtyLabel: String    = "\(youbikeAnnotation.stationData.sbi)"
@@ -356,13 +374,12 @@ extension MapViewController: MKMapViewDelegate {
         informationView.dockQtyLabel.text     = dockQtyLabel
         informationView.addressLabel.text     = addressLabel
         informationView.updateTimeLabel.text  = updateTimeLabel
+        
+        informationView.isHidden = false
+        navigateBtn.isHidden     = false
+        searchStackView.isHidden = false
     }
     
-//    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-//        var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: "pin", for: annotation)
-//        pinView = MapPinView(annotation: annotation, reuseIdentifier: "pin")
-//        return pinView
-//    }
 }
 
 
@@ -379,7 +396,7 @@ extension MapViewController: CLLocationManagerDelegate {
     
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print(error)
+        print(error.localizedDescription)
     }
     
 }
