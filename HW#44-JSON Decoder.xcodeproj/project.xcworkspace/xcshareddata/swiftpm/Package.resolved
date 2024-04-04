@@ -8,6 +8,15 @@
         "revision" : "bd392d7d844b49ec6795871a3c25edd01ab839f2",
         "version" : "8.4.0"
       }
+    },
+    {
+      "identity" : "ios-navigation-sdk",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/googlemaps/ios-navigation-sdk.git",
+      "state" : {
+        "revision" : "965025bf5b2a1ce5be487c26c422bd84dadeb55c",
+        "version" : "5.4.0"
+      }
     }
   ],
   "version" : 2
