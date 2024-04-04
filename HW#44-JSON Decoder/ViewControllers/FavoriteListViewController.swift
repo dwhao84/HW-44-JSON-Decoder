@@ -8,22 +8,52 @@
 import UIKit
 
 class FavoriteListViewController: UIViewController {
-
+    
+    let tableView: UITableView = UITableView()
+    let dataArray: [String]    = [""]
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        tableView.dataSource = self
+        tableView.delegate   = self
+        tableView.rowHeight  = 50
+        
+        constraintsTableView()
+        
+    }
+
+    func constraintsTableView () {
+        view.addSubview(tableView)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
     }
     
+}
 
-    /*
-    // MARK: - Navigation
+extension FavoriteListViewController: UITableViewDelegate {
+    
+}
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+extension FavoriteListViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        1
     }
-    */
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        UITableViewCell ()
+    }
+    
+    
+}
 
+#Preview {
+    UINavigationController(rootViewController: FavoriteListViewController())
 }
