@@ -25,5 +25,6 @@ enum Colors {
     static let green: UIColor        = UIColor.systemGreen
     
     static let infoViewBackgroundColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.8)
+    static let sideVCWithTransparent = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.5)
 }
 
