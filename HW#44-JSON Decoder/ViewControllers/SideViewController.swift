@@ -14,7 +14,7 @@ class SideViewController: UIViewController {
     
     enum Constants {
         static let imageViewWidth: CGFloat = 60.0
-        static let sideViewRadius: CGFloat = 20
+        static let sideViewRadius: CGFloat = 20.0
     }
     
     // MARK: - Life Cycle
@@ -43,10 +43,10 @@ class SideViewController: UIViewController {
     }
     
     func configureTableView () {
-        servicesTableView.allowsSelection = true
         servicesTableView.register(FunctionsTableViewCell.self, forCellReuseIdentifier: FunctionsTableViewCell.identifier)
-        servicesTableView.rowHeight = 60
+        servicesTableView.rowHeight = 55
         servicesTableView.separatorStyle = .none
+        servicesTableView.allowsSelection = true
         
         servicesTableView.register(PersonalTableViewHeadView.self, forHeaderFooterViewReuseIdentifier: PersonalTableViewHeadView.identifier)
     }
@@ -116,7 +116,6 @@ extension SideViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: PersonalTableViewHeadView.identifier)
-        
         return view
     }
 }
