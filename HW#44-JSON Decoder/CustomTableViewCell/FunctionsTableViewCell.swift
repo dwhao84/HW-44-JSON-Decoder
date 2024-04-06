@@ -11,12 +11,17 @@ class FunctionsTableViewCell: UITableViewCell {
     
     static let identifier: String = "FunctionsTableViewCell"
 
-    let functionsTitle: UILabel = UILabel()
+    let functionLabels: UILabel = UILabel()
+    let functionImages: UIImageView = UIImageView()
+    
+    let functionStackView: UIStackView = UIStackView()
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        configureFunctionLabel()
+        configureFunctionLabels()
+        configureFunctionImages()
+        configureFunctionStackView()
         constraintFunctionLabel()
     }
 
@@ -31,20 +36,35 @@ class FunctionsTableViewCell: UITableViewCell {
         print("prepareForReuse")
     }
     
-    func configureFunctionLabel () {
-        functionsTitle.text = "XXX"
-        functionsTitle.textColor = Colors.darkGray
-        functionsTitle.adjustsFontSizeToFitWidth = true
-        functionsTitle.textAlignment = .center
-        functionsTitle.font = UIFont.systemFont(ofSize: 20)
+    func configureFunctionLabels () {
+        functionLabels.text = "Services"
+        functionLabels.textColor = Colors.darkGray
+        functionLabels.adjustsFontSizeToFitWidth = true
+        functionLabels.textAlignment = .center
+        functionLabels.font = UIFont.systemFont(ofSize: 20)
+    }
+    
+    func configureFunctionImages () {
+        functionImages.image = Images.bike
+        functionImages.tintColor = Colors.darkGray
+        functionImages.contentMode = .scaleAspectFill
+    }
+    
+    func configureFunctionStackView () {
+        functionStackView.axis = .horizontal
+        functionStackView.distribution = .fill
+        functionStackView.spacing = 10
+        functionStackView.alignment = .center
+        functionStackView.addArrangedSubview(functionImages)
+        functionStackView.addArrangedSubview(functionLabels)
     }
     
     func constraintFunctionLabel () {
-        self.addSubview(functionsTitle)
-        functionsTitle.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(functionStackView)
+        functionStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            functionsTitle.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            functionsTitle.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+            functionStackView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            functionStackView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
         ])
     }
 }
