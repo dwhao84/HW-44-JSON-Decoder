@@ -31,9 +31,12 @@
 		D3BB9E2D2BBD867B000E784C /* GoogleMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3BB9E2C2BBD867B000E784C /* GoogleMapViewController.swift */; };
 		D3FF921F2BC053D2001141C7 /* FunctionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FF921E2BC053D2001141C7 /* FunctionsTableViewCell.swift */; };
 		D3FF92212BC05815001141C7 /* PersonalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FF92202BC05815001141C7 /* PersonalView.swift */; };
-		D3FF92232BC150A4001141C7 /* FunctionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FF92222BC150A4001141C7 /* FunctionModel.swift */; };
+		D3FF92232BC150A4001141C7 /* ServiceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FF92222BC150A4001141C7 /* ServiceModel.swift */; };
 		D3FF92252BC16482001141C7 /* PersonalTableViewHeadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FF92242BC16482001141C7 /* PersonalTableViewHeadView.swift */; };
 		D3FF92282BC173BE001141C7 /* Hero in Frameworks */ = {isa = PBXBuildFile; productRef = D3FF92272BC173BE001141C7 /* Hero */; };
+		D3FF922B2BC1A51B001141C7 /* FavoriteListDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D3FF92292BC1A51B001141C7 /* FavoriteListDataModel.xcdatamodeld */; };
+		D3FF922E2BC1B0D3001141C7 /* FavoriteListData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FF922C2BC1B0D3001141C7 /* FavoriteListData+CoreDataClass.swift */; };
+		D3FF922F2BC1B0D3001141C7 /* FavoriteListData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FF922D2BC1B0D3001141C7 /* FavoriteListData+CoreDataProperties.swift */; };
 		EB42C1FA2B542AD1004C4987 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB42C1F92B542AD1004C4987 /* AppDelegate.swift */; };
 		EB42C1FC2B542AD1004C4987 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB42C1FB2B542AD1004C4987 /* SceneDelegate.swift */; };
 		EB42C2012B542AD1004C4987 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB42C1FF2B542AD1004C4987 /* Main.storyboard */; };
@@ -79,13 +82,13 @@
 		D3B8DF6F2BA88D5000B381AF /* Youbike URL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Youbike URL.swift"; sourceTree = "<group>"; };
 		D3B8DF732BA9E52400B381AF /* ButtonConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonConstants.swift; sourceTree = "<group>"; };
 		D3BB9E2C2BBD867B000E784C /* GoogleMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapViewController.swift; sourceTree = "<group>"; };
-		D3BB9E2F2BBD8F17000E784C /* GoogleMapsResources */ = {isa = PBXFileReference; lastKnownFileType = text; name = GoogleMapsResources; path = ../../Desktop/GoogleMapsResources; sourceTree = "<group>"; };
-		D3BB9E302BBD8F17000E784C /* GoogleNavigationResources */ = {isa = PBXFileReference; lastKnownFileType = text; name = GoogleNavigationResources; path = ../../Desktop/GoogleNavigationResources; sourceTree = "<group>"; };
-		D3BB9E312BBD8F17000E784C /* GoogleNavigation.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = GoogleNavigation.xcframework; path = ../../Desktop/GoogleNavigation.xcframework; sourceTree = "<group>"; };
 		D3FF921E2BC053D2001141C7 /* FunctionsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionsTableViewCell.swift; sourceTree = "<group>"; };
 		D3FF92202BC05815001141C7 /* PersonalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalView.swift; sourceTree = "<group>"; };
-		D3FF92222BC150A4001141C7 /* FunctionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionModel.swift; sourceTree = "<group>"; };
+		D3FF92222BC150A4001141C7 /* ServiceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceModel.swift; sourceTree = "<group>"; };
 		D3FF92242BC16482001141C7 /* PersonalTableViewHeadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalTableViewHeadView.swift; sourceTree = "<group>"; };
+		D3FF922A2BC1A51B001141C7 /* FavoriteListDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FavoriteListDataModel.xcdatamodel; sourceTree = "<group>"; };
+		D3FF922C2BC1B0D3001141C7 /* FavoriteListData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavoriteListData+CoreDataClass.swift"; sourceTree = "<group>"; };
+		D3FF922D2BC1B0D3001141C7 /* FavoriteListData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavoriteListData+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		EB42C1F62B542AD1004C4987 /* HW#44-JSON Decoder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HW#44-JSON Decoder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB42C1F92B542AD1004C4987 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EB42C1FB2B542AD1004C4987 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -135,7 +138,7 @@
 			isa = PBXGroup;
 			children = (
 				D358A5D02B54E6B400A6AB1E /* Model.swift */,
-				D3FF92222BC150A4001141C7 /* FunctionModel.swift */,
+				D3FF92222BC150A4001141C7 /* ServiceModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -167,16 +170,6 @@
 				D3B703A82BB318B300F6BB72 /* UIView+Ext.swift */,
 			);
 			path = Extensions;
-			sourceTree = "<group>";
-		};
-		D3BB9E2E2BBD8F17000E784C /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				D3BB9E2F2BBD8F17000E784C /* GoogleMapsResources */,
-				D3BB9E312BBD8F17000E784C /* GoogleNavigation.xcframework */,
-				D3BB9E302BBD8F17000E784C /* GoogleNavigationResources */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		D3DE0BC92BADEDA900378441 /* ViewControllers */ = {
@@ -213,12 +206,13 @@
 		EB42C1ED2B542AD1004C4987 = {
 			isa = PBXGroup;
 			children = (
+				D3FF922C2BC1B0D3001141C7 /* FavoriteListData+CoreDataClass.swift */,
+				D3FF922D2BC1B0D3001141C7 /* FavoriteListData+CoreDataProperties.swift */,
 				EB42C1F82B542AD1004C4987 /* HW#44-JSON Decoder */,
 				D34212412B5597D900223A71 /* YouBikeInfoTableViewCell */,
 				EB42C20F2B542AD2004C4987 /* HW#44-JSON DecoderTests */,
 				EB42C2192B542AD2004C4987 /* HW#44-JSON DecoderUITests */,
 				EB42C1F72B542AD1004C4987 /* Products */,
-				D3BB9E2E2BBD8F17000E784C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -248,6 +242,7 @@
 				D3B8DF732BA9E52400B381AF /* ButtonConstants.swift */,
 				D3FF921D2BC05373001141C7 /* CustomTableViewCell */,
 				EB42C2072B542AD1004C4987 /* Info.plist */,
+				D3FF92292BC1A51B001141C7 /* FavoriteListDataModel.xcdatamodeld */,
 			);
 			path = "HW#44-JSON Decoder";
 			sourceTree = "<group>";
@@ -415,6 +410,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D32F27162B562589001173F2 /* Colors.swift in Sources */,
+				D3FF922E2BC1B0D3001141C7 /* FavoriteListData+CoreDataClass.swift in Sources */,
 				D342123D2B5596AB00223A71 /* YouBikeInfoTableViewCell.swift in Sources */,
 				D3A011C02BBF0BE000A95CF7 /* FavoriteListViewController.swift in Sources */,
 				D3BB9E2D2BBD867B000E784C /* GoogleMapViewController.swift in Sources */,
@@ -425,6 +421,7 @@
 				D3B703A92BB318B300F6BB72 /* UIView+Ext.swift in Sources */,
 				D358A5CE2B54E62800A6AB1E /* FirstViewController.swift in Sources */,
 				D3B8DF6C2BA7456E00B381AF /* Images.swift in Sources */,
+				D3FF922B2BC1A51B001141C7 /* FavoriteListDataModel.xcdatamodeld in Sources */,
 				D3B8DF6E2BA7478900B381AF /* InformationView.swift in Sources */,
 				D3FF92212BC05815001141C7 /* PersonalView.swift in Sources */,
 				D3B8DF702BA88D5000B381AF /* Youbike URL.swift in Sources */,
@@ -432,9 +429,10 @@
 				D3B703A72BB1DFBB00F6BB72 /* YoubikeAnnotationView.swift in Sources */,
 				D3FF92252BC16482001141C7 /* PersonalTableViewHeadView.swift in Sources */,
 				EB42C1FA2B542AD1004C4987 /* AppDelegate.swift in Sources */,
-				D3FF92232BC150A4001141C7 /* FunctionModel.swift in Sources */,
+				D3FF92232BC150A4001141C7 /* ServiceModel.swift in Sources */,
 				D3B8DF742BA9E52400B381AF /* ButtonConstants.swift in Sources */,
 				EB42C1FC2B542AD1004C4987 /* SceneDelegate.swift in Sources */,
+				D3FF922F2BC1B0D3001141C7 /* FavoriteListData+CoreDataProperties.swift in Sources */,
 				D32F27182B5627EE001173F2 /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -840,6 +838,19 @@
 			productName = Hero;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		D3FF92292BC1A51B001141C7 /* FavoriteListDataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				D3FF922A2BC1A51B001141C7 /* FavoriteListDataModel.xcdatamodel */,
+			);
+			currentVersion = D3FF922A2BC1A51B001141C7 /* FavoriteListDataModel.xcdatamodel */;
+			path = FavoriteListDataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = EB42C1EE2B542AD1004C4987 /* Project object */;
 }
