@@ -31,6 +31,9 @@ class MapViewController: UIViewController {
     let searchTextField: UITextField = UITextField()
     let searchStackView: UIStackView = UIStackView()
     
+    var slideInTransitioningDelegate: UIViewControllerTransitioningDelegate? 
+    
+    var navigateBtnBottomConstraint: NSLayoutConstraint!
     
     var listBtn: UIButton = {
         let listBtn: UIButton = UIButton(type: .system)
@@ -192,20 +195,31 @@ class MapViewController: UIViewController {
     func constriantsNavigateBtn () {
         view.addSubview(navigateBtn)
         navigateBtn.translatesAutoresizingMaskIntoConstraints = false
+        navigateBtnBottomConstraint = navigateBtn.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -120)
         NSLayoutConstraint.activate([
-            navigateBtn.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -120),
+            navigateBtnBottomConstraint,
             navigateBtn.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
             navigateBtn.widthAnchor.constraint(equalToConstant: NavigationButtonSize.width),
-            navigateBtn.heightAnchor.constraint(equalToConstant: NavigationButtonSize.height),
+            navigateBtn.heightAnchor.constraint(equalToConstant: NavigationButtonSize.height)
         ])
     }
     
     // MARK: - Tap Gesture actions:
     @objc func tappedTheView (_ sender: UITapGestureRecognizer) {
         informationView.isHidden = true
-        navigateBtn.isHidden     = true
         searchStackView.isHidden = true
+        navigateBtn.isHidden     = false
+        moveButton()
     }
+    
+    func moveButton() {
+        // Back to -35
+        navigateBtnBottomConstraint.constant = -35
+        UIView.animate(withDuration: 0.1) {
+            self.view.layoutIfNeeded()
+        }
+    }
+
     
     // MARK: - Button actions:
     @objc func navigateBtnTapped (_ sender: UIButton) {
@@ -214,16 +228,21 @@ class MapViewController: UIViewController {
     }
     
     @objc func favoriteBtnTapped (_ sender: UIButton) {
-        print("favoriteBtnTapped")
+        print("DEBUG PRINT: favoriteBtnTapped")
     }
     
     @objc func listBtnTapped (_ sender: UIButton) {
-        print("listBtnTapped")
-        present(SideViewController(), animated: true)
+        print("DEBUG PRINT: listBtnTapped")
+        
+        let sideVC = SideViewController()
+        sideVC.modalPresentationStyle = .overFullScreen
+        slideInTransitioningDelegate = SlideInTransitioningDelegate()
+        sideVC.transitioningDelegate = slideInTransitioningDelegate
+        present(sideVC, animated: true, completion: nil)
     }
     
     @objc func searchHandle (_ sender: UITextField) {
-        print("searchHandle")
+        print("DEBUG PRINT: searchHandle")
         guard let searchText = sender.text?.lowercased(), !searchText.isEmpty else {
             filterStations = allStationNames
             return
@@ -277,11 +296,11 @@ class MapViewController: UIViewController {
             let region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 750, longitudinalMeters: 750)
             mapView.setRegion(region, animated: true)
         case .denied:
-            print("Location services has been denied")
+            print("DEBUG PRINT: Location services has been denied")
         case .notDetermined, .restricted:
-            print("Location cannot be determined or restricted.")
+            print("DEBUG PRINT: Location cannot be determined or restricted.")
         @unknown default:
-            print("Unknown error. Unable to get location.")
+            print("DEBUG PRINT: Unknown error. Unable to get location.")
         }
     }
     
@@ -339,7 +358,7 @@ class MapViewController: UIViewController {
     }
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        print("locationManagerDidChangeAuthorization")
+        print("DEBUG PRINT:  locationManager DidChangeAuthorization")
     }
     
 }
@@ -378,6 +397,9 @@ extension MapViewController: MKMapViewDelegate {
         informationView.isHidden = false
         navigateBtn.isHidden     = false
         searchStackView.isHidden = false
+        
+        // Update the navigationBtn from previous setting.
+        navigateBtnBottomConstraint.constant = -120
     }
     
 }
@@ -405,17 +427,62 @@ extension MapViewController: CLLocationManagerDelegate {
 extension MapViewController: UITextFieldDelegate {
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        print("Start editing")
+        print("DEBUG PRINT: Start editing")
         return true
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
-        print("textFieldShouldReturn")
+        print("DEBUG PRINT: textFieldShouldReturn")
         return true
     }
 }
 
 #Preview {
     UINavigationController(rootViewController: MapViewController())
+}
+
+class SlideInTransitioningDelegate: NSObject, UIViewControllerTransitioningDelegate {
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return SlideInAnimator(isPresenting: true)
+    }
+    
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return SlideInAnimator(isPresenting: false)
+    }
+}
+
+class SlideInAnimator: NSObject, UIViewControllerAnimatedTransitioning {
+    let isPresenting: Bool
+    
+    init(isPresenting: Bool) {
+        self.isPresenting = isPresenting
+        super.init()
+    }
+    
+    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
+        return 0.3 // Duration of the animation
+    }
+    
+    func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+        let key = isPresenting ? UITransitionContextViewControllerKey.to : UITransitionContextViewControllerKey.from
+        guard let controller = transitionContext.viewController(forKey: key) else { return }
+        
+        let container = transitionContext.containerView
+        
+        if isPresenting {
+            container.addSubview(controller.view)
+            controller.view.frame = CGRect(x: -container.frame.width, y: 0, width: container.frame.width, height: container.frame.height)
+        }
+        
+        let transform = {
+            controller.view.transform = self.isPresenting ? CGAffineTransform(translationX: container.frame.width, y: 0) : CGAffineTransform(translationX: -container.frame.width, y: 0)
+        }
+        
+        let completion = { (_: Bool) in
+            transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
+        }
+        
+        UIView.animate(withDuration: transitionDuration(using: transitionContext), animations: transform, completion: completion)
+    }
 }
