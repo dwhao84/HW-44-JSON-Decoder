@@ -18,4 +18,5 @@ struct Images {
     static let listBullet        = UIImage(systemName: "list.bullet")!
     static let listStar          = UIImage(systemName: "list.star")!
     static let radioWave         = UIImage(systemName: "dot.radiowaves.up.forward")!
+    static let person            = UIImage(systemName: "person.circle")!
 }
