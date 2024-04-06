@@ -16,11 +16,11 @@ extension FavoriteListData {
         return NSFetchRequest<FavoriteListData>(entityName: "FavoriteListData")
     }
 
-    @NSManaged public var stationName: String?
-    @NSManaged public var distance: String?
-    @NSManaged public var detailStationName: String?
-    @NSManaged public var dockQty: String?
-    @NSManaged public var bikeQty: String?
+    @NSManaged public var stationName: String?       // 站名
+    @NSManaged public var distance: String?          // 距離
+    @NSManaged public var detailStationName: String? // 細節站名
+    @NSManaged public var dockQty: String?           // 站台數量
+    @NSManaged public var bikeQty: String?           // 車台數量
 
 }
 
