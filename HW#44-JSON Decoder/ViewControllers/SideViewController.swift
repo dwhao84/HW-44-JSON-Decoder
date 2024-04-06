@@ -9,21 +9,13 @@ import UIKit
 
 class SideViewController: UIViewController {
     
-    let personalView: PersonalView = PersonalView()
-    
     let sideView: UIView = UIView()
-    let functionsTableView: UITableView = UITableView()
-    
-    let data: [String] = [
-        "登入資訊",
-        "最愛清單",
-    ]
+    let servicesTableView: UITableView = UITableView()
     
     enum Constants {
         static let imageViewWidth: CGFloat = 60.0
         static let sideViewRadius: CGFloat = 20
     }
-
     
     // MARK: - Life Cycle
     override func viewDidLoad() {
@@ -32,31 +24,31 @@ class SideViewController: UIViewController {
         self.view.backgroundColor = Colors.sideVCWithTransparent
         
         setupUI()
-        
     }
     
     func setupUI () {
         configureSideView()
         constraintSideView()
-        delegateAndDataSource ()
-        constraintPersonalView ()
         
+        delegateAndDataSource ()
+        configureTableView()
+        constraintServiceTableView()
+        
+        tapTheView()
     }
     
     func delegateAndDataSource () {
-        functionsTableView.delegate = self
-        functionsTableView.dataSource = self
+        servicesTableView.delegate = self
+        servicesTableView.dataSource = self
     }
     
-    func constraintPersonalView () {
-        sideView.addSubview(personalView)
-        personalView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            personalView.topAnchor.constraint(equalTo: sideView.topAnchor, constant: 30),
-            personalView.leadingAnchor.constraint(equalTo: sideView.leadingAnchor),
-            personalView.trailingAnchor.constraint(equalTo: sideView.trailingAnchor),
-            personalView.heightAnchor.constraint(equalTo: sideView.widthAnchor, multiplier: 0.3)
-        ])
+    func configureTableView () {
+        servicesTableView.allowsSelection = true
+        servicesTableView.register(FunctionsTableViewCell.self, forCellReuseIdentifier: FunctionsTableViewCell.identifier)
+        servicesTableView.rowHeight = 60
+        servicesTableView.separatorStyle = .none
+        
+        servicesTableView.register(PersonalTableViewHeadView.self, forHeaderFooterViewReuseIdentifier: PersonalTableViewHeadView.identifier)
     }
     
     func constraintSideView() {
@@ -70,23 +62,63 @@ class SideViewController: UIViewController {
         ])
     }
     
+    func constraintServiceTableView () {
+        sideView.addSubview(servicesTableView)
+        servicesTableView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            servicesTableView.topAnchor.constraint(equalTo: sideView.topAnchor),
+            servicesTableView.leadingAnchor.constraint(equalTo: sideView.leadingAnchor),
+            servicesTableView.trailingAnchor.constraint(equalTo: sideView.trailingAnchor),
+            servicesTableView.bottomAnchor.constraint(equalTo: sideView.bottomAnchor),
+        ])
+    }
+    
     func configureSideView() {
         sideView.backgroundColor    = Colors.white
         sideView.layer.cornerRadius = Constants.sideViewRadius
         sideView.clipsToBounds      = true
     }
+    
+    func tapTheView () {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tappedTheView))
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func tappedTheView () {
+        self.dismiss(animated: true)
+    }
 }
 
 extension SideViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        1
+        servicesArray.count - 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: FunctionsTableViewCell.identifier, for: indexPath)
+        let services = servicesArray[indexPath.row]
+        var content = cell.defaultContentConfiguration()
+        
+        // Configure content.
+        content.image = services.serviceImage
+        content.text = services.serviceTitle
+        
+        content.imageProperties.tintColor = Colors.darkGray
+        content.textProperties.color = Colors.lightGray
+        
+        cell.contentConfiguration = content
+        return cell
     }
     
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        70
+    }
     
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: PersonalTableViewHeadView.identifier)
+        
+        return view
+    }
 }
 
 
