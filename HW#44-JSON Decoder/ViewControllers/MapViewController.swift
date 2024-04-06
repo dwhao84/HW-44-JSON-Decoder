@@ -219,6 +219,7 @@ class MapViewController: UIViewController {
     
     @objc func listBtnTapped (_ sender: UIButton) {
         print("listBtnTapped")
+        present(SideViewController(), animated: true)
     }
     
     @objc func searchHandle (_ sender: UITextField) {
@@ -256,8 +257,7 @@ class MapViewController: UIViewController {
         mapView.isZoomEnabled     = true
         mapView.isScrollEnabled   = true
         mapView.showsUserLocation = true
-        mapView.region = MKCoordinateRegion(
-            center: CLLocationCoordinate2D(
+        mapView.region = MKCoordinateRegion(center: CLLocationCoordinate2D(
                 latitude: 25.0474,
                 longitude: 121.5171
             ),
