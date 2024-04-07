@@ -20,6 +20,7 @@ enum Colors {
     static let systemGray6: UIColor = UIColor.systemGray6
     
     static let red:        UIColor   = UIColor.red
+    static let orange:     UIColor   = UIColor.systemOrange
     static let systemYellow: UIColor = UIColor.systemYellow
     static let yellow: UIColor       = UIColor(red: 255/255, green: 195/255, blue: 0/255, alpha: 1)
     static let green: UIColor        = UIColor.systemGreen
