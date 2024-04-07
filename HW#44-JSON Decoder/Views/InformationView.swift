@@ -25,8 +25,8 @@ class InformationView: UIView {
     var distanceLabel: UILabel      = UILabel()
     var updateTimeLabel: UILabel    = UILabel()
     
-    let routeButton: UIButton    = UIButton(type: .system)
-    let favoriteButton: UIButton = UIButton(type: .system)
+    let routeButton: RouteButton    = RouteButton(type: .system)
+    let favoriteButton: FavoriteButton = FavoriteButton(type: .system)
     
     let bikeStackView: UIStackView = UIStackView()
     let dockStackView: UIStackView = UIStackView()
@@ -39,10 +39,14 @@ class InformationView: UIView {
     
     let contentStackView: UIStackView = UIStackView()
     
+    var routeBtnCount: Int = 0
+    var favoriteBtnCount: Int = 0
+    
     // MARK: - Life Cycle
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
+        addTargets ()
     }
     
     required init?(coder: NSCoder) {
@@ -80,6 +84,11 @@ class InformationView: UIView {
         
         constraintsButtonStackView()
         constraintsBikeStatusStackView ()
+    }
+    
+    func addTargets () {
+        favoriteButton.addTarget(self, action: #selector(favoriteBtnTapped), for: .touchUpInside)
+        routeButton.addTarget(self, action: #selector(routeBtnTapped), for: .touchUpInside)
     }
     
     func configureBikeImageView () {
@@ -190,22 +199,24 @@ class InformationView: UIView {
         config.baseForegroundColor        = Colors.darkGray
         config.background.backgroundColor = Colors.white
         routeButton.configuration         = config
-        //        routeButton.frame                 = CGRect(x: 180, y: 83, width: 80, height: 30)
-        self.addSubview(routeButton)
-        routeButton.addTarget(self, action: #selector(routeBtnTapped), for: .touchUpInside)
+        routeButton.changesSelectionAsPrimaryAction = true
     }
     
     func configureFavoriteButton () {
-        favoriteButton.tintColor = Colors.white
-        favoriteButton.setTitle("Favorite", for: .normal)
-        favoriteButton.titleLabel?.font   = UIFont.systemFont(ofSize: 10)
-        favoriteButton.backgroundColor    = Colors.yellow
-        favoriteButton.setImage(Images.starFill, for: .normal)
-        favoriteButton.imageView?.contentMode = .scaleAspectFit
-        favoriteButton.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 16), forImageIn: .normal)
-        favoriteButton.layer.cornerRadius = FavoriteButtonSize.width / 3
-        self.addSubview(favoriteButton)
-        favoriteButton.addTarget(self, action: #selector(favoriteBtnTapped), for: .touchUpInside)
+        var title = AttributedString("Favorite")
+        title.font = UIFont.boldSystemFont(ofSize: 10)
+        
+        var config                        = UIButton.Configuration.filled()
+        config.cornerStyle                = .large
+        config.attributedTitle            = title
+        config.image                      = Images.star
+        config.imagePlacement             = .leading
+        config.imagePadding               = 2
+        config.buttonSize                 = UIButton.Configuration.Size.mini
+        config.baseForegroundColor        = Colors.white
+        config.background.backgroundColor = Colors.systemYellow
+        favoriteButton.configuration = config
+        favoriteButton.changesSelectionAsPrimaryAction = true
     }
     
     func configureBikeStackView () {
@@ -265,13 +276,44 @@ class InformationView: UIView {
         contentStackView.addArrangedSubview(labelsStackView)
     }
     
+    func showFavoriteBtnChange () {
+        var title = AttributedString("Favorite")
+        title.font = UIFont.boldSystemFont(ofSize: 10)
+        var config                        = UIButton.Configuration.filled()
+        config.cornerStyle                = .large
+        config.attributedTitle            = title
+        config.image                      = Images.starFill
+        config.imagePlacement             = .leading
+        config.imagePadding               = 2
+        config.buttonSize                 = UIButton.Configuration.Size.mini
+        config.baseForegroundColor        = Colors.white
+        config.background.backgroundColor = Colors.systemYellow
+        favoriteButton.configuration = config
+    }
+    
     // MARK: - Actions:
     @objc func routeBtnTapped (_ sender: UIButton) {
         print("DEBUG PRINT: routeBtnTapped")
+        routeBtnCount += 1
+        if routeBtnCount.isMultiple(of: 2) {
+            
+        } else {
+            
+        }
     }
     
     @objc func favoriteBtnTapped (_ sender: UIButton) {
-        print("DEBUG PRINT: favoriteBtnTapped")
+        favoriteBtnCount += 1
+        configureFavoriteButton()
+        
+        if favoriteBtnCount.isMultiple(of: 2) {
+            showFavoriteBtnChange()
+        }
+        
+        print("""
+        DEBUG PRINT: favoriteBtnTapped
+        DEBUG PRINT: Btn Count is: \(favoriteBtnCount)
+        """)
     }
     
     // MARK: - Layout Constraints:
@@ -304,7 +346,7 @@ class InformationView: UIView {
         
         bikeLabel.widthAnchor.constraint(equalToConstant: 25).isActive = true
         docksLabel.widthAnchor.constraint(equalToConstant: 25).isActive = true
-
+        
         self.addSubview(contentStackView)
         contentStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
