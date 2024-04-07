@@ -14,8 +14,9 @@ class MapViewController: UIViewController {
     // CustomView
     let informationView: InformationView = InformationView()
     
-    var mapView: MKMapView           = MKMapView ()
-    let navigateBtn: UIButton        = UIButton(type: .system)
+    var mapView: MKMapView = MKMapView ()
+    var scaleView: MKScaleView = MKScaleView()
+    let navigateBtn: UIButton = UIButton(type: .system)
     
     let locationManager = CLLocationManager()        // Create the location manager.
     var currentCoordinates: CLLocationCoordinate2D?  // Get the current coordinate.
@@ -31,9 +32,11 @@ class MapViewController: UIViewController {
     let searchTextField: UITextField = UITextField()
     let searchStackView: UIStackView = UIStackView()
     
-    var slideInTransitioningDelegate: UIViewControllerTransitioningDelegate? 
+    var slideInTransitioningDelegate: UIViewControllerTransitioningDelegate?
     
     var navigateBtnBottomConstraint: NSLayoutConstraint!
+    
+    var favoriteBtnCount: Int = 0
     
     var listBtn: UIButton = {
         let listBtn: UIButton = UIButton(type: .system)
@@ -66,12 +69,29 @@ class MapViewController: UIViewController {
         fetchYoubikeData() // Fetch Youbike data.
         addTargets()       // Add targets include btns, textFields.
         tapTheView ()      // Tap the view.
+        configureScaleView()
+        
     }
     
     // MARK: - didReceiveMemoryWarning
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         print("didReceiveMemoryWarning")
+    }
+    
+    func configureScaleView () {
+        // By default, `MKScaleView` uses adaptive visibility, so it only displays when zooming the map.
+        // This is behavior is confirgurable with the `scaleVisibility` property.
+        scaleView = MKScaleView(mapView: mapView)
+        scaleView.scaleVisibility = .adaptive
+        scaleView.legendAlignment = .trailing
+        mapView.addSubview(scaleView)
+        
+        scaleView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            scaleView.bottomAnchor.constraint(equalTo: mapView.bottomAnchor, constant: -120),
+            scaleView.trailingAnchor.constraint(equalTo: mapView.trailingAnchor, constant: -30)
+        ])
     }
     
     // MARK: - Add Tap Gesture
@@ -219,7 +239,7 @@ class MapViewController: UIViewController {
             self.view.layoutIfNeeded()
         }
     }
-
+    
     
     // MARK: - Button actions:
     @objc func navigateBtnTapped (_ sender: UIButton) {
@@ -238,7 +258,7 @@ class MapViewController: UIViewController {
         sideVC.modalPresentationStyle = .overFullScreen
         slideInTransitioningDelegate = SlideInTransitioningDelegate()
         sideVC.transitioningDelegate = slideInTransitioningDelegate
-        present(sideVC, animated: true, completion: nil)
+        self.present(sideVC, animated: true, completion: nil)
     }
     
     @objc func searchHandle (_ sender: UITextField) {
@@ -271,18 +291,16 @@ class MapViewController: UIViewController {
     
     // 設定MapView的細節
     func setupMapView () {
+        mapView.register(MKMarkerAnnotationView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
         mapView.delegate         = self
         mapView.mapType           = .standard
         mapView.isZoomEnabled     = true
         mapView.isScrollEnabled   = true
         mapView.showsUserLocation = true
         mapView.region = MKCoordinateRegion(center: CLLocationCoordinate2D(
-                latitude: 25.0474,
-                longitude: 121.5171
-            ),
-            latitudinalMeters: 250,
-            longitudinalMeters: 250
-        )
+            latitude: 25.0474,
+            longitude: 121.5171
+        ), latitudinalMeters: 250, longitudinalMeters: 250)
     }
     
     
@@ -331,7 +349,7 @@ class MapViewController: UIViewController {
     
     // MARK: - Constraints InformationView
     func constraintsInformationView () {
-        view.addSubview(informationView)
+        self.view.addSubview(informationView)
         informationView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             informationView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -348,7 +366,7 @@ class MapViewController: UIViewController {
         searchStackView.layer.cornerRadius = 10
         searchStackView.dropShadow()
         
-        view.addSubview(searchStackView)
+        self.view.addSubview(searchStackView)
         searchStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             searchStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
@@ -402,6 +420,25 @@ extension MapViewController: MKMapViewDelegate {
         navigateBtnBottomConstraint.constant = -120
     }
     
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        if let youbikeAnnotation = annotation as? YoubikeAnnotation {
+            let view = mapView.dequeueReusableAnnotationView(withIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier, for: youbikeAnnotation) as? MKMarkerAnnotationView ?? MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
+            
+            // 设置颜色逻辑
+            switch youbikeAnnotation.stationData.sbi {
+            case 0:
+                view.markerTintColor = Colors.red
+            case 1...5:
+                view.markerTintColor = Colors.orange
+            default:
+                view.markerTintColor = Colors.green
+            }
+            
+            view.glyphImage = Images.bike // 设置标注图标
+            return view
+        }
+        return nil
+    }
 }
 
 
