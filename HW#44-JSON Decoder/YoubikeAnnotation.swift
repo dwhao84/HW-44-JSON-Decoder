@@ -4,23 +4,19 @@
 //
 //  Created by Dawei Hao on 2024/3/24.
 //
-
+import UIKit
 import MapKit
 
 class YoubikeAnnotation: NSObject, MKAnnotation {
-    
+    var title: String?
+    var subtitle: String?
+    var coordinate: CLLocationCoordinate2D
     var image: UIImage?
-    
-    let title: String?                      // Set up title as string
-    let subtitle: String?                   // Set up subtitle as string
-    let coordinate: CLLocationCoordinate2D  // Set up coordinate as CLLocationCoordinate2D
-    let stationData: Youbike                // Set up stationData as type Youbike.
-    var distance: CLLocationDistance?       // Set up distance as CLLocationDistance.
+    var stationData: Youbike
 
     init(stationData: Youbike) {
-        let revisedTitle = stationData.sna.replacingOccurrences(of: "YouBike2.0_", with: "")
-        self.title = revisedTitle
-        self.subtitle = "Available bikes: \(stationData.sbi)"
+        self.title = stationData.sna.replacingOccurrences(of: "YouBike2.0_", with: "")
+        self.subtitle = "剩餘車輛: \(stationData.sbi) / 剩餘車位: \(stationData.bemp)"
         self.coordinate = CLLocationCoordinate2D(latitude: stationData.lat, longitude: stationData.lng)
         self.stationData = stationData
         super.init()
