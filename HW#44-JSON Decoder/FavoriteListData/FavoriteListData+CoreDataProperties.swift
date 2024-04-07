@@ -17,8 +17,7 @@ extension FavoriteListData {
     }
 
     @NSManaged public var stationName: String?       // 站名
-    @NSManaged public var distance: String?          // 距離
-    @NSManaged public var detailStationName: String? // 細節站名
+    @NSManaged public var address: String?           // 細節站名
     @NSManaged public var dockQty: String?           // 站台數量
     @NSManaged public var bikeQty: String?           // 車台數量
 

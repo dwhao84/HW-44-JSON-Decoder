@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="96" id="KGk-i7-Jjw" customClass="FavoriteListTableViewCell" customModule="HW_44_JSON_Decoder" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="420" height="100"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="420" height="100"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="9" translatesAutoresizingMaskIntoConstraints="NO" id="m9w-4g-4MN">
+                        <rect key="frame" x="10" y="18.666666666666671" width="400" height="63"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="1d1-fF-ndn">
+                                <rect key="frame" x="0.0" y="0.0" width="48" height="24"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dRZ-m6-29d">
+                                        <rect key="frame" x="0.0" y="0.0" width="48" height="24"/>
+                                        <color key="tintColor" systemColor="systemYellowColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="33" translatesAutoresizingMaskIntoConstraints="NO" id="rpr-pK-8c1">
+                                <rect key="frame" x="0.0" y="33" width="380" height="30"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="qbd-BO-8jy">
+                                        <rect key="frame" x="0.0" y="0.0" width="77" height="30"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0Lg-x2-aVW">
+                                                <rect key="frame" x="0.0" y="-2.3333333333333357" width="30" height="35.333333333333336"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="9ns-lk-d0y"/>
+                                                    <constraint firstAttribute="width" constant="30" id="Gsx-dQ-Ho3"/>
+                                                </constraints>
+                                                <imageReference key="image" image="bicycle.circle" catalog="system" symbolScale="large"/>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9jO-3X-CjD">
+                                                <rect key="frame" x="35" y="4.3333333333333357" width="42" height="21"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="21" id="u0T-SW-P7w"/>
+                                                    <constraint firstAttribute="width" constant="42" id="ufV-V8-0km"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="U8M-OS-Dzy">
+                                        <rect key="frame" x="110" y="0.0" width="77" height="30"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="parkingsign.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Rcv-3g-MDa">
+                                                <rect key="frame" x="0.0" y="0.99999999999999822" width="30" height="28.666666666666664"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="30" id="P8q-ew-8jQ"/>
+                                                    <constraint firstAttribute="height" constant="30" id="nUa-42-Hcq"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MPJ-aq-t6Z">
+                                                <rect key="frame" x="35" y="4.3333333333333357" width="42" height="21"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="42" id="dGd-lN-1DN"/>
+                                                    <constraint firstAttribute="height" constant="21" id="kYm-xA-P2s"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AUw-7E-CxG">
+                                        <rect key="frame" x="220" y="3" width="160" height="24"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="160" id="13Q-bR-JKT"/>
+                                            <constraint firstAttribute="height" constant="24" id="JnT-hZ-iJT"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="400" id="w7W-qg-oKB"/>
+                        </constraints>
+                    </stackView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="m9w-4g-4MN" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="PQZ-Fw-b10"/>
+                    <constraint firstItem="m9w-4g-4MN" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="bbP-5L-U2E"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="addressLabel" destination="AUw-7E-CxG" id="DMO-Ha-cRG"/>
+                <outlet property="bikeImageView" destination="0Lg-x2-aVW" id="uCB-I7-aHM"/>
+                <outlet property="bikeQtyLabel" destination="9jO-3X-CjD" id="Zvb-tN-U6v"/>
+                <outlet property="dockImageView" destination="Rcv-3g-MDa" id="IFC-5e-btu"/>
+                <outlet property="dockQtyLabel" destination="MPJ-aq-t6Z" id="Wwu-Zu-SZd"/>
+                <outlet property="stationNameLabel" destination="dRZ-m6-29d" id="Kat-wV-ttc"/>
+            </connections>
+            <point key="canvasLocation" x="129.7709923664122" y="5.6338028169014089"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="bicycle.circle" catalog="system" width="128" height="123"/>
+        <image name="parkingsign.circle" catalog="system" width="128" height="123"/>
+        <systemColor name="systemYellowColor">
+            <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>
