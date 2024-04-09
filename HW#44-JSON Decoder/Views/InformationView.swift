@@ -7,7 +7,17 @@
 
 import UIKit
 
+// Protocol definition
+protocol InformationViewDelegate: AnyObject {
+    func favoriteButtonDidTap()
+    
+    func routeBtnDidTap ()
+}
+
+
 class InformationView: UIView {
+    
+    weak var delegate: InformationViewDelegate?
     
     static let informationView: UIView = UIView()
     
@@ -187,7 +197,7 @@ class InformationView: UIView {
     
     func configureRouteButton () {
         var title = AttributedString("Route")
-        title.font = UIFont.boldSystemFont(ofSize: 10)
+        title.font = UIFont.boldSystemFont(ofSize: 12)
         
         var config                        = UIButton.Configuration.filled()
         config.cornerStyle                = .large
@@ -204,7 +214,7 @@ class InformationView: UIView {
     
     func configureFavoriteButton () {
         var title = AttributedString("Favorite")
-        title.font = UIFont.boldSystemFont(ofSize: 10)
+        title.font = UIFont.boldSystemFont(ofSize: 12)
         
         var config                        = UIButton.Configuration.filled()
         config.cornerStyle                = .large
@@ -278,7 +288,7 @@ class InformationView: UIView {
     
     func showFavoriteBtnChange () {
         var title = AttributedString("Favorite")
-        title.font = UIFont.boldSystemFont(ofSize: 10)
+        title.font = UIFont.boldSystemFont(ofSize: 12)
         var config                        = UIButton.Configuration.filled()
         config.cornerStyle                = .large
         config.attributedTitle            = title
@@ -295,11 +305,7 @@ class InformationView: UIView {
     @objc func routeBtnTapped (_ sender: UIButton) {
         print("DEBUG PRINT: routeBtnTapped")
         routeBtnCount += 1
-        if routeBtnCount.isMultiple(of: 2) {
-            
-        } else {
-            
-        }
+        delegate?.routeBtnDidTap()
     }
     
     @objc func favoriteBtnTapped (_ sender: UIButton) {
@@ -314,6 +320,8 @@ class InformationView: UIView {
         DEBUG PRINT: favoriteBtnTapped
         DEBUG PRINT: Btn Count is: \(favoriteBtnCount)
         """)
+        
+        delegate?.favoriteButtonDidTap()
     }
     
     // MARK: - Layout Constraints:
@@ -323,10 +331,10 @@ class InformationView: UIView {
         NSLayoutConstraint.activate([
             buttonStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
             buttonStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20),
-            routeButton.widthAnchor.constraint(equalToConstant: 90),
-            routeButton.heightAnchor.constraint(equalToConstant: 30),
-            favoriteButton.widthAnchor.constraint(equalToConstant: 90),
-            favoriteButton.heightAnchor.constraint(equalToConstant: 30),
+            routeButton.widthAnchor.constraint(equalToConstant: 100),
+            routeButton.heightAnchor.constraint(equalToConstant: 40),
+            favoriteButton.widthAnchor.constraint(equalToConstant: 100),
+            favoriteButton.heightAnchor.constraint(equalToConstant: 40),
         ])
     }
     
@@ -354,6 +362,7 @@ class InformationView: UIView {
             contentStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20),
         ])
     }
+
     
 }
 
