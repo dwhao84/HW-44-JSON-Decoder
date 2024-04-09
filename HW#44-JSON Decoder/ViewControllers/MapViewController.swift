@@ -8,19 +8,57 @@
 import UIKit
 import MapKit
 import CoreLocation
+import CoreData
 
-class MapViewController: UIViewController {
+class MapViewController: UIViewController, InformationViewDelegate {
+    
+    func routeBtnDidTap() {
+        print("DEBUG PRINT: InfoView's RouteBtn")
+
+        // 取得目的地的座標
+        let targetCoordinate = didSelectLocation
+        // 取得目的地的座標後，將座標改成placeamark的型別.
+        let targetPlacemark = MKPlacemark(coordinate: targetCoordinate!)
+        
+        // 將 placeamark的型別改成 MKMapItem，並命名為targetItem
+        let targetItem = MKMapItem(placemark: targetPlacemark)
+        targetItem.name = didSelectStationName
+        
+        // 取得使用者的座標
+        let userMapItem = MKMapItem.forCurrentLocation()
+        
+        // Build the routes from userMapItem to targetItem
+        let routes = [userMapItem, targetItem]
+        
+        // Default setting for user by using walking to the destination.
+        MKMapItem.openMaps(with: routes, launchOptions: [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeWalking])
+    }
+
+    func favoriteButtonDidTap() {
+        print("DEBUG PRINT: InfoView's favoriteBtn")
+        
+    }
     
     // CustomView
     let informationView: InformationView = InformationView()
     
     var mapView: MKMapView = MKMapView ()
     var scaleView: MKScaleView = MKScaleView()
+    
     let navigateBtn: UIButton = UIButton(type: .system)
     
-    let locationManager = CLLocationManager()        // Create the location manager.
-    var currentCoordinates: CLLocationCoordinate2D?  // Get the current coordinate.
-    var currentUserLocation: CLLocation?             // Get the current location.
+    // Create the location manager.
+    let locationManager = CLLocationManager()
+    
+    // Get the current coordinate.
+    var currentCoordinates: CLLocationCoordinate2D?
+    
+    // Get the current location.
+    var currentUserLocation: CLLocation?
+    
+    // Stored the selected location.
+    var didSelectLocation: CLLocationCoordinate2D?
+    var didSelectStationName: String?
     
     var selectedStation: Youbike?
     var coordinates = [Youbike]()
@@ -33,7 +71,6 @@ class MapViewController: UIViewController {
     let searchStackView: UIStackView = UIStackView()
     
     var slideInTransitioningDelegate: UIViewControllerTransitioningDelegate?
-    
     var navigateBtnBottomConstraint: NSLayoutConstraint!
     
     var favoriteBtnCount: Int = 0
@@ -76,7 +113,7 @@ class MapViewController: UIViewController {
     // MARK: - didReceiveMemoryWarning
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        print("didReceiveMemoryWarning")
+        print("DEBUG PRINT: did Receive Memory Warning")
     }
     
     func configureScaleView () {
@@ -150,6 +187,9 @@ class MapViewController: UIViewController {
         setNavigateButton ()
         configureSearchStackView()
         constraintsSearchView()
+        
+        // Add informationView delegate.
+        informationView.delegate = self
     }
     
     // MARK: - Set up UITextField
@@ -225,6 +265,7 @@ class MapViewController: UIViewController {
     }
     
     // MARK: - Tap Gesture actions:
+    // Tap the view, and move the button when the informationView disppear.
     @objc func tappedTheView (_ sender: UITapGestureRecognizer) {
         informationView.isHidden = true
         searchStackView.isHidden = true
@@ -303,13 +344,11 @@ class MapViewController: UIViewController {
         ), latitudinalMeters: 250, longitudinalMeters: 250)
     }
     
-    
     func checkLocationAuthorization () {
         guard locationManager == locationManager,
               let location = locationManager.location else { return }
         
         switch locationManager.authorizationStatus {
-            
         case .authorizedAlways, .authorizedWhenInUse:
             let region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 750, longitudinalMeters: 750)
             mapView.setRegion(region, animated: true)
@@ -389,17 +428,17 @@ extension MapViewController: MKMapViewDelegate {
         
         // Station's location.
         let stationLocation = CLLocation(latitude: youbikeAnnotation.coordinate.latitude, longitude: youbikeAnnotation.coordinate.longitude)
-        
+                
         // 假设你有一个名为 currentUserLocation 的 CLLocation 实例，存储了用户的当前位置
         if let currentUserLocation = self.currentUserLocation {
             let distance = currentUserLocation.distance(from: stationLocation)
-            print("目前距離：\(distance) 公尺")
+            print("目前距離：\(Int(distance))公尺")
             
             informationView.distanceLabel.text = "距離\(Int(distance))公尺"
         }
         
-        let title: String = youbikeAnnotation.stationData.sna.replacingOccurrences(of: "YouBike2.0_", with: "")
         
+        let title: String = youbikeAnnotation.stationData.sna.replacingOccurrences(of: "YouBike2.0_", with: "")
         let bikeQtyLabel: String    = "\(youbikeAnnotation.stationData.sbi)"
         let dockQtyLabel: String    = "\(youbikeAnnotation.stationData.bemp)"
         let addressLabel: String    = youbikeAnnotation.stationData.ar
@@ -418,6 +457,14 @@ extension MapViewController: MKMapViewDelegate {
         
         // Update the navigationBtn from previous setting.
         navigateBtnBottomConstraint.constant = -120
+        
+        
+        // For navigate the user by routeButtonTapped.
+        let didSelectLat = youbikeAnnotation.coordinate.latitude
+        let didSelectLng = youbikeAnnotation.coordinate.longitude
+        
+        didSelectLocation = CLLocationCoordinate2D(latitude: didSelectLat, longitude: didSelectLng)
+        didSelectStationName = youbikeAnnotation.stationData.sna.replacingOccurrences(of: "_", with: "")
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -456,6 +503,7 @@ extension MapViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error.localizedDescription)
+        print("error localized Description")
     }
     
 }
