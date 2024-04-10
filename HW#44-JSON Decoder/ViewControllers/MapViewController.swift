@@ -12,6 +12,8 @@ import CoreData
 
 class MapViewController: UIViewController, InformationViewDelegate {
     
+    // MARK: - Import the InfoView Delegate:
+    // InformationView Delegate
     func routeBtnDidTap() {
         print("DEBUG PRINT: InfoView's RouteBtn")
 
@@ -35,10 +37,16 @@ class MapViewController: UIViewController, InformationViewDelegate {
     }
 
     func favoriteButtonDidTap() {
-        print("DEBUG PRINT: InfoView's favoriteBtn")
-        
+        print("DEBUG PRINT: InfoView's listClipboardBtn")
+        if let youbikeAnnotation = selectedPlaces as? YoubikeAnnotation {
+            savePlaceToCoreData(annotation: youbikeAnnotation)
+        } else {
+            print("轉型失敗: selectedPlaces 不是 YoubikeAnnotation")
+        }
     }
+
     
+    // MARK: - Declare the instance & variable
     // CustomView
     let informationView: InformationView = InformationView()
     
@@ -72,9 +80,11 @@ class MapViewController: UIViewController, InformationViewDelegate {
     
     var slideInTransitioningDelegate: UIViewControllerTransitioningDelegate?
     var navigateBtnBottomConstraint: NSLayoutConstraint!
-    
-    var favoriteBtnCount: Int = 0
-    
+
+    var favoriteBtnCount: Int = 0     // Use it for the btn count to observe changes of btn.
+    var selectedPlaces: MKAnnotation? // Create a variable for selected places.
+
+    // Custom UI.
     var listBtn: UIButton = {
         let listBtn: UIButton = UIButton(type: .system)
         var config = UIButton.Configuration.plain()
@@ -86,15 +96,15 @@ class MapViewController: UIViewController, InformationViewDelegate {
         return listBtn
     } ()
     
-    var favoriteBtn: UIButton = {
-        let favoriteBtn: UIButton = UIButton(type: .system)
+    var listClipboardBtn: UIButton = {
+        let listClipboardBtn: UIButton = UIButton(type: .system)
         var config = UIButton.Configuration.plain()
         config.baseForegroundColor = Colors.lightGray
         config.imagePlacement = .all
-        config.image = Images.starFill
+        config.image = Images.listClipboard
         config.automaticallyUpdateForSelection = true
-        favoriteBtn.configuration = config
-        return favoriteBtn
+        listClipboardBtn.configuration = config
+        return listClipboardBtn
     } ()
     
     
@@ -103,10 +113,12 @@ class MapViewController: UIViewController, InformationViewDelegate {
         super.viewDidLoad()
         
         setupUI()
-        fetchYoubikeData() // Fetch Youbike data.
-        addTargets()       // Add targets include btns, textFields.
-        tapTheView ()      // Tap the view.
-        configureScaleView()
+        fetchYoubikeData()   // Fetch Youbike data.
+        addTargets()         // Add targets include btns, textFields.
+        tapTheView ()        // Tap the view.
+        configureScaleView() // Add the scale view in the mapView.
+        
+        print("Log in viewDidLoad")
         
     }
     
@@ -139,7 +151,7 @@ class MapViewController: UIViewController, InformationViewDelegate {
     
     // MARK: - Add Targets
     func addTargets () {
-        favoriteBtn.addTarget(self, action: #selector(favoriteBtnTapped), for: .touchUpInside)
+        listClipboardBtn.addTarget(self, action: #selector(listClipboardBtnTapped), for: .touchUpInside)
         listBtn.addTarget(self, action: #selector(listBtnTapped), for: .touchUpInside)
         searchTextField.addTarget(self, action: #selector(searchHandle), for: .editingChanged)
     }
@@ -210,8 +222,8 @@ class MapViewController: UIViewController, InformationViewDelegate {
     // MARK: SearchStackView
     func configureSearchStackView () {
         searchTextField.widthAnchor.constraint(equalToConstant: 250).isActive = true
-        favoriteBtn.widthAnchor.constraint(equalToConstant: 40).isActive = true
-        favoriteBtn.heightAnchor.constraint(equalTo: favoriteBtn.widthAnchor, multiplier: 1).isActive = true
+        listClipboardBtn.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        listClipboardBtn.heightAnchor.constraint(equalTo: listClipboardBtn.widthAnchor, multiplier: 1).isActive = true
         listBtn.widthAnchor.constraint(equalToConstant: 40).isActive = true
         listBtn.heightAnchor.constraint(equalTo: listBtn.widthAnchor, multiplier: 1).isActive = true
         
@@ -221,7 +233,7 @@ class MapViewController: UIViewController, InformationViewDelegate {
         searchStackView.spacing = 8
         searchStackView.addArrangedSubview(listBtn)
         searchStackView.addArrangedSubview(searchTextField)
-        searchStackView.addArrangedSubview(favoriteBtn)
+        searchStackView.addArrangedSubview(listClipboardBtn)
     }
     
     // MARK: - Set up navigationBtn
@@ -288,8 +300,11 @@ class MapViewController: UIViewController, InformationViewDelegate {
         setupLocationManager()
     }
     
-    @objc func favoriteBtnTapped (_ sender: UIButton) {
-        print("DEBUG PRINT: favoriteBtnTapped")
+    @objc func listClipboardBtnTapped (_ sender: UIButton) {
+        print("DEBUG PRINT: listClipboardBtnTapped")
+        let favoriteListVC = FavoriteListViewController()
+        favoriteListVC.modalPresentationStyle = .overFullScreen
+        present(favoriteListVC, animated: true)
     }
     
     @objc func listBtnTapped (_ sender: UIButton) {
@@ -414,8 +429,26 @@ class MapViewController: UIViewController, InformationViewDelegate {
         ])
     }
     
+    // MARK: - Call Location Manager:
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         print("DEBUG PRINT:  locationManager DidChangeAuthorization")
+    }
+    
+    func savePlaceToCoreData(annotation: YoubikeAnnotation) {
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        
+        let favoritePlace = FavoriteListData(context: context)
+        favoritePlace.stationName = annotation.title ?? "" // stationName in YoubikeAnnotation.
+        favoritePlace.bikeQty     = String(annotation.stationData.sbi)  // 車輛數
+        favoritePlace.dockQty     = String(annotation.stationData.bemp) // 車輛數
+        favoritePlace.address     = annotation.stationData.ar           // 地址
+        
+        do {
+            try context.save()
+            print("Context saved")
+        } catch {
+            print("Failed to save place")
+        }
     }
     
 }
@@ -465,6 +498,10 @@ extension MapViewController: MKMapViewDelegate {
         
         didSelectLocation = CLLocationCoordinate2D(latitude: didSelectLat, longitude: didSelectLng)
         didSelectStationName = youbikeAnnotation.stationData.sna.replacingOccurrences(of: "_", with: "")
+        
+        // Stored the selected data for annotation.
+        self.selectedPlaces = youbikeAnnotation
+        
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
