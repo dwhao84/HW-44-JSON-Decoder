@@ -15,6 +15,7 @@ class FavoriteListViewController: UIViewController {
     
     // Save context by using Core data.
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    let request: NSFetchRequest<FavoriteListData> = FavoriteListData.fetchRequest()
     
     private var modals = [FavoriteListData]()
     
@@ -30,10 +31,20 @@ class FavoriteListViewController: UIViewController {
         print("didReceiveMemoryWarning")
     }
     
+    func loadFavoritePlaces () {
+        do {
+            modals = try context.fetch(request)
+            favoriteListTableView.reloadData()
+        } catch {
+            print("Unable to fetch data.")
+        }
+    }
+    
     func setupUI () {
         configureFavoriteListTableView ()
         constraintsTableView()
         setupRefreshControl()
+        loadFavoritePlaces()
     }
     
     // MARK: - Refresh Control
@@ -68,64 +79,21 @@ class FavoriteListViewController: UIViewController {
             favoriteListTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
-    
-    // MARK: - Core data
-    
-    func getAllItems () {
-        do {
-            modals = try context.fetch(FavoriteListData.fetchRequest())
-            DispatchQueue.main.async {
-                self.favoriteListTableView.reloadData()
-            }
-        } catch {
-            print(error)
-        }
-    }
-    
-    func createItem(address: String, bikeQty: String, dockQty: String) {
-        let newItem = FavoriteListData(context: context)
-        newItem.address = address
-        newItem.bikeQty = bikeQty
-        newItem.dockQty = dockQty
-        
-        do {
-            try context.save()
-        } catch {
-            print(error)
-        }
-    }
-    
-    func deleteItem(item: FavoriteListData) {
-        do {
-            try context.save()
-        } catch {
-            print(error)
-        }
-    }
-    
-    func updateItem(item: FavoriteListData, newName: String) {
-        item.stationName = String()
-        item.dockQty = String()
-        item.bikeQty = String()
-        item.address = String()
-        
-        do {
-            try context.save()
-        } catch {
-            print(error)
-        }
-    }
 }
 
 // MARK: - Extension:
 extension FavoriteListViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        1
+        modals.count - 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: FavoriteListTableViewCell.identifier, for: indexPath)
-//        let model = modals[indexPath.row]
+        let listData = modals[indexPath.row]
+        
+        cell.selectionStyle = .default
+        cell.textLabel?.text = listData.stationName
+        cell.detailTextLabel?.text = listData.address
         return cell
     }
     
