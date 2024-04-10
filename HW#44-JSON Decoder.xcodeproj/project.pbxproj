@@ -12,7 +12,6 @@
 		D342123D2B5596AB00223A71 /* YouBikeInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D342123B2B5596AB00223A71 /* YouBikeInfoTableViewCell.swift */; };
 		D342123E2B5596AB00223A71 /* YouBikeInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D342123C2B5596AB00223A71 /* YouBikeInfoTableViewCell.xib */; };
 		D358A5D12B54E6B400A6AB1E /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = D358A5D02B54E6B400A6AB1E /* Model.swift */; };
-		D39AE7722BB477A8003067D1 /* MapPinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39AE7712BB477A8003067D1 /* MapPinView.swift */; };
 		D3A011BE2BBF030E00A95CF7 /* SideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A011BD2BBF030E00A95CF7 /* SideViewController.swift */; };
 		D3A011C02BBF0BE000A95CF7 /* FavoriteListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A011BF2BBF0BE000A95CF7 /* FavoriteListViewController.swift */; };
 		D3B703A52BB075F200F6BB72 /* YoubikeAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B703A42BB075F200F6BB72 /* YoubikeAnnotation.swift */; };
@@ -65,7 +64,6 @@
 		D342123B2B5596AB00223A71 /* YouBikeInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouBikeInfoTableViewCell.swift; sourceTree = "<group>"; };
 		D342123C2B5596AB00223A71 /* YouBikeInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = YouBikeInfoTableViewCell.xib; sourceTree = "<group>"; };
 		D358A5D02B54E6B400A6AB1E /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
-		D39AE7712BB477A8003067D1 /* MapPinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MapPinView.swift; path = "HW#44-JSON Decoder/Views/MapPinView.swift"; sourceTree = SOURCE_ROOT; };
 		D3A011BD2BBF030E00A95CF7 /* SideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideViewController.swift; sourceTree = "<group>"; };
 		D3A011BF2BBF0BE000A95CF7 /* FavoriteListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteListViewController.swift; sourceTree = "<group>"; };
 		D3B703A42BB075F200F6BB72 /* YoubikeAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoubikeAnnotation.swift; sourceTree = "<group>"; };
@@ -175,7 +173,6 @@
 		D3DE0BCA2BADEDC600378441 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				D39AE7712BB477A8003067D1 /* MapPinView.swift */,
 				D3B8DF6D2BA7478900B381AF /* InformationView.swift */,
 				D3FF92202BC05815001141C7 /* PersonalView.swift */,
 			);
@@ -430,7 +427,6 @@
 				D3FF922B2BC1A51B001141C7 /* FavoriteListDataModel.xcdatamodeld in Sources */,
 				D3B8DF6E2BA7478900B381AF /* InformationView.swift in Sources */,
 				D3FF92212BC05815001141C7 /* PersonalView.swift in Sources */,
-				D39AE7722BB477A8003067D1 /* MapPinView.swift in Sources */,
 				D3B703A72BB1DFBB00F6BB72 /* YoubikeAnnotationView.swift in Sources */,
 				D3FF92252BC16482001141C7 /* PersonalTableViewHeadView.swift in Sources */,
 				D3FF92342BC2C15F001141C7 /* FavoriteListTableViewCell.swift in Sources */,

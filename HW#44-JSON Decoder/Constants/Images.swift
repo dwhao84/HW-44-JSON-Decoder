@@ -34,4 +34,6 @@ struct Images {
     static let bikeWithCycle : UIImage        = UIImage(systemName: "bicycle.circle")!
     static let parkingsignWithCycle : UIImage = UIImage(systemName: "parkingsign.circle")!
     
+    static let listClipboard : UIImage = UIImage(systemName: "list.clipboard")!
+    
 }
