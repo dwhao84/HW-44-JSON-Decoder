@@ -18,13 +18,13 @@ class MapViewController: UIViewController, InformationViewDelegate {
         print("DEBUG PRINT: InfoView's RouteBtn")
 
         // 取得目的地的座標
-        let targetCoordinate = didSelectLocation
+        let targetCoordinate = didSelectedLocation
         // 取得目的地的座標後，將座標改成placeamark的型別.
         let targetPlacemark = MKPlacemark(coordinate: targetCoordinate!)
         
         // 將 placeamark的型別改成 MKMapItem，並命名為targetItem
         let targetItem = MKMapItem(placemark: targetPlacemark)
-        targetItem.name = didSelectStationName
+        targetItem.name = didSelectedStationName
         
         // 取得使用者的座標
         let userMapItem = MKMapItem.forCurrentLocation()
@@ -38,11 +38,6 @@ class MapViewController: UIViewController, InformationViewDelegate {
 
     func favoriteButtonDidTap() {
         print("DEBUG PRINT: InfoView's listClipboardBtn")
-        if let youbikeAnnotation = selectedPlaces as? YoubikeAnnotation {
-            savePlaceToCoreData(annotation: youbikeAnnotation)
-        } else {
-            print("轉型失敗: selectedPlaces 不是 YoubikeAnnotation")
-        }
     }
 
     
@@ -65,8 +60,8 @@ class MapViewController: UIViewController, InformationViewDelegate {
     var currentUserLocation: CLLocation?
     
     // Stored the selected location.
-    var didSelectLocation: CLLocationCoordinate2D?
-    var didSelectStationName: String?
+    var didSelectedLocation: CLLocationCoordinate2D?
+    var didSelectedStationName: String?
     
     var selectedStation: Youbike?
     var coordinates = [Youbike]()
@@ -118,7 +113,7 @@ class MapViewController: UIViewController, InformationViewDelegate {
         tapTheView ()        // Tap the view.
         configureScaleView() // Add the scale view in the mapView.
         
-        print("Log in viewDidLoad")
+        print("mapVC viewDidLoad")
         
     }
     
@@ -153,7 +148,6 @@ class MapViewController: UIViewController, InformationViewDelegate {
     func addTargets () {
         listClipboardBtn.addTarget(self, action: #selector(listClipboardBtnTapped), for: .touchUpInside)
         listBtn.addTarget(self, action: #selector(listBtnTapped), for: .touchUpInside)
-        searchTextField.addTarget(self, action: #selector(searchHandle), for: .editingChanged)
     }
     
     // MARK: - fetchYoubikeData
@@ -304,7 +298,7 @@ class MapViewController: UIViewController, InformationViewDelegate {
         print("DEBUG PRINT: listClipboardBtnTapped")
         let favoriteListVC = FavoriteListViewController()
         favoriteListVC.modalPresentationStyle = .overFullScreen
-        present(favoriteListVC, animated: true)
+        self.navigationController?.pushViewController(favoriteListVC, animated: true)
     }
     
     @objc func listBtnTapped (_ sender: UIButton) {
@@ -315,17 +309,6 @@ class MapViewController: UIViewController, InformationViewDelegate {
         slideInTransitioningDelegate = SlideInTransitioningDelegate()
         sideVC.transitioningDelegate = slideInTransitioningDelegate
         self.present(sideVC, animated: true, completion: nil)
-    }
-    
-    @objc func searchHandle (_ sender: UITextField) {
-        print("DEBUG PRINT: searchHandle")
-        guard let searchText = sender.text?.lowercased(), !searchText.isEmpty else {
-            filterStations = allStationNames
-            return
-        }
-        filterStations = allStationNames.filter {
-            $0.sna.lowercased().contains(searchText)
-        }
     }
     
     // MARK: - Set up mapView:
@@ -457,51 +440,52 @@ class MapViewController: UIViewController, InformationViewDelegate {
 extension MapViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         
-        guard let youbikeAnnotation = view.annotation as? YoubikeAnnotation else { return }
-        
-        // Station's location.
-        let stationLocation = CLLocation(latitude: youbikeAnnotation.coordinate.latitude, longitude: youbikeAnnotation.coordinate.longitude)
-                
-        // 假设你有一个名为 currentUserLocation 的 CLLocation 实例，存储了用户的当前位置
-        if let currentUserLocation = self.currentUserLocation {
-            let distance = currentUserLocation.distance(from: stationLocation)
-            print("目前距離：\(Int(distance))公尺")
+        if let youbikeAnnotation = view.annotation as? YoubikeAnnotation {
             
-            informationView.distanceLabel.text = "距離\(Int(distance))公尺"
+            savePlaceToCoreData(annotation: youbikeAnnotation)
+            
+            // Station's location.
+            let stationLocation = CLLocation(latitude: youbikeAnnotation.coordinate.latitude, longitude: youbikeAnnotation.coordinate.longitude)
+            
+            // 假设你有一个名为 currentUserLocation 的 CLLocation 实例，存储了用户的当前位置
+            if let currentUserLocation = self.currentUserLocation {
+                let distance = currentUserLocation.distance(from: stationLocation)
+                print("目前距離：\(Int(distance))公尺")
+                informationView.distanceLabel.text = "距離\(Int(distance))公尺"
+            }
+            
+            
+            let title: String = youbikeAnnotation.stationData.sna.replacingOccurrences(of: "YouBike2.0_", with: "")
+            let bikeQtyLabel: String    = "\(youbikeAnnotation.stationData.sbi)"
+            let dockQtyLabel: String    = "\(youbikeAnnotation.stationData.bemp)"
+            let addressLabel: String    = youbikeAnnotation.stationData.ar
+            let updateTimeLabel: String = youbikeAnnotation.stationData.updateTime
+            
+            // Update your custom view with the data from the selected annotation
+            informationView.stationNameLabel.text = title
+            informationView.bikeQtyLabel.text     = bikeQtyLabel
+            informationView.dockQtyLabel.text     = dockQtyLabel
+            informationView.addressLabel.text     = addressLabel
+            informationView.updateTimeLabel.text  = updateTimeLabel
+            
+            informationView.isHidden = false
+            navigateBtn.isHidden     = false
+            searchStackView.isHidden = false
+            
+            // Update the navigationBtn from previous setting.
+            navigateBtnBottomConstraint.constant = -120
+            
+            
+            // For navigate the user by routeButtonTapped.
+            let didSelectedtLat = youbikeAnnotation.coordinate.latitude
+            let didSelectedLng = youbikeAnnotation.coordinate.longitude
+            
+            didSelectedLocation = CLLocationCoordinate2D(latitude: didSelectedtLat, longitude: didSelectedLng)
+            didSelectedStationName = youbikeAnnotation.stationData.sna.replacingOccurrences(of: "_", with: "")
+            
+            // Stored the selected data for annotation.
+            self.selectedPlaces = youbikeAnnotation
         }
-        
-        
-        let title: String = youbikeAnnotation.stationData.sna.replacingOccurrences(of: "YouBike2.0_", with: "")
-        let bikeQtyLabel: String    = "\(youbikeAnnotation.stationData.sbi)"
-        let dockQtyLabel: String    = "\(youbikeAnnotation.stationData.bemp)"
-        let addressLabel: String    = youbikeAnnotation.stationData.ar
-        let updateTimeLabel: String = youbikeAnnotation.stationData.updateTime
-        
-        // Update your custom view with the data from the selected annotation
-        informationView.stationNameLabel.text = title
-        informationView.bikeQtyLabel.text     = bikeQtyLabel
-        informationView.dockQtyLabel.text     = dockQtyLabel
-        informationView.addressLabel.text     = addressLabel
-        informationView.updateTimeLabel.text  = updateTimeLabel
-        
-        informationView.isHidden = false
-        navigateBtn.isHidden     = false
-        searchStackView.isHidden = false
-        
-        // Update the navigationBtn from previous setting.
-        navigateBtnBottomConstraint.constant = -120
-        
-        
-        // For navigate the user by routeButtonTapped.
-        let didSelectLat = youbikeAnnotation.coordinate.latitude
-        let didSelectLng = youbikeAnnotation.coordinate.longitude
-        
-        didSelectLocation = CLLocationCoordinate2D(latitude: didSelectLat, longitude: didSelectLng)
-        didSelectStationName = youbikeAnnotation.stationData.sna.replacingOccurrences(of: "_", with: "")
-        
-        // Stored the selected data for annotation.
-        self.selectedPlaces = youbikeAnnotation
-        
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
