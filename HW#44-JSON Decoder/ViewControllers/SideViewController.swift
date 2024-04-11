@@ -86,6 +86,7 @@ class SideViewController: UIViewController {
     
     @objc func tappedTheView () {
         self.dismiss(animated: true)
+        print("DEBUG PRINT: tappedTheView")
     }
 }
 
