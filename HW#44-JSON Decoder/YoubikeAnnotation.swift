@@ -13,12 +13,14 @@ class YoubikeAnnotation: NSObject, MKAnnotation {
     var coordinate: CLLocationCoordinate2D
     var image: UIImage?
     var stationData: Youbike
+    var address: String?
 
     init(stationData: Youbike) {
-        self.title = stationData.sna.replacingOccurrences(of: "YouBike2.0_", with: "")
-        self.subtitle = "剩餘車輛: \(stationData.sbi) / 剩餘車位: \(stationData.bemp)"
-        self.coordinate = CLLocationCoordinate2D(latitude: stationData.lat, longitude: stationData.lng)
+        self.title       = stationData.sna.replacingOccurrences(of: "YouBike2.0_", with: "")
+        self.subtitle    = "剩餘車輛: \(stationData.sbi) / 剩餘車位: \(stationData.bemp)"
+        self.coordinate  = CLLocationCoordinate2D(latitude: stationData.lat, longitude: stationData.lng)
         self.stationData = stationData
+        self.address     = stationData.ar
         super.init()
     }
 }
