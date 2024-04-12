@@ -16,7 +16,7 @@ class MapViewController: UIViewController, InformationViewDelegate {
     // InformationView Delegate
     func routeBtnDidTap() {
         print("DEBUG PRINT: InfoView's RouteBtn")
-
+        
         // 取得目的地的座標
         let targetCoordinate = didSelectedLocation
         // 取得目的地的座標後，將座標改成placeamark的型別.
@@ -35,11 +35,13 @@ class MapViewController: UIViewController, InformationViewDelegate {
         // Default setting for user by using walking to the destination.
         MKMapItem.openMaps(with: routes, launchOptions: [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeWalking])
     }
-
+    
     func favoriteButtonDidTap() {
         print("DEBUG PRINT: InfoView's listClipboardBtn")
+        
+        savePlaceToCoreData(annotation: selectedPlaces as! YoubikeAnnotation)
     }
-
+    
     
     // MARK: - Declare the instance & variable
     // CustomView
@@ -75,10 +77,10 @@ class MapViewController: UIViewController, InformationViewDelegate {
     
     var slideInTransitioningDelegate: UIViewControllerTransitioningDelegate?
     var navigateBtnBottomConstraint: NSLayoutConstraint!
-
+    
     var favoriteBtnCount: Int = 0     // Use it for the btn count to observe changes of btn.
     var selectedPlaces: MKAnnotation? // Create a variable for selected places.
-
+    
     // Custom UI.
     var listBtn: UIButton = {
         let listBtn: UIButton = UIButton(type: .system)
@@ -277,6 +279,7 @@ class MapViewController: UIViewController, InformationViewDelegate {
         searchStackView.isHidden = true
         navigateBtn.isHidden     = false
         moveButton()
+        searchTextField.resignFirstResponder()
     }
     
     func moveButton() {
@@ -342,35 +345,35 @@ class MapViewController: UIViewController, InformationViewDelegate {
         ), latitudinalMeters: 250, longitudinalMeters: 250)
     }
     
-    func checkLocationAuthorization () {
-        guard locationManager == locationManager,
-              let location = locationManager.location else { return }
-        
-        switch locationManager.authorizationStatus {
-        case .authorizedAlways, .authorizedWhenInUse:
-            let region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 750, longitudinalMeters: 750)
-            mapView.setRegion(region, animated: true)
-        case .denied:
-            print("DEBUG PRINT: Location services has been denied")
-        case .notDetermined, .restricted:
-            print("DEBUG PRINT: Location cannot be determined or restricted.")
-        @unknown default:
-            print("DEBUG PRINT: Unknown error. Unable to get location.")
-        }
-    }
+//    func checkLocationAuthorization () {
+//        guard locationManager == locationManager,
+//              let location = locationManager.location else { return }
+//        
+//        switch locationManager.authorizationStatus {
+//        case .authorizedAlways, .authorizedWhenInUse:
+//            let region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 750, longitudinalMeters: 750)
+//            mapView.setRegion(region, animated: true)
+//        case .denied:
+//            print("DEBUG PRINT: Location services has been denied")
+//        case .notDetermined, .restricted:
+//            print("DEBUG PRINT: Location cannot be determined or restricted.")
+//        @unknown default:
+//            print("DEBUG PRINT: Unknown error. Unable to get location.")
+//        }
+//    }
     
-    private func findNearByPlaces(by query: String) {
-        mapView.removeAnnotation(mapView.annotations as! MKAnnotation)
-        let request = MKLocalSearch.Request()
-        request.naturalLanguageQuery = query
-        request.region = mapView.region
-        
-        let search = MKLocalSearch(request: request)
-        search.start { response, error in
-            guard let response = response, error == nil else { return }
-            print(response.mapItems)
-        }
-    }
+//    private func findNearByPlaces(by query: String) {
+//        mapView.removeAnnotation(mapView.annotations as! MKAnnotation)
+//        let request = MKLocalSearch.Request()
+//        request.naturalLanguageQuery = query
+//        request.region = mapView.region
+//        
+//        let search = MKLocalSearch(request: request)
+//        search.start { response, error in
+//            guard let response = response, error == nil else { return }
+//            print(response.mapItems)
+//        }
+//    }
     
     // MARK: - Constraints View:
     func constraintMapView () {
@@ -423,7 +426,7 @@ class MapViewController: UIViewController, InformationViewDelegate {
         let favoritePlace = FavoriteListData(context: context)
         favoritePlace.stationName = annotation.title ?? "" // stationName in YoubikeAnnotation.
         favoritePlace.bikeQty     = String(annotation.stationData.sbi)  // 車輛數
-        favoritePlace.dockQty     = String(annotation.stationData.bemp) // 車輛數
+        favoritePlace.dockQty     = String(annotation.stationData.bemp) // 空位站數
         favoritePlace.address     = annotation.stationData.ar           // 地址
         
         do {
@@ -440,20 +443,18 @@ class MapViewController: UIViewController, InformationViewDelegate {
 extension MapViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         
+        print("mapView didSelect")
+        
         if let youbikeAnnotation = view.annotation as? YoubikeAnnotation {
-            
-            savePlaceToCoreData(annotation: youbikeAnnotation)
-            
             // Station's location.
             let stationLocation = CLLocation(latitude: youbikeAnnotation.coordinate.latitude, longitude: youbikeAnnotation.coordinate.longitude)
             
-            // 假设你有一个名为 currentUserLocation 的 CLLocation 实例，存储了用户的当前位置
+            // 用currentUserLocation去存取currentUserLocation.
             if let currentUserLocation = self.currentUserLocation {
                 let distance = currentUserLocation.distance(from: stationLocation)
                 print("目前距離：\(Int(distance))公尺")
                 informationView.distanceLabel.text = "距離\(Int(distance))公尺"
             }
-            
             
             let title: String = youbikeAnnotation.stationData.sna.replacingOccurrences(of: "YouBike2.0_", with: "")
             let bikeQtyLabel: String    = "\(youbikeAnnotation.stationData.sbi)"
@@ -468,6 +469,7 @@ extension MapViewController: MKMapViewDelegate {
             informationView.addressLabel.text     = addressLabel
             informationView.updateTimeLabel.text  = updateTimeLabel
             
+            // Hide the components.
             informationView.isHidden = false
             navigateBtn.isHidden     = false
             searchStackView.isHidden = false
@@ -475,16 +477,23 @@ extension MapViewController: MKMapViewDelegate {
             // Update the navigationBtn from previous setting.
             navigateBtnBottomConstraint.constant = -120
             
-            
             // For navigate the user by routeButtonTapped.
             let didSelectedtLat = youbikeAnnotation.coordinate.latitude
-            let didSelectedLng = youbikeAnnotation.coordinate.longitude
+            let didSelectedLng  = youbikeAnnotation.coordinate.longitude
             
             didSelectedLocation = CLLocationCoordinate2D(latitude: didSelectedtLat, longitude: didSelectedLng)
             didSelectedStationName = youbikeAnnotation.stationData.sna.replacingOccurrences(of: "_", with: "")
             
             // Stored the selected data for annotation.
             self.selectedPlaces = youbikeAnnotation
+            
+            print("""
+             DEBUG PRINT:
+             didSelect annotation:
+             didSelectedLat: \(didSelectedtLat),
+             didSelectedLng: \(didSelectedLng),
+             stationName:    \(youbikeAnnotation.stationData.sna)
+             """)
         }
     }
     
@@ -514,8 +523,11 @@ extension MapViewController: MKMapViewDelegate {
 extension MapViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
-        currentUserLocation = locations.last              // Get the latest coordinate from location.
-        currentCoordinates  = locations.first?.coordinate // Get the latest coordinate in locations of array.
+        // Get the latest coordinate from location.
+        currentUserLocation = locations.last
+        
+        // Get the latest coordinate in locations of array.
+        currentCoordinates  = locations.first?.coordinate
         
         // Set the current coordinates into the mapView
         mapView.setRegion(MKCoordinateRegion(center: CLLocationCoordinate2DMake(currentCoordinates!.latitude, currentCoordinates!.longitude), latitudinalMeters: 250, longitudinalMeters: 250), animated: true)
@@ -524,7 +536,6 @@ extension MapViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error.localizedDescription)
-        print("error localized Description")
     }
     
 }
@@ -533,7 +544,8 @@ extension MapViewController: CLLocationManagerDelegate {
 extension MapViewController: UITextFieldDelegate {
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        print("DEBUG PRINT: Start editing")
+        textField.becomeFirstResponder()
+        print("DEBUG PRINT: textFieldShouldBeginEditing")
         return true
     }
     
@@ -541,6 +553,11 @@ extension MapViewController: UITextFieldDelegate {
         textField.resignFirstResponder()
         print("DEBUG PRINT: textFieldShouldReturn")
         return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.resignFirstResponder()
+        print("DEBUG PRINT: textFieldDidEndEditing")
     }
 }
 
