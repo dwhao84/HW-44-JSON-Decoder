@@ -10,7 +10,6 @@ import UIKit
 // Protocol definition
 protocol InformationViewDelegate: AnyObject {
     func favoriteButtonDidTap()
-    
     func routeBtnDidTap ()
 }
 
@@ -35,8 +34,7 @@ class InformationView: UIView {
     var distanceLabel: UILabel      = UILabel()
     var updateTimeLabel: UILabel    = UILabel()
     
-    let routeButton: RouteButton    = RouteButton(type: .system)
-    let favoriteButton: FavoriteButton = FavoriteButton(type: .system)
+//    let routeButton: RouteButton    = RouteButton(type: .system)
     
     let bikeStackView: UIStackView = UIStackView()
     let dockStackView: UIStackView = UIStackView()
@@ -46,11 +44,50 @@ class InformationView: UIView {
     let buttonStackView: UIStackView = UIStackView()
     let labelsStackView: UIStackView = UIStackView()
     
-    
     let contentStackView: UIStackView = UIStackView()
     
-    var routeBtnCount: Int = 0
-    var favoriteBtnCount: Int = 0
+    var favoriteButton: UIButton =  {
+        var title = AttributedString("Favorite")
+        title.font = UIFont.boldSystemFont(ofSize: 12)
+        var config = UIButton.Configuration.plain()
+        config.image = Images.star
+        
+        let button = UIButton(type: .system)
+        button.tintColor = .systemBlue
+        button.configuration = config
+        button.configurationUpdateHandler = { button in
+            var config = button.configuration
+            config?.image = button.isHighlighted ? Images.star : Images.starFill
+            button.alpha = button.isHighlighted ? 0.5 : 1
+            button.configuration = config
+        }
+        button.changesSelectionAsPrimaryAction = true
+        return button
+    }()
+    
+    var routeButton: UIButton = {
+        var title = AttributedString("Route")
+        title.font = UIFont.boldSystemFont(ofSize: 12)
+        
+        var config                        = UIButton.Configuration.filled()
+        config.cornerStyle                = .large
+        config.attributedTitle            = title
+        config.image                      = Images.arrowTurnUpRight
+        config.imagePlacement             = .leading
+        config.imagePadding               = 5
+        config.buttonSize                 = UIButton.Configuration.Size.mini
+        config.baseForegroundColor        = Colors.darkGray
+        config.background.backgroundColor = Colors.white
+        
+        let button: UIButton = UIButton(type: .system)
+        button.configurationUpdateHandler = { button in
+            button.alpha = button.isHighlighted ? 0.5 : 1
+            print("isisHighlighted")
+        }
+        button.changesSelectionAsPrimaryAction = true
+        return button
+    }()
+    
     
     // MARK: - Life Cycle
     override init(frame: CGRect) {
@@ -286,41 +323,14 @@ class InformationView: UIView {
         contentStackView.addArrangedSubview(labelsStackView)
     }
     
-    func showFavoriteBtnChange () {
-        var title = AttributedString("Favorite")
-        title.font = UIFont.boldSystemFont(ofSize: 12)
-        var config                        = UIButton.Configuration.filled()
-        config.cornerStyle                = .large
-        config.attributedTitle            = title
-        config.image                      = Images.starFill
-        config.imagePlacement             = .leading
-        config.imagePadding               = 2
-        config.buttonSize                 = UIButton.Configuration.Size.mini
-        config.baseForegroundColor        = Colors.white
-        config.background.backgroundColor = Colors.systemYellow
-        favoriteButton.configuration = config
-    }
-    
     // MARK: - Actions:
     @objc func routeBtnTapped (_ sender: UIButton) {
         print("DEBUG PRINT: routeBtnTapped")
-        routeBtnCount += 1
         delegate?.routeBtnDidTap()
     }
     
     @objc func favoriteBtnTapped (_ sender: UIButton) {
-        favoriteBtnCount += 1
-        configureFavoriteButton()
-        
-        if favoriteBtnCount.isMultiple(of: 2) {
-            showFavoriteBtnChange()
-        }
-        
-        print("""
-        DEBUG PRINT: favoriteBtnTapped
-        DEBUG PRINT: Btn Count is: \(favoriteBtnCount)
-        """)
-        
+        print("DEBUG PRINT: favoriteBtnTapped")
         delegate?.favoriteButtonDidTap()
     }
     
@@ -362,7 +372,6 @@ class InformationView: UIView {
             contentStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20),
         ])
     }
-
     
 }
 
