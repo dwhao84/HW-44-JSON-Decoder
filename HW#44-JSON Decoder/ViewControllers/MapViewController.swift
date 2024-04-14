@@ -13,7 +13,6 @@ import CoreData
 class MapViewController: UIViewController, InformationViewDelegate {
     
     // MARK: - Import the InfoView Delegate:
-    // InformationView Delegate
     func routeBtnDidTap() {
         print("DEBUG PRINT: InfoView's RouteBtn")
         
@@ -37,10 +36,30 @@ class MapViewController: UIViewController, InformationViewDelegate {
     }
     
     func favoriteButtonDidTap() {
-        print("DEBUG PRINT: InfoView's listClipboardBtn")
-        
-        savePlaceToCoreData(annotation: selectedPlaces as! YoubikeAnnotation)
+        guard let selectedAnnotation = selectedPlaces as? YoubikeAnnotation else {
+            print("DEBUG PRINT: No selected annotation to save.")
+            return
+        }
+
+        // 直接保存到 CoreData
+        savePlaceToCoreData(annotation: selectedAnnotation)
+        print("DEBUG PRINT: Annotation saved.")
+
+        // 打印 selectedAnnotation 的所有详细信息
+        if let title = selectedAnnotation.title, let subtitle = selectedAnnotation.subtitle {
+            print("""
+                  DEBUG PRINT: Title: \(title), Subtitle: \(subtitle)
+                  DEBUG PRINT: Coordinate: \(selectedAnnotation.coordinate.latitude), \(selectedAnnotation.coordinate.longitude)
+""")
+        } else {
+            print("DEBUG PRINT: Annotation lacks title or subtitle")
+        }
+
+        favoriteButtonCount += 1
+        print("favoriteBtnCount: \(favoriteButtonCount)")
     }
+
+
     
     
     // MARK: - Declare the instance & variable
@@ -50,7 +69,7 @@ class MapViewController: UIViewController, InformationViewDelegate {
     var mapView: MKMapView = MKMapView ()
     var scaleView: MKScaleView = MKScaleView()
     
-    let navigateBtn: UIButton = UIButton(type: .system)
+//    let navigateBtn: UIButton = UIButton(type: .system)
     
     // Create the location manager.
     let locationManager = CLLocationManager()
@@ -78,10 +97,32 @@ class MapViewController: UIViewController, InformationViewDelegate {
     var slideInTransitioningDelegate: UIViewControllerTransitioningDelegate?
     var navigateBtnBottomConstraint: NSLayoutConstraint!
     
-    var favoriteBtnCount: Int = 0     // Use it for the btn count to observe changes of btn.
-    var selectedPlaces: MKAnnotation? // Create a variable for selected places.
+    // Use it for the btn count to observe changes of btn.
+    var favoriteButtonCount: Int = 0
+    // Create a variable for selected places.
+    var selectedPlaces: MKAnnotation?
+    
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     // Custom UI.
+    var navigateBtn: UIButton = {
+        let navigateBtn: UIButton = UIButton(type: .system)
+        var config                         = UIButton.Configuration.plain()
+        config.background.backgroundColor  = Colors.systemYellow
+        config.baseForegroundColor         = Colors.white
+        config.image                       = Images.locationFill
+        config.background.imageContentMode = .scaleToFill
+        config.buttonSize                  = UIButton.Configuration.Size.medium
+        config.background.cornerRadius     = NavigationButtonSize.height / 2
+        navigateBtn.configuration = config
+        
+        navigateBtn.configurationUpdateHandler = { navigateBtn in
+            navigateBtn.alpha = navigateBtn.isHighlighted ? 0.6 : 1
+        }
+        
+        return navigateBtn
+    } ()
+    
     var listBtn: UIButton = {
         let listBtn: UIButton = UIButton(type: .system)
         var config = UIButton.Configuration.plain()
@@ -90,6 +131,11 @@ class MapViewController: UIViewController, InformationViewDelegate {
         config.image = Images.listBullet
         config.automaticallyUpdateForSelection = true
         listBtn.configuration = config
+
+        // highlighted update.
+        listBtn.configurationUpdateHandler = { listBtn in
+            listBtn.alpha = listBtn.isHighlighted ? 0.5 : 1
+        }
         return listBtn
     } ()
     
@@ -101,6 +147,11 @@ class MapViewController: UIViewController, InformationViewDelegate {
         config.image = Images.listClipboard
         config.automaticallyUpdateForSelection = true
         listClipboardBtn.configuration = config
+        
+        // highlighted update.
+        listClipboardBtn.configurationUpdateHandler  = { listClipboardBtn in
+            listClipboardBtn.alpha = listClipboardBtn.isHighlighted ? 0.5 : 1
+        }
         return listClipboardBtn
     } ()
     
@@ -345,36 +396,6 @@ class MapViewController: UIViewController, InformationViewDelegate {
         ), latitudinalMeters: 250, longitudinalMeters: 250)
     }
     
-//    func checkLocationAuthorization () {
-//        guard locationManager == locationManager,
-//              let location = locationManager.location else { return }
-//        
-//        switch locationManager.authorizationStatus {
-//        case .authorizedAlways, .authorizedWhenInUse:
-//            let region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 750, longitudinalMeters: 750)
-//            mapView.setRegion(region, animated: true)
-//        case .denied:
-//            print("DEBUG PRINT: Location services has been denied")
-//        case .notDetermined, .restricted:
-//            print("DEBUG PRINT: Location cannot be determined or restricted.")
-//        @unknown default:
-//            print("DEBUG PRINT: Unknown error. Unable to get location.")
-//        }
-//    }
-    
-//    private func findNearByPlaces(by query: String) {
-//        mapView.removeAnnotation(mapView.annotations as! MKAnnotation)
-//        let request = MKLocalSearch.Request()
-//        request.naturalLanguageQuery = query
-//        request.region = mapView.region
-//        
-//        let search = MKLocalSearch(request: request)
-//        search.start { response, error in
-//            guard let response = response, error == nil else { return }
-//            print(response.mapItems)
-//        }
-//    }
-    
     // MARK: - Constraints View:
     func constraintMapView () {
         view.addSubview(mapView)
@@ -421,8 +442,6 @@ class MapViewController: UIViewController, InformationViewDelegate {
     }
     
     func savePlaceToCoreData(annotation: YoubikeAnnotation) {
-        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-        
         let favoritePlace = FavoriteListData(context: context)
         favoritePlace.stationName = annotation.title ?? "" // stationName in YoubikeAnnotation.
         favoritePlace.bikeQty     = String(annotation.stationData.sbi)  // 車輛數

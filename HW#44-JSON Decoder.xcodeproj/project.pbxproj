@@ -21,6 +21,7 @@
 		D3B8DF6C2BA7456E00B381AF /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B8DF6B2BA7456E00B381AF /* Images.swift */; };
 		D3B8DF6E2BA7478900B381AF /* InformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B8DF6D2BA7478900B381AF /* InformationView.swift */; };
 		D3B8DF742BA9E52400B381AF /* ButtonConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B8DF732BA9E52400B381AF /* ButtonConstants.swift */; };
+		D3D0A7DB2BC99B7400D71E80 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D0A7DA2BC99B7400D71E80 /* CoreDataStack.swift */; };
 		D3FF921F2BC053D2001141C7 /* FunctionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FF921E2BC053D2001141C7 /* FunctionsTableViewCell.swift */; };
 		D3FF92212BC05815001141C7 /* PersonalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FF92202BC05815001141C7 /* PersonalView.swift */; };
 		D3FF92232BC150A4001141C7 /* ServiceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FF92222BC150A4001141C7 /* ServiceModel.swift */; };
@@ -30,8 +31,6 @@
 		D3FF922F2BC1B0D3001141C7 /* FavoriteListData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FF922D2BC1B0D3001141C7 /* FavoriteListData+CoreDataProperties.swift */; };
 		D3FF92342BC2C15F001141C7 /* FavoriteListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FF92322BC2C15F001141C7 /* FavoriteListTableViewCell.swift */; };
 		D3FF92352BC2C15F001141C7 /* FavoriteListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3FF92332BC2C15F001141C7 /* FavoriteListTableViewCell.xib */; };
-		D3FF92372BC2DCF0001141C7 /* FavoriteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FF92362BC2DCF0001141C7 /* FavoriteButton.swift */; };
-		D3FF92392BC2DD75001141C7 /* RouteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FF92382BC2DD75001141C7 /* RouteButton.swift */; };
 		EB42C1FA2B542AD1004C4987 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB42C1F92B542AD1004C4987 /* AppDelegate.swift */; };
 		EB42C1FC2B542AD1004C4987 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB42C1FB2B542AD1004C4987 /* SceneDelegate.swift */; };
 		EB42C2012B542AD1004C4987 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB42C1FF2B542AD1004C4987 /* Main.storyboard */; };
@@ -74,6 +73,7 @@
 		D3B8DF6B2BA7456E00B381AF /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		D3B8DF6D2BA7478900B381AF /* InformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationView.swift; sourceTree = "<group>"; };
 		D3B8DF732BA9E52400B381AF /* ButtonConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonConstants.swift; sourceTree = "<group>"; };
+		D3D0A7DA2BC99B7400D71E80 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		D3FF921E2BC053D2001141C7 /* FunctionsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionsTableViewCell.swift; sourceTree = "<group>"; };
 		D3FF92202BC05815001141C7 /* PersonalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalView.swift; sourceTree = "<group>"; };
 		D3FF92222BC150A4001141C7 /* ServiceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceModel.swift; sourceTree = "<group>"; };
@@ -83,8 +83,6 @@
 		D3FF922D2BC1B0D3001141C7 /* FavoriteListData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavoriteListData+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		D3FF92322BC2C15F001141C7 /* FavoriteListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteListTableViewCell.swift; sourceTree = "<group>"; };
 		D3FF92332BC2C15F001141C7 /* FavoriteListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FavoriteListTableViewCell.xib; sourceTree = "<group>"; };
-		D3FF92362BC2DCF0001141C7 /* FavoriteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteButton.swift; sourceTree = "<group>"; };
-		D3FF92382BC2DD75001141C7 /* RouteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteButton.swift; sourceTree = "<group>"; };
 		EB42C1F62B542AD1004C4987 /* HW#44-JSON Decoder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HW#44-JSON Decoder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB42C1F92B542AD1004C4987 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EB42C1FB2B542AD1004C4987 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -129,6 +127,7 @@
 			children = (
 				D358A5D02B54E6B400A6AB1E /* Model.swift */,
 				D3FF92222BC150A4001141C7 /* ServiceModel.swift */,
+				D3D0A7DA2BC99B7400D71E80 /* CoreDataStack.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -212,15 +211,6 @@
 			path = Constants;
 			sourceTree = "<group>";
 		};
-		D3FF923C2BC2DE80001141C7 /* CustomButtons */ = {
-			isa = PBXGroup;
-			children = (
-				D3FF92362BC2DCF0001141C7 /* FavoriteButton.swift */,
-				D3FF92382BC2DD75001141C7 /* RouteButton.swift */,
-			);
-			path = CustomButtons;
-			sourceTree = "<group>";
-		};
 		EB42C1ED2B542AD1004C4987 = {
 			isa = PBXGroup;
 			children = (
@@ -250,7 +240,6 @@
 				D342123F2B5597C500223A71 /* Models */,
 				D3DE0BC92BADEDA900378441 /* ViewControllers */,
 				D3DE0BCA2BADEDC600378441 /* Views */,
-				D3FF923C2BC2DE80001141C7 /* CustomButtons */,
 				D3FF921D2BC05373001141C7 /* CustomTableViewCells */,
 				D3FF923B2BC2DE71001141C7 /* Constants */,
 				D3B703AA2BB332CD00F6BB72 /* Extensions */,
@@ -421,7 +410,6 @@
 				D342123D2B5596AB00223A71 /* YouBikeInfoTableViewCell.swift in Sources */,
 				D3A011C02BBF0BE000A95CF7 /* FavoriteListViewController.swift in Sources */,
 				D3FF921F2BC053D2001141C7 /* FunctionsTableViewCell.swift in Sources */,
-				D3FF92392BC2DD75001141C7 /* RouteButton.swift in Sources */,
 				D3A011BE2BBF030E00A95CF7 /* SideViewController.swift in Sources */,
 				D358A5D12B54E6B400A6AB1E /* Model.swift in Sources */,
 				D3B703A52BB075F200F6BB72 /* YoubikeAnnotation.swift in Sources */,
@@ -433,8 +421,8 @@
 				D3B703A72BB1DFBB00F6BB72 /* YoubikeAnnotationView.swift in Sources */,
 				D3FF92252BC16482001141C7 /* PersonalTableViewHeadView.swift in Sources */,
 				D3FF92342BC2C15F001141C7 /* FavoriteListTableViewCell.swift in Sources */,
-				D3FF92372BC2DCF0001141C7 /* FavoriteButton.swift in Sources */,
 				D33CD1CA2BC828FE003E3DD0 /* CoreDataManager.swift in Sources */,
+				D3D0A7DB2BC99B7400D71E80 /* CoreDataStack.swift in Sources */,
 				EB42C1FA2B542AD1004C4987 /* AppDelegate.swift in Sources */,
 				D3FF92232BC150A4001141C7 /* ServiceModel.swift in Sources */,
 				D3B8DF742BA9E52400B381AF /* ButtonConstants.swift in Sources */,
