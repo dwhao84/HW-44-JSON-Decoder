@@ -50,7 +50,7 @@ class MapViewController: UIViewController, InformationViewDelegate {
             print("""
                   DEBUG PRINT: Title: \(title), Subtitle: \(subtitle)
                   DEBUG PRINT: Coordinate: \(selectedAnnotation.coordinate.latitude), \(selectedAnnotation.coordinate.longitude)
-""")
+                  """)
         } else {
             print("DEBUG PRINT: Annotation lacks title or subtitle")
         }
@@ -63,13 +63,10 @@ class MapViewController: UIViewController, InformationViewDelegate {
     
     
     // MARK: - Declare the instance & variable
-    // CustomView
     let informationView: InformationView = InformationView()
     
     var mapView: MKMapView = MKMapView ()
     var scaleView: MKScaleView = MKScaleView()
-    
-//    let navigateBtn: UIButton = UIButton(type: .system)
     
     // Create the location manager.
     let locationManager = CLLocationManager()
@@ -104,7 +101,7 @@ class MapViewController: UIViewController, InformationViewDelegate {
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
-    // Custom UI.
+    // MARK: Custom UI.
     var navigateBtn: UIButton = {
         let navigateBtn: UIButton = UIButton(type: .system)
         var config                         = UIButton.Configuration.plain()
@@ -176,6 +173,7 @@ class MapViewController: UIViewController, InformationViewDelegate {
         print("DEBUG PRINT: did Receive Memory Warning")
     }
     
+    // MARK: - Configure Scale View
     func configureScaleView () {
         // By default, `MKScaleView` uses adaptive visibility, so it only displays when zooming the map.
         // This is behavior is confirgurable with the `scaleVisibility` property.
@@ -311,6 +309,7 @@ class MapViewController: UIViewController, InformationViewDelegate {
         navigateBtn.layer.masksToBounds = false
     }
     
+    // MARK: Constraints navigateBTn
     func constriantsNavigateBtn () {
         view.addSubview(navigateBtn)
         navigateBtn.translatesAutoresizingMaskIntoConstraints = false
@@ -372,7 +371,7 @@ class MapViewController: UIViewController, InformationViewDelegate {
         constraintMapView    ()
     }
     
-    // 設定Location Manager
+    // MARK: 設定Location Manager
     func setupLocationManager () {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -382,7 +381,7 @@ class MapViewController: UIViewController, InformationViewDelegate {
         mapView.showsUserLocation = true
     }
     
-    // 設定MapView的細節
+    // MARK: Set up MapView detail.
     func setupMapView () {
         mapView.register(MKMarkerAnnotationView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
         mapView.delegate         = self
@@ -455,7 +454,6 @@ class MapViewController: UIViewController, InformationViewDelegate {
             print("Failed to save place")
         }
     }
-    
 }
 
 // MARK: - MKMapViewDelegate:
@@ -500,7 +498,7 @@ extension MapViewController: MKMapViewDelegate {
             let didSelectedtLat = youbikeAnnotation.coordinate.latitude
             let didSelectedLng  = youbikeAnnotation.coordinate.longitude
             
-            didSelectedLocation = CLLocationCoordinate2D(latitude: didSelectedtLat, longitude: didSelectedLng)
+            didSelectedLocation    = CLLocationCoordinate2D(latitude: didSelectedtLat, longitude: didSelectedLng)
             didSelectedStationName = youbikeAnnotation.stationData.sna.replacingOccurrences(of: "_", with: "")
             
             // Stored the selected data for annotation.
@@ -578,6 +576,7 @@ extension MapViewController: UITextFieldDelegate {
         textField.resignFirstResponder()
         print("DEBUG PRINT: textFieldDidEndEditing")
     }
+    
 }
 
 #Preview {
