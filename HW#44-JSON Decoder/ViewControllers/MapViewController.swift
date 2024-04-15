@@ -58,9 +58,6 @@ class MapViewController: UIViewController, InformationViewDelegate {
         favoriteButtonCount += 1
         print("favoriteBtnCount: \(favoriteButtonCount)")
     }
-
-
-    
     
     // MARK: - Declare the instance & variable
     let informationView: InformationView = InformationView()
@@ -84,18 +81,17 @@ class MapViewController: UIViewController, InformationViewDelegate {
     var selectedStation: Youbike?
     var coordinates = [Youbike]()
     
-    var allStationNames = [Youbike]()
-    var filterStations  = [Youbike]()
-    
     let searchView: UIView = UIView()
-    let searchTextField: UITextField = UITextField()
+//    let searchTextField: UITextField = UITextField()
     let searchStackView: UIStackView = UIStackView()
+    let searchBar: UISearchBar       = UISearchBar()
     
     var slideInTransitioningDelegate: UIViewControllerTransitioningDelegate?
     var navigateBtnBottomConstraint: NSLayoutConstraint!
     
     // Use it for the btn count to observe changes of btn.
     var favoriteButtonCount: Int = 0
+    
     // Create a variable for selected places.
     var selectedPlaces: MKAnnotation?
     
@@ -239,67 +235,48 @@ class MapViewController: UIViewController, InformationViewDelegate {
     // MARK: - Set up UI:
     func setupUI () {
         setMapView       ()
-        configureTextField()
-        searchTextField.delegate = self
         setNavigateButton ()
         configureSearchStackView()
         constraintsSearchView()
         
         // Add informationView delegate.
         informationView.delegate = self
+        
+        // Add searchBar
+        searchBar.delegate = self
     }
     
-    // MARK: - Set up UITextField
-    func configureTextField () {
-        searchTextField.layer.cornerRadius = 10
-        searchTextField.clipsToBounds      = true
-        searchTextField.borderStyle        = .none
-        searchTextField.backgroundColor    = Colors.white
-        searchTextField.attributedPlaceholder = NSAttributedString(
-            string: "Search Stations",
-            attributes: [NSAttributedString.Key.foregroundColor: Colors.lightGray]
-        )
-        searchTextField.font               = UIFont.systemFont(ofSize: 15)
-        searchTextField.textColor          = Colors.darkGray
-        searchTextField.isUserInteractionEnabled = true
-    }
-    
-    // MARK: SearchStackView
+    // MARK: - SearchStackView
     func configureSearchStackView () {
-        searchTextField.widthAnchor.constraint(equalToConstant: 250).isActive = true
+        
+        // searchBar
+        searchBar.barTintColor = Colors.white
+        searchBar.text = "Search Stations"
+        searchBar.searchTextField.textColor = Colors.darkGray
+        searchBar.barStyle = .default
+        
+        // listClipboardBtn
         listClipboardBtn.widthAnchor.constraint(equalToConstant: 40).isActive = true
         listClipboardBtn.heightAnchor.constraint(equalTo: listClipboardBtn.widthAnchor, multiplier: 1).isActive = true
         listBtn.widthAnchor.constraint(equalToConstant: 40).isActive = true
         listBtn.heightAnchor.constraint(equalTo: listBtn.widthAnchor, multiplier: 1).isActive = true
         
         searchStackView.axis = .horizontal
-        searchStackView.distribution = .equalSpacing
+        searchStackView.distribution = .fill
         searchStackView.alignment    = .center
-        searchStackView.spacing = 8
+        searchStackView.spacing = 0
         searchStackView.addArrangedSubview(listBtn)
-        searchStackView.addArrangedSubview(searchTextField)
+        searchStackView.addArrangedSubview(searchBar)
         searchStackView.addArrangedSubview(listClipboardBtn)
     }
     
     // MARK: - Set up navigationBtn
     func setNavigateButton () {
-        setupNavigationBtn       ()
         addShadowForNavigationBtn ()
         constraintsInformationView()
         constriantsNavigateBtn()
     }
     
-    func setupNavigationBtn () {
-        var config                         = UIButton.Configuration.plain()
-        config.background.backgroundColor  = Colors.systemYellow
-        config.baseForegroundColor         = Colors.white
-        config.image                       = Images.locationFill
-        config.background.imageContentMode = .scaleToFill
-        config.buttonSize                  = UIButton.Configuration.Size.medium
-        config.background.cornerRadius     = NavigationButtonSize.height / 2
-        navigateBtn.configuration          = config
-        navigateBtn.addTarget(self, action: #selector(navigateBtnTapped), for: .touchUpInside)
-    }
     
     func addShadowForNavigationBtn  () {
         navigateBtn.layer.shadowColor   = Colors.darkGray.cgColor
@@ -328,8 +305,8 @@ class MapViewController: UIViewController, InformationViewDelegate {
         informationView.isHidden = true
         searchStackView.isHidden = true
         navigateBtn.isHidden     = false
+        searchBar.resignFirstResponder()
         moveButton()
-        searchTextField.resignFirstResponder()
     }
     
     func moveButton() {
@@ -421,7 +398,6 @@ class MapViewController: UIViewController, InformationViewDelegate {
     
     // MARK: - Constraints SearchStackView
     func constraintsSearchView () {
-        searchTextField.widthAnchor.constraint(equalToConstant: 250).isActive = true
         searchStackView.backgroundColor = Colors.white
         searchStackView.layer.cornerRadius = 10
         searchStackView.dropShadow()
@@ -557,31 +533,6 @@ extension MapViewController: CLLocationManagerDelegate {
     
 }
 
-// MARK: - UITextFieldDelegate:
-extension MapViewController: UITextFieldDelegate {
-    
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        textField.becomeFirstResponder()
-        print("DEBUG PRINT: textFieldShouldBeginEditing")
-        return true
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        print("DEBUG PRINT: textFieldShouldReturn")
-        return true
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        textField.resignFirstResponder()
-        print("DEBUG PRINT: textFieldDidEndEditing")
-    }
-    
-}
-
-#Preview {
-    UINavigationController(rootViewController: MapViewController())
-}
 
 class SlideInTransitioningDelegate: NSObject, UIViewControllerTransitioningDelegate {
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
@@ -626,4 +577,30 @@ class SlideInAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         
         UIView.animate(withDuration: transitionDuration(using: transitionContext), animations: transform, completion: completion)
     }
+}
+
+extension MapViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        print("\(searchBar.text ?? "")")
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        print("searchBarSearchButtonClicked")
+        searchBar.becomeFirstResponder()
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        print("searchBarTextDidBeginEditing")
+        searchBar.becomeFirstResponder()
+    }
+    
+    func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
+        print("searchBarShouldEndEditing")
+        return true
+    }
+    
+}
+
+#Preview {
+    UINavigationController(rootViewController: MapViewController())
 }
