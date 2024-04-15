@@ -131,15 +131,6 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		D34212412B5597D900223A71 /* YouBikeInfoTableViewCell */ = {
-			isa = PBXGroup;
-			children = (
-				D342123B2B5596AB00223A71 /* YouBikeInfoTableViewCell.swift */,
-				D342123C2B5596AB00223A71 /* YouBikeInfoTableViewCell.xib */,
-			);
-			path = YouBikeInfoTableViewCell;
-			sourceTree = "<group>";
-		};
 		D358A5CF2B54E64F00A6AB1E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -152,11 +143,20 @@
 			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		D3A158FD2BCD8E4500CB1C99 /* Image */ = {
+		D3A158FD2BCD8E4500CB1C99 /* Images */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = Image;
+			path = Images;
+			sourceTree = "<group>";
+		};
+		D3A158FE2BCD90DF00CB1C99 /* Custom AnnotationView */ = {
+			isa = PBXGroup;
+			children = (
+				D3B703A42BB075F200F6BB72 /* YoubikeAnnotation.swift */,
+				D3B703A62BB1DFBB00F6BB72 /* YoubikeAnnotationView.swift */,
+			);
+			path = "Custom AnnotationView";
 			sourceTree = "<group>";
 		};
 		D3B703AA2BB332CD00F6BB72 /* Extensions */ = {
@@ -189,6 +189,8 @@
 		D3FF921D2BC05373001141C7 /* CustomTableViewCells */ = {
 			isa = PBXGroup;
 			children = (
+				D342123B2B5596AB00223A71 /* YouBikeInfoTableViewCell.swift */,
+				D342123C2B5596AB00223A71 /* YouBikeInfoTableViewCell.xib */,
 				D3FF921E2BC053D2001141C7 /* FunctionsTableViewCell.swift */,
 				D3FF92242BC16482001141C7 /* PersonalTableViewHeadView.swift */,
 				D3FF92322BC2C15F001141C7 /* FavoriteListTableViewCell.swift */,
@@ -222,8 +224,7 @@
 			children = (
 				EB42C1F82B542AD1004C4987 /* HW#44-JSON Decoder */,
 				D3A158FC2BCD8D2A00CB1C99 /* README.md */,
-				D3A158FD2BCD8E4500CB1C99 /* Image */,
-				D34212412B5597D900223A71 /* YouBikeInfoTableViewCell */,
+				D3A158FD2BCD8E4500CB1C99 /* Images */,
 				EB42C20F2B542AD2004C4987 /* HW#44-JSON DecoderTests */,
 				EB42C2192B542AD2004C4987 /* HW#44-JSON DecoderUITests */,
 				EB42C1F72B542AD1004C4987 /* Products */,
@@ -250,8 +251,7 @@
 				D3FF921D2BC05373001141C7 /* CustomTableViewCells */,
 				D3FF923B2BC2DE71001141C7 /* Constants */,
 				D3B703AA2BB332CD00F6BB72 /* Extensions */,
-				D3B703A42BB075F200F6BB72 /* YoubikeAnnotation.swift */,
-				D3B703A62BB1DFBB00F6BB72 /* YoubikeAnnotationView.swift */,
+				D3A158FE2BCD90DF00CB1C99 /* Custom AnnotationView */,
 				D3FF923A2BC2DD9F001141C7 /* FavoriteListData */,
 				EB42C2072B542AD1004C4987 /* Info.plist */,
 			);
