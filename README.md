@@ -10,12 +10,12 @@ Let users could be easy to navigate from your current location to your closed Yo
 
 ## Featrue: 
 
-### Display YouBike Stations on Map:
+### - Display YouBike Stations on Map:
 Through the map interface, users can clearly see the locations of various YouBike stations, each represented by an annotation. Annotations include the  station's latitude and longitude, name, and other related information.
 
-### Favorites Feature
+### - Favorites Feature
 Users can save their interested YouBike stations to the local database by clicking the favorite button. This allows users to conveniently manage and access their favorite stations, eliminating the need to search again.
 
-### View Detailed Information
+### - View Detailed Information
 When users select a YouBike annotation on the map, the app displays detailed information about the station, including the station's name, address, number of available bikes, and number of available docks. This comprehensive information assists users in deciding whether to visit the station.
 
