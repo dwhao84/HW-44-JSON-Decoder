@@ -82,7 +82,6 @@ class MapViewController: UIViewController, InformationViewDelegate {
     var coordinates = [Youbike]()
     
     let searchView: UIView = UIView()
-//    let searchTextField: UITextField = UITextField()
     let searchStackView: UIStackView = UIStackView()
     let searchBar: UISearchBar       = UISearchBar()
     
