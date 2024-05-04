@@ -141,3 +141,7 @@ class FavoriteListViewController: UIViewController, UITableViewDataSource, UITab
         }
     }
 }
+
+#Preview {
+    UINavigationController(rootViewController: FavoriteListViewController())
+}
