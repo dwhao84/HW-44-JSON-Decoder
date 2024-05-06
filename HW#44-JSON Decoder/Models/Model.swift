@@ -54,3 +54,4 @@ struct Youbike: Codable {
         updateTime = try container.decode(String.self, forKey: .updateTime)
     }
 }
+
