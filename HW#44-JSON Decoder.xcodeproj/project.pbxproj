@@ -139,13 +139,6 @@
 			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		D3A158FD2BCD8E4500CB1C99 /* Images */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Images;
-			sourceTree = "<group>";
-		};
 		D3A158FE2BCD90DF00CB1C99 /* Custom AnnotationView */ = {
 			isa = PBXGroup;
 			children = (
@@ -218,7 +211,6 @@
 			children = (
 				EB42C1F82B542AD1004C4987 /* HW#44-JSON Decoder */,
 				D3A158FC2BCD8D2A00CB1C99 /* README.md */,
-				D3A158FD2BCD8E4500CB1C99 /* Images */,
 				EB42C20F2B542AD2004C4987 /* HW#44-JSON DecoderTests */,
 				EB42C2192B542AD2004C4987 /* HW#44-JSON DecoderUITests */,
 				EB42C1F72B542AD1004C4987 /* Products */,
