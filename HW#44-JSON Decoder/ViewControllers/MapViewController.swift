@@ -420,8 +420,8 @@ class MapViewController: UIViewController, InformationViewDelegate {
     func savePlaceToCoreData(annotation: YoubikeAnnotation) {
         let favoritePlace = FavoriteListData(context: context)
         favoritePlace.stationName = annotation.title ?? "" // stationName in YoubikeAnnotation.
-        favoritePlace.bikeQty     = String(annotation.stationData.sbi ?? 0) // 車輛數
-        favoritePlace.dockQty     = String(annotation.stationData.bemp ?? 0) // 空位站數
+        favoritePlace.bikeQty     = String(annotation.stationData.sbi ) // 車輛數
+        favoritePlace.dockQty     = String(annotation.stationData.bemp ) // 空位站數
         favoritePlace.address     = annotation.stationData.ar           // 地址
         
         do {
@@ -488,8 +488,8 @@ extension MapViewController: MKMapViewDelegate {
              didSelectedLng:\(didSelectedLng),
              stationName:   \(youbikeAnnotation.stationData.sna)
              total bike:    \(youbikeAnnotation.stationData.tot)
-             avavible bike: \(youbikeAnnotation.stationData.sbi ?? 0)
-             avavible bike: \(youbikeAnnotation.stationData.bemp ?? 0)
+             avavible bike: \(youbikeAnnotation.stationData.sbi )
+             avavible bike: \(youbikeAnnotation.stationData.bemp )
              """)
         }
     }
@@ -499,7 +499,7 @@ extension MapViewController: MKMapViewDelegate {
             let view = mapView.dequeueReusableAnnotationView(withIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier, for: youbikeAnnotation) as? MKMarkerAnnotationView ?? MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
             
             // 设置颜色逻辑
-            switch youbikeAnnotation.stationData.sbi ?? 1 {
+            switch youbikeAnnotation.stationData.sbi {
             case 0:
                 view.markerTintColor = Colors.red
             case 1...5:
